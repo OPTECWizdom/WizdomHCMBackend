@@ -14,4 +14,10 @@ class Competencias extends \yii\db\ActiveRecord
 
 
 
+    public static function primaryKey()
+    {
+        return ['compania','codigo_competencia'];
+    }
+
+
 }

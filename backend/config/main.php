@@ -13,6 +13,13 @@ return [
     'bootstrap' => ['log'],
     'modules' => [],
     'components' => [
+        'workflowSource' => [
+            'class' => 'raoul2000\workflow\source\file\WorkflowFileSource',
+            'definitionLoader' => [
+                'class' => 'raoul2000\workflow\source\file\PhpClassLoader',
+                'namespace'  => '@app/workflows'
+            ]
+        ],
         'request' => [
             'csrfParam' => '_csrf-backend',
             'parsers' => ['application/json'=>'yii\web\JsonParser']
@@ -43,13 +50,14 @@ return [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
-               [
+                [
                    'class'=>'yii\rest\UrlRule',
-                   'controller' => 'competencias',
+                   'controller' => 'FlujoProcesos',
                    'tokens' => [
-                       '{id}'=>'<id:\\w+>'
+                       '{id}'=>'<id:\\w+,*\\w+>'
                    ]
-               ]
+
+                ]
             ],
         ],
 
