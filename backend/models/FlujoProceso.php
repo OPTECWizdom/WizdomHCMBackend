@@ -20,7 +20,7 @@ class FlujoProceso extends \yii\db\ActiveRecord
     {
         return ['compania','id_proceso','tipo_flujo_proceso','codigo_tarea'];
     }
-/*
+
     public function behaviors()
     {
         if ($this->tipo_flujo_proceso == 'movimiento_vacaciones'){
@@ -32,7 +32,7 @@ class FlujoProceso extends \yii\db\ActiveRecord
                 ]
             ];
         }
-    }*/
+    }
 
 
 }

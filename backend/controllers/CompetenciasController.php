@@ -15,4 +15,6 @@ class CompetenciasController extends  ActiveController
     public $modelClass = "app\models\Competencias";
 
 
+
+
 }

@@ -2,17 +2,19 @@
 /**
  * Created by PhpStorm.
  * User: LuisDiego
- * Date: 21/08/2017
- * Time: 14:30
+ * Date: 18/08/2017
+ * Time: 10:45
  */
 
 namespace backend\controllers;
+
 use yii\rest\ActiveController;
 
-class FlujoProcesosController extends ActiveController
+class FlujosProcesosController extends  ActiveController
 {
-
     public $modelClass = "app\models\FlujoProceso";
+
+
 
 
 }

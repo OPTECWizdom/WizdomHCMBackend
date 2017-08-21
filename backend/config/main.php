@@ -48,14 +48,13 @@ return [
 
         'urlManager' => [
             'enablePrettyUrl' => true,
-            'showScriptName' => false,
+            'showScriptName' => true,
             'rules' => [
                 [
                    'class'=>'yii\rest\UrlRule',
-                    'pluralize'=>false,
-                    'controller' => ['competencias','flujoprocesos'],
+                    'controller' => ['competencias','flujos-procesos'],
                    'tokens' => [
-                       '{id}'=>'<id:\\w+,*\\w+>'
+                       '{id}'=>'<id:\\w+(,+\\w+)*>'
                    ]
 
                 ]
