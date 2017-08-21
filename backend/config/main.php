@@ -52,7 +52,8 @@ return [
             'rules' => [
                 [
                    'class'=>'yii\rest\UrlRule',
-                   'controller' => 'FlujoProcesos',
+                    'pluralize'=>false,
+                    'controller' => ['competencias','flujoprocesos'],
                    'tokens' => [
                        '{id}'=>'<id:\\w+,*\\w+>'
                    ]
