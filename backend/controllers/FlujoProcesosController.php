@@ -11,6 +11,7 @@ use yii\rest\ActiveController;
 
 class FlujoProcesosController extends ActiveController
 {
+
     public $modelClass = "app\models\FlujoProceso";
 
 
