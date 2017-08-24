@@ -17,7 +17,7 @@ return [
             'class' => 'raoul2000\workflow\source\file\WorkflowFileSource',
             'definitionLoader' => [
                 'class' => 'raoul2000\workflow\source\file\PhpClassLoader',
-                'namespace'  => '@app/workflows'
+                'namespace'  => 'backend\workflows'
             ]
         ],
         'request' => [
@@ -52,7 +52,7 @@ return [
             'rules' => [
                 [
                    'class'=>'yii\rest\UrlRule',
-                    'controller' => ['competencias','flujos-procesos'],
+                    'controller' => ['competencias','movimientos-vacaciones','vacaciones'],
                    'tokens' => [
                        '{id}'=>'<id:\\w+(,+\\w+)*>'
                    ]

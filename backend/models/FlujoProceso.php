@@ -23,16 +23,17 @@ class FlujoProceso extends \yii\db\ActiveRecord
 
     public function behaviors()
     {
-        if ($this->tipo_flujo_proceso == 'movimiento_vacaciones'){
-            return [
-                [
-                    'class' => '\raoul2000\workflow\base\SimpleWorkflowBehavior',
-                    'defaultWorkflowId'=> 'vacacionesWorkflow\VacacionesWf'
+        return [
+            [
+                'class' => '\raoul2000\workflow\base\SimpleWorkflowBehavior',
+                'statusAttribute' => 'estado'
 
-                ]
-            ];
-        }
+            ]
+        ];
+
     }
+
+
 
 
 }

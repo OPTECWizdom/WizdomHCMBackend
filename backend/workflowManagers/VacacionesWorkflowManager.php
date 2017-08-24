@@ -1,0 +1,104 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: LuisDiego
+ * Date: 22/08/2017
+ * Time: 17:24
+ */
+
+namespace backend\workflowManagers;
+
+use app\models\MovimientoVacaciones;
+use yii\db\Exception;
+use Yii;
+
+
+class VacacionesWorkflowManager extends AbstractWorkflowManager
+{
+    private $movimientoVacaciones;
+
+    private $flujoProceso;
+
+    private $proceso;
+
+    private $scenario;
+
+    private $params;
+
+    public function __construct(array $config = [])
+    {
+        if (array_key_exists('scenario',$config))
+        {
+           $this->scenario = $config['scenario'];
+
+        }
+        if (array_key_exists('params',$config)){
+            $this->params =  $config['params'];
+        }
+
+    }
+
+
+    public function insert()
+    {
+        try
+        {
+            $transaction = Yii::$app->getDb()->beginTransaction();
+            $this->insertMovimientoVacaciones();
+            $transaction->commit();
+            return true;
+
+        }
+        catch (Exception $e){
+            $transaction->rollBack();
+        }
+        return false;
+
+
+
+    }
+    public function update(){
+
+    }
+
+    public function delete(){
+
+    }
+
+    public function run(){
+        $actions = $this->getActions();
+        $action = $actions[$this->scenario];
+        return call_user_func([$this,$action]);
+
+    }
+
+    private function getActions(){
+        return [
+            parent::REGISTER =>"insert",
+            parent::UPDATE=>"update",
+            parent::DELETE=>"delete"
+        ];
+    }
+
+    private function insertMovimientoVacaciones(){
+        try {
+
+            $movimientoVacaciones= new MovimientoVacaciones(['scenario' => $this->scenario]);
+            $movimientoVacaciones->load($this->params, '');
+            $movimientoVacaciones->enterWorkflow();
+            if ($movimientoVacaciones->save()) {
+                $this->movimientoVacaciones = $movimientoVacaciones;
+
+            } else {
+                throw new Exception();
+
+            }
+        }
+        catch (Exception $e){
+            throw $e;
+        }
+
+    }
+
+
+}
