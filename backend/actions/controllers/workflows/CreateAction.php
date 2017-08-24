@@ -42,7 +42,7 @@ class CreateAction extends Action
         $params = Yii::$app->getRequest()->getBodyParams();
         $workflowManager = $workflowManagerFactory->createWorkflowManager($this->workflowManager,['scenario'=>$this->scenario,
                                                                                                  'params'=>$params]);
-        $model = new $this->modelClass(['scenario'=>$this->scenario]);
+        $model = new $this->modelClass();
 
         $result = $workflowManager->run();
         if ($result) {
