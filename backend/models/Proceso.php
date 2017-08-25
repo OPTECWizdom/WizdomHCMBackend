@@ -25,4 +25,50 @@ class Proceso extends ActiveRecord
         return ['compania','tipo_flujo_proceso','id_proceso'];
     }
 
+
+
+    public function rules()
+    {
+        return
+                [
+                    [
+                        [
+                            "compania","tipo_flujo_proceso",
+                            "codigo_empleado","sistema_procedencia"
+                        ],
+                        "required","on"=>['register']
+                    ],
+                    [
+                        ["id_proceso"],"integer"
+                    ],
+                    [
+                        ["fecha_creacion","tstamp"],"string"
+                    ]
+
+                ];
+
+    }
+    public function behaviors()
+    {
+        return
+            [
+                'timestamp' => [
+                    'class' => 'backend\behaviors\TimestampStringBehavior',
+                    'attributes' => [
+                        ActiveRecord::EVENT_BEFORE_INSERT => ['fecha_creacion', 'tstamp'],
+                    ],
+                ],
+                [
+
+                    'class' => 'mdm\autonumber\Behavior',
+                    'attribute' => 'id_proceso', // required
+
+                ]
+        ];
+    }
+
+
+
+
+
 }

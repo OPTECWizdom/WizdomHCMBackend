@@ -8,8 +8,10 @@
 
 namespace backend\workflowManagers;
 
+use app\models\FlujoProceso;
 use app\models\MovimientoVacaciones;
-use yii\db\Exception;
+use app\models\Proceso;
+use app\models\VacacionesFlujoProcesoHelper;
 use Yii;
 
 
@@ -41,15 +43,17 @@ class VacacionesWorkflowManager extends AbstractWorkflowManager
 
     public function insert()
     {
+        $transaction = Yii::$app->getDb()->beginTransaction();
         try
         {
-            $transaction = Yii::$app->getDb()->beginTransaction();
             $this->insertMovimientoVacaciones();
+            $this->insertProceso();
+            $this->insertFlujoProceso();
             $transaction->commit();
             return true;
 
         }
-        catch (Exception $e){
+        catch (\Exception $e){
             $transaction->rollBack();
         }
         return false;
@@ -90,15 +94,64 @@ class VacacionesWorkflowManager extends AbstractWorkflowManager
                 $this->movimientoVacaciones = $movimientoVacaciones;
 
             } else {
-                throw new Exception();
+                throw new \Exception("");
 
             }
         }
-        catch (Exception $e){
+        catch (\Exception $e){
             throw $e;
         }
 
     }
+
+    private function insertProceso(){
+        try
+        {
+            $movimientoVacaciones = $this->movimientoVacaciones;
+            $proceso = new Proceso(['scenario' => $this->scenario]);
+            $proceso->compania = $this->movimientoVacaciones->compania;
+            $proceso->tipo_flujo_proceso = "movimientos_vacaciones";
+            $proceso->sistema_procedencia="RHU";
+            $proceso->codigo_empleado = $movimientoVacaciones->codigo_empleado;
+            if($proceso->save()){
+                $this->proceso = $proceso;
+
+            }
+            else
+            {
+                throw new \Exception();
+            }
+
+        }
+        catch (\Exception $e){
+            throw e;
+        }
+    }
+
+
+    private function insertFlujoProceso(){
+        try{
+            $flujoProcesoHelper = new VacacionesFlujoProcesoHelper($this->movimientoVacaciones,$this->proceso);
+            $flujoProceso = $flujoProcesoHelper->getFlujoProceso();
+            if($flujoProceso->save()){
+                $this->flujoProceso = $flujoProceso;
+
+            }
+            else
+            {
+                throw new \Exception();
+            }
+
+        }
+        catch (\Exception $e){
+            throw $e;
+        }
+
+
+
+    }
+
+
 
 
 }

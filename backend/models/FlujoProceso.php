@@ -7,9 +7,10 @@
  */
 
 namespace app\models;
+use yii\db\ActiveRecord;
 
 
-class FlujoProceso extends \yii\db\ActiveRecord
+class FlujoProceso extends ActiveRecord
 {
     public static function tableName()
     {
@@ -24,16 +25,44 @@ class FlujoProceso extends \yii\db\ActiveRecord
     public function behaviors()
     {
         return [
-            [
+            /*[
                 'class' => '\raoul2000\workflow\base\SimpleWorkflowBehavior',
                 'statusAttribute' => 'estado'
 
-            ]
+            ],*/
+            'timestamp' => [
+                'class' => 'backend\behaviors\TimestampStringBehavior',
+                'attributes' => [
+                    ActiveRecord::EVENT_BEFORE_INSERT => ['fecha_creacion', 'tstamp'],
+                ]
+            ],
+
         ];
 
     }
 
 
+    public function rules()
+    {
+        return[
+            [
+                [
+                    "compania",'id_proceso','tipo_flujo_proceso','codigo_tarea'
+                ],
+                "required"
+            ],
+            [
+                [
+                    "fecha_creacion","tstamp","parametros_aplicacion","estado"
+                ],
+                "string"
+            ]
+
+
+
+
+        ];
+    }
 
 
 }

@@ -39,7 +39,15 @@ class MovimientoVacaciones extends  ActiveRecord
                 'class' => '\raoul2000\workflow\base\SimpleWorkflowBehavior',
                 'statusAttribute' => 'estado_flujo_proceso'
 
+            ],
+
+            [
+
+                'class' => 'mdm\autonumber\Behavior',
+                'attribute' => 'consecutivo_movimiento', // required
+
             ]
+
         ];
 
     }
@@ -48,15 +56,13 @@ class MovimientoVacaciones extends  ActiveRecord
 
     public function rules()
     {
-
         return
             [
 
 
                 [
                     [
-                        "compania","tipo_mov","codigo_empleado",
-                        "consecutivo_movimiento",
+                        "compania","tipo_mov","codigo_empleado","consecutivo_movimiento",
                         "fecha_inicial","fecha_final",
                         "dias_calendario","dias_habiles","dias_feriados",
                         "dias_descanso","dias_obsequiados",
@@ -67,9 +73,12 @@ class MovimientoVacaciones extends  ActiveRecord
                     ],  'required',"on"=>['default']
                 ],
                 [
+                  ["consecutivo_movimiento"],"integer"
+
+                ],
+                [
                     [
-                        "compania","tipo_mov","codigo_empleado",
-                        "consecutivo_movimiento",/*,
+                        "compania","tipo_mov","codigo_empleado",/*
                         "fecha_inicial","fecha_final",*/
                         /* "dias_calendario","dias_habiles","dias_feriados",*/
                         /* "dias_descanso","dias_obsequiados",
