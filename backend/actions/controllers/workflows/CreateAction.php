@@ -50,8 +50,6 @@ class CreateAction extends Action
             $response = Yii::$app->getResponse();
             $response->setStatusCode(201);
             $model = $workflowManager->getMovimientoVacaciones();
-            $id = implode(',', array_values($model->getPrimaryKey(true)));
-            $response->getHeaders()->set('Location', Url::toRoute([$this->viewAction, 'id' => $id], true));
         } elseif (!$model->hasErrors()) {
             throw new ServerErrorHttpException('Failed to create the object for unknown reason.');
         }
