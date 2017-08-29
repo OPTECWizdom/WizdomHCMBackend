@@ -38,7 +38,7 @@ class UpdateAction extends Action
         $model->load($paramsVacaciones,'');
         $params = [];
         $params["modelMovimientoVacaciones"] = $model;
-        $params["flujo_proceso"] = [Yii::$app->getRequest()->getBodyParams()["flujo_proceso"]];
+        $params["flujo_proceso"] = Yii::$app->getRequest()->getBodyParams()["flujo_proceso"];
         $workflowManager = $workflowManagerFactory->createWorkflowManager($this->workflowManager,['scenario'=>$this->scenario, 'params'=>$params]);
 
         $result = $workflowManager->run();

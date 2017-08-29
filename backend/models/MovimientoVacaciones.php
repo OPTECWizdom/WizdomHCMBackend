@@ -46,6 +46,12 @@ class MovimientoVacaciones extends  ActiveRecord
                 'class' => 'mdm\autonumber\Behavior',
                 'attribute' => 'consecutivo_movimiento', // required
 
+            ],
+            'timestamp' => [
+                'class' => 'backend\behaviors\TimestampStringBehavior',
+                'attributes' => [
+                    ActiveRecord::EVENT_BEFORE_INSERT => ['fecha_registro', 'tstamp'],
+                ]
             ]
 
         ];
@@ -59,34 +65,24 @@ class MovimientoVacaciones extends  ActiveRecord
         return
             [
 
-
                 [
-
                     [
-                        "compania","tipo_mov","codigo_empleado","consecutivo_movimiento",
-                        /*"fecha_inicial","fecha_final",
-                        "dias_calendario","dias_habiles","dias_feriados",
-                        "dias_descanso","dias_obsequiados",
-                        "dias_pagados","codigo_nodo_organigrama",
-                        "codigo_puesto","usuario","fecha_registro",
-                        "regimen_vacaciones","periodo",
-                        "modulo_origen","tstamp","estado",*/"estado_flujo_proceso"
-                    ],  'required',"on"=>['update']
+                        "estado","usuario","regimen_vacaciones",
+                        "fecha_inicial","fecha_final","motivo_goce_vacaciones",
+                        "codigo_nodo_organigrama","codigo_puesto","fecha_registro",
+                        "tstamp"
+                    ],"string"
                 ],
                 [
-                  ["consecutivo_movimiento"],"integer"
+                  [
+                    "consecutivo_movimiento","dias_habiles","dias_feriados",
+                    "dias_descanso","dias_calendario","periodo"
+                  ],"integer"
 
                 ],
                 [
                     [
-                        "compania","tipo_mov","codigo_empleado",/*
-                        "fecha_inicial","fecha_final",*/
-                        /* "dias_calendario","dias_habiles","dias_feriados",*/
-                        /* "dias_descanso","dias_obsequiados",
-                        "dias_pagados","codigo_nodo_organigrama",
-                        "codigo_puesto","usuario","fecha_registro",
-                        "regimen_vacaciones","periodo",
-                        "modulo_origen","tstamp",*/"estado"
+                        "compania","tipo_mov","codigo_empleado"
                     ],  'required',"on"=>['register'],
                 ],
                 [

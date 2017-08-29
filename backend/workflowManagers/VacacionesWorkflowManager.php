@@ -38,7 +38,6 @@ class VacacionesWorkflowManager extends AbstractWorkflowManager
             $this->params = $config['params'];
             if (array_key_exists('modelMovimientoVacaciones',$this->params)) {
                 $this->movimientoVacaciones = $this->params['modelMovimientoVacaciones'];
-
             }
         }
 
@@ -59,6 +58,7 @@ class VacacionesWorkflowManager extends AbstractWorkflowManager
         }
         catch (\Exception $e){
             $transaction->rollBack();
+            throw $e;
         }
         return false;
 
@@ -70,13 +70,16 @@ class VacacionesWorkflowManager extends AbstractWorkflowManager
         try
         {
             $this->movimientoVacaciones->save();
+            $this->getFlujoProceso();
+            $this->updateFlujoProcesoStatus();
+            $this->flujoProceso->save();
             $transaction->commit();
             return true;
 
         }
         catch (\Exception $e){
             $transaction->rollBack();
-            var_dump($this->movimientoVacaciones);
+            throw $e;
         }
         return false;
 
@@ -172,14 +175,16 @@ class VacacionesWorkflowManager extends AbstractWorkflowManager
     }
 
     private function getFlujoProceso(){
-        $flujoProcesoTranslations = ["MovimientoVacacionesWorkflow/AP"=>"AP",
-                                    "MovimientoVacacionesWorkflow/PA"=>"AP",
-                                     "MovimientoVacacionesWorkflow/RE"=>"RE"];
-        $flujoProceso = FlujoProceso::find($this->params["flujo_proceso"]);
-        $flujoProceso->sendToStatus($flujoProcesoTranslations[$this->movimientoVacaciones->estado_flujo_proceso]);
-        return $flujoProceso;
+        $flujoProceso = FlujoProceso::find()->where($this->params["flujo_proceso"])->one();
+        $this->flujoProceso = $flujoProceso;
 
+    }
 
+    private function updateFlujoProcesoStatus(){
+        $flujoProcesoTranslations =     ["MovimientoVacacionesWorkflow/PA"=>"AP",
+                                        "MovimientoVacacionesWorkflow/AP"=>"AP",
+                                        "MovimientoVacacionesWorkflow/RE"=>"RE"];
+        $this->flujoProceso->sendToStatus($flujoProcesoTranslations[$this->movimientoVacaciones->estado_flujo_proceso]);
     }
 
 

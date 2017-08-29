@@ -24,7 +24,10 @@ class FlujoProcesoAgenteHelper implements IFlujoProcesoAgenteHelper
     public function insertAgente()
     {
         $flujoProcesoAgente = $this->getFirstAgenteFlujoProceso();
-        $flujoProcesoAgente->save();
+        if(!empty($flujoProcesoAgente)){
+            $flujoProcesoAgente->save();
+
+        }
 
 
 

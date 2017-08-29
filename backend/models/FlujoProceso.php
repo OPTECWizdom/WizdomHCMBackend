@@ -73,7 +73,7 @@ class FlujoProceso extends ActiveRecord
     }
 
 
-    public function afterSInsertOperations(){
+    public function afterInsertOperations(){
         $flujoProcesoAgenteHelper = new FlujoProcesoAgenteHelper($this);
         $flujoProcesoAgenteHelper->insertAgente();
 
@@ -83,14 +83,16 @@ class FlujoProceso extends ActiveRecord
     {
         parent::afterSave($insert,$changedAttributes);
         if($insert){
-            $this->afterSInsertOperations();
+            $this->afterInsertOperations();
         }
     }
 
     public function afterEnterStatusAP(){
         $flujoProcesoSiguiente = $this->getNextFlujoProceso();
-        $flujoProcesoSiguiente->enterWorkflow();
-        $flujoProcesoSiguiente->save();
+        if(!empty($flujoProcesoSiguiente)) {
+            $flujoProcesoSiguiente->enterWorkflow();
+            $flujoProcesoSiguiente->save();
+        }
 
     }
 
