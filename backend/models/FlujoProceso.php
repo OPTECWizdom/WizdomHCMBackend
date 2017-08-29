@@ -25,11 +25,11 @@ class FlujoProceso extends ActiveRecord
     public function behaviors()
     {
         return [
-            /*[
+            [
                 'class' => '\raoul2000\workflow\base\SimpleWorkflowBehavior',
                 'statusAttribute' => 'estado'
 
-            ],*/
+            ],
             'timestamp' => [
                 'class' => 'backend\behaviors\TimestampStringBehavior',
                 'attributes' => [
@@ -63,6 +63,62 @@ class FlujoProceso extends ActiveRecord
 
         ];
     }
+    public function init()
+    {
+
+        $this->on(
+            'afterEnterStatus{FlujoProcesoWorkflow/AP}',
+            [$this,'afterEnterStatusAP']
+        );
+    }
+
+
+    public function afterSInsertOperations(){
+        $flujoProcesoAgenteHelper = new FlujoProcesoAgenteHelper($this);
+        $flujoProcesoAgenteHelper->insertAgente();
+
+    }
+
+    public function afterSave($insert, $changedAttributes)
+    {
+        parent::afterSave($insert,$changedAttributes);
+        if($insert){
+            $this->afterSInsertOperations();
+        }
+    }
+
+    public function afterEnterStatusAP(){
+        $flujoProcesoSiguiente = $this->getNextFlujoProceso();
+        $flujoProcesoSiguiente->enterWorkflow();
+        $flujoProcesoSiguiente->save();
+
+    }
+
+    public function getNextFlujoProceso(){
+        $nextFlujoProceso = new FlujoProceso();
+        $nextFlujoProceso->setAttributes($this->getAttributes());
+        $flujoTipoProcesoSiguiente = FlujoTipoProceso::getNextFlujoTipoProceso($this);
+        if(!empty($flujoTipoProcesoSiguiente)){
+           $nextFlujoProceso->setAttribute('codigo_tarea',$flujoTipoProcesoSiguiente->getAttribute('codigo_tarea'));
+           $nextFlujoProceso->fixParametrosAplicacion();
+           return $nextFlujoProceso;
+
+        }
+
+    }
+
+
+    private function fixParametrosAplicacion(){
+        $pattern = "/gs_codigo_tarea_flujo_proceso='\w+';/";
+        $parametros = preg_replace($pattern,"gs_codigo_tarea_flujo_proceso='".$this->getAttribute('codigo_tarea')."';",
+                    $this->getAttribute('parametros_aplicacion'));
+        $this->setAttribute('parametros_aplicacion',$parametros);
+
+
+    }
+
+
+
 
 
 }

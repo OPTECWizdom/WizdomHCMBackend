@@ -61,16 +61,17 @@ class MovimientoVacaciones extends  ActiveRecord
 
 
                 [
+
                     [
                         "compania","tipo_mov","codigo_empleado","consecutivo_movimiento",
-                        "fecha_inicial","fecha_final",
+                        /*"fecha_inicial","fecha_final",
                         "dias_calendario","dias_habiles","dias_feriados",
                         "dias_descanso","dias_obsequiados",
                         "dias_pagados","codigo_nodo_organigrama",
                         "codigo_puesto","usuario","fecha_registro",
                         "regimen_vacaciones","periodo",
-                        "modulo_origen","tstamp","estado","estado_flujo_proceso"
-                    ],  'required',"on"=>['default']
+                        "modulo_origen","tstamp","estado",*/"estado_flujo_proceso"
+                    ],  'required',"on"=>['update']
                 ],
                 [
                   ["consecutivo_movimiento"],"integer"
@@ -85,8 +86,15 @@ class MovimientoVacaciones extends  ActiveRecord
                         "dias_pagados","codigo_nodo_organigrama",
                         "codigo_puesto","usuario","fecha_registro",
                         "regimen_vacaciones","periodo",
-                        "modulo_origen","tstamp",*/"estado","estado_flujo_proceso"
-                    ],  'required',"on"=>['register']
+                        "modulo_origen","tstamp",*/"estado"
+                    ],  'required',"on"=>['register'],
+                ],
+                [
+                    [
+                        "compania","tipo_mov","consecutivo_movimiento",
+                        "estado"
+                    ],
+                    'required','on'=>['update']
                 ]
 
         ];

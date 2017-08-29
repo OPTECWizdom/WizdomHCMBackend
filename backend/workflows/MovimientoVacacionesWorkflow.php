@@ -28,17 +28,14 @@ class MovimientoVacacionesWorkflow implements \raoul2000\workflow\source\file\IW
                 ],
                 'PA'=>[
                     'label'=>'Primera Aprobacion',
-                    'transition'=>['SA','RE'] //Segunda Aprobacion, Rechazo
+                    'transition'=>['AP','RE'] //Segunda Aprobacion, Rechazo
                 ],
-                'SA'=>[
-                    'label' => 'Segunda Aprobacion',
+                'AP'=>[
+                    'label' => 'Aprobacion Final ',
                     'transition' => ['AP'] //Aprobacion Final
                 ],
                 'RE'=>[
                     'label'=>'Rechazado'
-                ],
-                'AP'=>[
-                    'label'=>'Aprobacion Final'
                 ]
             ]
         ];

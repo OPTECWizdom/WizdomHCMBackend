@@ -16,20 +16,17 @@ class FlujoProcesoWorkflow implements \raoul2000\workflow\source\file\IWorkflowD
     {
 
         return [
-            'initialStatusId'=>'P', //Pendiente
+            'initialStatusId'=>'PE', //Pendiente
             'status'=>[
-                'P'=>[
+                'PE'=>[
                     'label'=> 'Pendiente',
-                    'transition'=>['A','R','F']
+                    'transition'=>['AP','RE']
                 ],
-                'A'=>[
+                'AP'=>[
                     'label'=>'Aprobado',
                 ],
-                'R'=>[
+                'RE'=>[
                     'label' => 'Rechazado',
-                ],
-                'F'=>[
-                    'label'=>'Finalizado'
                 ]
             ]
         ];

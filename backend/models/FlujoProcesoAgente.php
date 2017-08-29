@@ -1,0 +1,62 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: LuisDiego
+ * Date: 25/08/2017
+ * Time: 12:36
+ */
+
+namespace app\models;
+
+
+use yii\db\ActiveRecord;
+
+class FlujoProcesoAgente extends ActiveRecord
+{
+
+    public static function tableName()
+    {
+        return "flujo_proceso_agente";
+    }
+    public static function primaryKey()
+    {
+        return [
+            "compania","id_proceso","tipo_flujo_proceso","codigo_tarea","consecutivo"
+        ];
+    }
+
+
+    public function rules()
+    {
+        return [
+            [
+                ["compania","id_proceso","tipo_flujo_proceso","codigo_tarea","consecutivo"],"required"
+
+            ],
+            [
+                ["agente","parametro_agente","tstamp","fecha_creacion","tstamp"],
+                "string"
+            ],
+            [
+                ["tiempo_espera"],
+                "integer"
+            ]
+
+        ];
+    }
+
+
+    public function behaviors()
+    {
+        return [
+            'timestamp' => [
+                'class' => 'backend\behaviors\TimestampStringBehavior',
+                'attributes' => [
+                    ActiveRecord::EVENT_BEFORE_INSERT => ['fecha_creacion', 'tstamp'],
+                ]
+            ],
+
+        ];
+
+    }
+}

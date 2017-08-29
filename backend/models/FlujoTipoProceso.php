@@ -62,4 +62,30 @@ class FlujoTipoProceso extends ActiveRecord
 
     }
 
+
+    public static function getNextFlujoTipoProceso(FlujoProceso $flujoProceso){
+
+
+        $flujoTipoProcesoActual = FlujoTipoProceso::find()
+                                    ->where
+                                    ([
+                                        "compania"=>$flujoProceso->getAttribute('compania'),
+                                        "tipo_flujo_proceso"=>$flujoProceso->getAttribute('tipo_flujo_proceso'),
+                                        "codigo_tarea"=>$flujoProceso->getAttribute('codigo_tarea')
+                                    ])
+                                    ->one();
+        $flujoTipoProcesoSiguiente = FlujoTipoProceso::find()
+                                    ->where
+                                    ([
+                                        "compania"=>$flujoProceso->getAttribute('compania'),
+                                        "tipo_flujo_proceso"=>$flujoProceso->getAttribute('tipo_flujo_proceso')
+                                    ])
+                                    ->andWhere(['>', 'orden' ,$flujoTipoProcesoActual->getAttribute('orden')])
+                                    ->orderBy('orden')
+                                    ->one();
+        return $flujoTipoProcesoSiguiente;
+
+
+    }
+
 }

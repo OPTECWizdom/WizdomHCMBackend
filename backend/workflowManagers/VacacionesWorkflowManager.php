@@ -34,8 +34,12 @@ class VacacionesWorkflowManager extends AbstractWorkflowManager
            $this->scenario = $config['scenario'];
 
         }
-        if (array_key_exists('params',$config)){
-            $this->params =  $config['params'];
+        if (array_key_exists('params',$config)) {
+            $this->params = $config['params'];
+            if (array_key_exists('modelMovimientoVacaciones',$this->params)) {
+                $this->movimientoVacaciones = $this->params['modelMovimientoVacaciones'];
+
+            }
         }
 
     }
@@ -62,6 +66,21 @@ class VacacionesWorkflowManager extends AbstractWorkflowManager
 
     }
     public function update(){
+        $transaction = Yii::$app->getDb()->beginTransaction();
+        try
+        {
+            $this->movimientoVacaciones->save();
+            $transaction->commit();
+            return true;
+
+        }
+        catch (\Exception $e){
+            $transaction->rollBack();
+            var_dump($this->movimientoVacaciones);
+        }
+        return false;
+
+
 
     }
 
@@ -133,6 +152,7 @@ class VacacionesWorkflowManager extends AbstractWorkflowManager
         try{
             $flujoProcesoHelper = new VacacionesFlujoProcesoHelper($this->movimientoVacaciones,$this->proceso);
             $flujoProceso = $flujoProcesoHelper->getFlujoProceso();
+            $flujoProceso->enterWorkflow();
             if($flujoProceso->save()){
                 $this->flujoProceso = $flujoProceso;
 
@@ -150,6 +170,21 @@ class VacacionesWorkflowManager extends AbstractWorkflowManager
 
 
     }
+
+    private function getFlujoProceso(){
+        $flujoProcesoTranslations = ["MovimientoVacacionesWorkflow/AP"=>"AP",
+                                    "MovimientoVacacionesWorkflow/PA"=>"AP",
+                                     "MovimientoVacacionesWorkflow/RE"=>"RE"];
+        $flujoProceso = FlujoProceso::find($this->params["flujo_proceso"]);
+        $flujoProceso->sendToStatus($flujoProcesoTranslations[$this->movimientoVacaciones->estado_flujo_proceso]);
+        return $flujoProceso;
+
+
+    }
+
+
+
+
 
 
 

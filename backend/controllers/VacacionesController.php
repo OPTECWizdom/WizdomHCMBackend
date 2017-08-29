@@ -38,6 +38,8 @@ class VacacionesController extends ActiveController
                 'checkAccess' => [$this, 'checkAccess'],
                 'workflowManager' => $this->workflowManager,
                 'modelClass' => $this->modelClass,
+                'scenario' => 'update'
+
 
             ],
             'delete' => [
