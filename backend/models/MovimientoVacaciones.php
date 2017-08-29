@@ -67,6 +67,7 @@ class MovimientoVacaciones extends  ActiveRecord
 
                 [
                     [
+                        "compania","tipo_mov","consecutivo_movimiento",
                         "estado","usuario","regimen_vacaciones",
                         "fecha_inicial","fecha_final","motivo_goce_vacaciones",
                         "codigo_nodo_organigrama","codigo_puesto","fecha_registro",

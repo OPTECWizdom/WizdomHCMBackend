@@ -70,7 +70,7 @@ class VacacionesWorkflowManager extends AbstractWorkflowManager
         try
         {
             $this->movimientoVacaciones->save();
-            $this->getFlujoProceso();
+            $this->getFlujoProcesoFromParams();
             $this->updateFlujoProcesoStatus();
             $this->flujoProceso->save();
             $transaction->commit();
@@ -174,7 +174,7 @@ class VacacionesWorkflowManager extends AbstractWorkflowManager
 
     }
 
-    private function getFlujoProceso(){
+    private function getFlujoProcesoFromParams(){
         $flujoProceso = FlujoProceso::find()->where($this->params["flujo_proceso"])->one();
         $this->flujoProceso = $flujoProceso;
 
@@ -185,6 +185,10 @@ class VacacionesWorkflowManager extends AbstractWorkflowManager
                                         "MovimientoVacacionesWorkflow/AP"=>"AP",
                                         "MovimientoVacacionesWorkflow/RE"=>"RE"];
         $this->flujoProceso->sendToStatus($flujoProcesoTranslations[$this->movimientoVacaciones->estado_flujo_proceso]);
+    }
+
+    public function getMovimientoVacaciones(){
+        return $this->movimientoVacaciones;
     }
 
 
