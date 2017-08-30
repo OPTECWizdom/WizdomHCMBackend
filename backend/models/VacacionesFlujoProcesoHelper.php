@@ -94,7 +94,6 @@ class VacacionesFlujoProcesoHelper implements IFlujoProcesoHelper
         $parametrosAplicacion[] = "gi_id_proceso_flujo_proceso='".$this->flujoProceso->getAttribute("id_proceso")."'";
         $parametrosAplicacion[] = "gs_codigo_tarea_flujo_proceso='".$this->flujoProceso->getAttribute("codigo_tarea")."'";
         $stringParametrosAplicacion = implode(";",$parametrosAplicacion);
-        $stringParametrosAplicacion.=";";
         $this->flujoProceso->setAttribute("parametros_aplicacion",$stringParametrosAplicacion);
 
     }

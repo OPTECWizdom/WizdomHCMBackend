@@ -111,8 +111,8 @@ class FlujoProceso extends ActiveRecord
 
 
     private function fixParametrosAplicacion(){
-        $pattern = "/gs_codigo_tarea_flujo_proceso='\w+';/";
-        $parametros = preg_replace($pattern,"gs_codigo_tarea_flujo_proceso='".$this->getAttribute('codigo_tarea')."';",
+        $pattern = "/gs_codigo_tarea_flujo_proceso='\w+'/";
+        $parametros = preg_replace($pattern,"gs_codigo_tarea_flujo_proceso='".$this->getAttribute('codigo_tarea')."'",
                     $this->getAttribute('parametros_aplicacion'));
         $this->setAttribute('parametros_aplicacion',$parametros);
 

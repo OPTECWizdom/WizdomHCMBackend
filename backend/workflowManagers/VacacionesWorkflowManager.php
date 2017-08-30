@@ -69,6 +69,7 @@ class VacacionesWorkflowManager extends AbstractWorkflowManager
         $transaction = Yii::$app->getDb()->beginTransaction();
         try
         {
+            $this->updateEstadoMovimientoVacacionesFromEstadoFlujoProceso();
             $this->movimientoVacaciones->save();
             $this->getFlujoProcesoFromParams();
             $this->updateFlujoProcesoStatus();
@@ -180,11 +181,19 @@ class VacacionesWorkflowManager extends AbstractWorkflowManager
 
     }
 
+    private function updateEstadoMovimientoVacacionesFromEstadoFlujoProceso(){
+        $movimientoVacacionesTranslations =     ["MovimientoVacacionesWorkflow/AP"=>"P",
+                                                 "MovimientoVacacionesWorkflow/RE"=>"R"];
+        if(array_key_exists($this->movimientoVacaciones->estado_flujo_proceso,$movimientoVacacionesTranslations)){
+            $this->movimientoVacaciones->estado = $movimientoVacacionesTranslations[$this->movimientoVacaciones->estado_flujo_proceso];
+        }
+    }
+
     private function updateFlujoProcesoStatus(){
-        $flujoProcesoTranslations =     ["MovimientoVacacionesWorkflow/PA"=>"AP",
-                                        "MovimientoVacacionesWorkflow/AP"=>"AP",
+        $estadoFlujoProceso = $this->movimientoVacaciones->getAttribute("estado_flujo_proceso");
+        $flujoProcesoTranslations =     ["MovimientoVacacionesWorkflow/AP"=>"AP",
                                         "MovimientoVacacionesWorkflow/RE"=>"RE"];
-        $this->flujoProceso->sendToStatus($flujoProcesoTranslations[$this->movimientoVacaciones->estado_flujo_proceso]);
+        $this->flujoProceso->sendToStatus($flujoProcesoTranslations[$estadoFlujoProceso]);
     }
 
     public function getMovimientoVacaciones(){
