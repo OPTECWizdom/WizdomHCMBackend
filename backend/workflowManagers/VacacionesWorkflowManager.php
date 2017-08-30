@@ -193,7 +193,10 @@ class VacacionesWorkflowManager extends AbstractWorkflowManager
         $estadoFlujoProceso = $this->movimientoVacaciones->getAttribute("estado_flujo_proceso");
         $flujoProcesoTranslations =     ["MovimientoVacacionesWorkflow/AP"=>"AP",
                                         "MovimientoVacacionesWorkflow/RE"=>"RE"];
-        $this->flujoProceso->sendToStatus($flujoProcesoTranslations[$estadoFlujoProceso]);
+        if (array_key_exists('$estadoFlujoProceso',$flujoProcesoTranslations)){
+            $this->flujoProceso->sendToStatus($flujoProcesoTranslations[$estadoFlujoProceso]);
+
+        }
     }
 
     public function getMovimientoVacaciones(){
