@@ -78,7 +78,7 @@ class FlujoProcesoNotificacionesHelper
         $attributes["mensaje"] = $notificacionTipoProceso->getAttribute("mensaje");
         $agenteType = $notificacionTipoProceso->getAttribute("agente");
         if(!array_key_exists($agenteType,$this->agentes)){
-            $this->getAgenteOfNotificacion($agenteType);
+            $this->getAgenteOfNotificacion($agenteType,$notificacionTipoProceso);
 
         }
         $agentes = $this->agentes[$agenteType];
@@ -94,8 +94,8 @@ class FlujoProcesoNotificacionesHelper
 
     }
 
-    private function getAgenteOfNotificacion(string $agente){
-        $agenteSearcherFactory = new AgenteSearcherFactory($this->flujoProceso,$this->proceso);
+    private function getAgenteOfNotificacion(string $agente,FlujoTipoProcesoNotificacion $flujoTipoProcesoNotificacion){
+        $agenteSearcherFactory = new AgenteSearcherFactory($this->flujoProceso,$this->proceso,$flujoTipoProcesoNotificacion);
         $agenteSearcher = $agenteSearcherFactory->createAgenteSearcher($agente);
         if(!empty($agenteSearcher)) {
             $agentes = $agenteSearcher->search();
