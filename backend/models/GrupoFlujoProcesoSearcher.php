@@ -30,7 +30,7 @@ class GrupoFlujoProcesoSearcher implements IAgenteFlujoProcesoSearcher
     {
         $empleados = array();
         $grupo = $this->flujoTipoProcesoNotificacion->getAttribute("parametro_agente");
-        $secUserGroup = SecurityUserGroup::find()->where(["group_id"=>grupo])->all();
+        $secUserGroup = SecurityUserGroup::find()->where(["group_id"=>$grupo])->all();
         foreach ($secUserGroup as $user)
         {
           $empleado = Empleado::find()->where(["username"=>$user->getAttribute("login")])->one();
