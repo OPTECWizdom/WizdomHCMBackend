@@ -118,6 +118,7 @@ class FlujoProcesoNotificacionesHelper
         $notificacion->setAttribute("codigo_empleado",$empleado->getAttribute("codigo_empleado"));
         $notificacion->setAttribute("empleado_destino",$empleado->getAttribute("codigo_empleado"));
         $notificacion->setAttribute("naturaleza_notificacion",'N');
+        $notificacion->setAttribute("leido",0);
         return $notificacion;
 
 
