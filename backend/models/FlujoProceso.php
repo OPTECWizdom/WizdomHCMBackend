@@ -85,6 +85,15 @@ class FlujoProceso extends ActiveRecord
         if($insert){
             $this->afterInsertOperations();
         }
+        if(array_key_exists('estado',$changedAttributes)){
+            sendNotificaciones();
+        }
+    }
+
+
+    private function sendNotificaciones(){
+        $notificacionesHelper = new FlujoProcesoNotificacionesHelper($this);
+        $notificacionesHelper->insertNotificaciones();
     }
 
     public function afterEnterStatusAP(){
