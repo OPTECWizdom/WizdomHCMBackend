@@ -58,7 +58,10 @@ class FlujoProcesoNotificacionesHelper
         {
             $notificaciones = $this->getNotificacionFromNotificacionTipoProceso($notificacionTipoProceso);
             foreach ($notificaciones as $notificacion){
-                $notificacion->save();
+                if(!empty($notificacion)){
+                    $notificacion->save();
+
+                }
             }
 
 
