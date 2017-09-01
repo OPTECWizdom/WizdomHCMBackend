@@ -51,6 +51,7 @@ class FlujoProcesoAgenteHelper implements IFlujoProcesoAgenteHelper
         $flujoProcesoAgente = new FlujoProcesoAgente();
         $flujoProcesoAgente->setAttributes($flujoTipoProcesoAgente->getAttributes());
         $flujoProcesoAgente->setAttribute('id_proceso',$this->flujoProceso->getAttribute('id_proceso'));
+        $flujoProcesoAgente->setAttribute('correo_enviado','N');
         return $flujoProcesoAgente;
 
     }
