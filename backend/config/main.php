@@ -53,13 +53,15 @@ return [
         'urlManager' => [
             'enablePrettyUrl' => true,
             'showScriptName' => true,
+
             'rules' => [
                 [
                    'class'=>'yii\rest\UrlRule',
-                    'controller' => ['competencias','movimientos-vacaciones','vacaciones'],
+                    'controller' => ['competencias','movimientos-vacaciones','vacaciones','flujo-proceso-agente-updater'],
                    'tokens' => [
                        '{id}'=>'<id:\\w+(,+\\w+)*>'
-                   ]
+                   ],
+                    'pluralize' => false
 
                 ]
             ],

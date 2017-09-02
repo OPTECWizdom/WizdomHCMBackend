@@ -15,13 +15,13 @@ class GrupoFlujoProcesoSearcher implements IAgenteFlujoProcesoSearcher
 
     private $flujoProceso;
     private $proceso;
-    private $flujoTipoProcesoNotificacion;
+    private $parametroAgente;
 
-    public function __construct(FlujoProceso $flujoProceso,Proceso $proceso,FlujoTipoProcesoNotificacion $flujoTipoProcesoNotificacion)
+    public function __construct(FlujoProceso $flujoProceso,Proceso $proceso,string $parametroAgente)
     {
         $this->flujoProceso;
         $this->proceso = $proceso;
-        $this->flujoTipoProcesoNotificacion = $flujoTipoProcesoNotificacion;
+        $this->parametroAgente = $parametroAgente;
     }
 
 
@@ -29,7 +29,7 @@ class GrupoFlujoProcesoSearcher implements IAgenteFlujoProcesoSearcher
     public function search()
     {
         $empleados = array();
-        $grupo = $this->flujoTipoProcesoNotificacion->getAttribute("parametro_agente");
+        $grupo = $this->parametroAgente;
         $secUserGroup = SecurityUserGroup::find()->where(["group_id"=>$grupo])->all();
         foreach ($secUserGroup as $user)
         {

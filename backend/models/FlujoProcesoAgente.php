@@ -34,13 +34,14 @@ class FlujoProcesoAgente extends ActiveRecord
 
             ],
             [
-                ["agente","parametro_agente","tstamp","fecha_creacion","tstamp","correo_enviado"],
+                ["agente","parametro_agente","tstamp","correo_enviado","fecha_creacion"],
                 "string"
             ],
             [
                 ["tiempo_espera"],
                 "integer"
-            ]
+            ],
+
 
         ];
     }

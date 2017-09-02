@@ -9,7 +9,8 @@
 namespace app\models;
 
 
-use yii\db\Exception;
+
+
 
 class FlujoProcesoAgenteHelper implements IFlujoProcesoAgenteHelper
 {
@@ -55,4 +56,69 @@ class FlujoProcesoAgenteHelper implements IFlujoProcesoAgenteHelper
         return $flujoProcesoAgente;
 
     }
+
+
+    public function updateAgentes(){
+        $agenteFlujoTipoProceso = $this->getNextAgenteFlujoTipoProceso();
+        if(!empty($agenteFlujoTipoProceso)){
+            $agenteFlujoProceso = $this->getFlujoProcesoAgenteFromFlujoTipoProcesoAgente($agenteFlujoTipoProceso);
+            $agenteFlujoProceso->save();
+        }
+
+    }
+
+    private function getInsertedAgentesOfFlujoProceso(){
+        $ids = FlujoProceso::primaryKey();
+        $insertedAgentes = FlujoProcesoAgente::find()->where($this->flujoProceso->getAttributes($ids))->orderBy("fecha_creacion")->all();
+        return $insertedAgentes;
+    }
+
+    private function getAgentesOfFlujoTipoProceso(){
+        $flujoTipoProcesoAgentes = FlujoTipoProcesoAgente::findAgentesOfFlujoProceso($this->flujoProceso);
+        return $flujoTipoProcesoAgentes;
+    }
+
+
+    private function getNextAgenteFlujoTipoProceso()
+    {
+        $agentesProceso = $this->getInsertedAgentesOfFlujoProceso();
+        $agentesTipoProceso = $this->getAgentesOfFlujoTipoProceso();
+        if(!empty($agentesProceso) || !empty($agentesTipoProceso)){
+            $agentesProcesoLen = sizeof($agentesProceso);
+            $agentesTipoProcesoLen = sizeof($agentesTipoProceso);
+            if($agentesProcesoLen<$agentesTipoProcesoLen){
+                $agenteProceso = $agentesProceso[$agentesProcesoLen-1];
+                $agenteTipoProceso = $agentesTipoProceso[$agentesProcesoLen-1];
+                $fechaInvalida = $this->evalAgenteWaitingTime($agenteProceso,$agenteTipoProceso);
+                if($fechaInvalida){
+                    return  $agentesTipoProceso[$agentesProcesoLen];
+                }
+
+            }
+
+        }
+        return null;
+    }
+
+
+    private function evalAgenteWaitingTime(FlujoProcesoAgente $flujoProcesoAgente,FlujoTipoProcesoAgente $flujoTipoProcesoAgente)
+    {
+        $diasLimite = $flujoTipoProcesoAgente->getAttribute("tiempo_espera");
+        $fechaLimite = new \DateTime($flujoProcesoAgente->getAttribute("fecha_creacion"));
+        $fechaLimite->modify("+$diasLimite day");
+        $fechaHoy = new \DateTime("now");
+        $fechaHoy->setTime(0,0);
+        if ($fechaLimite<=$fechaHoy)
+        {
+            return true;
+        }
+        return false;
+
+
+
+
+    }
+
+
+
 }
