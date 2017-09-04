@@ -44,15 +44,19 @@ class FlujoProcesoAgenteManager extends AbstractWorkflowManager
     public  function run()
     {
         try{
+            $transaction =\Yii::$app->getDb()->beginTransaction();
 
             $flujoProcesos = FlujoProceso::find()->where(["estado"=>'FlujoProcesoWorkflow/PE'])->all();
             foreach ($flujoProcesos as $flujoProceso){
                 $flujoProcesoAgenteHelper = new FlujoProcesoAgenteHelper($flujoProceso);
                 $flujoProcesoAgenteHelper->updateAgentes();
             }
+            $transaction->commit();
+
             return true;
         }
         catch (\Exception $e){
+            $transaction->rollBack();
             throw $e;
         }
 

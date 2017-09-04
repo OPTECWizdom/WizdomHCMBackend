@@ -13,6 +13,19 @@ return [
     'bootstrap' => ['log'],
     'modules' => [],
     'components' => [
+        'mailer' => [
+            'class' => 'yii\swiftmailer\Mailer',
+            'useFileTransport' => false,
+            'transport' => [
+                'class' => 'Swift_SmtpTransport',
+                'host' => 'smtp.gmail.com',
+                'username' => 'optec.wizdom@gmail.com',
+                'password' => 'Optec*wiz2017',
+                'port' => '465',
+                'encryption' => 'ssl',
+            ],
+
+        ],
         'workflowSource' => [
             'class' => 'raoul2000\workflow\source\file\WorkflowFileSource',
             'definitionLoader' => [
@@ -57,7 +70,8 @@ return [
             'rules' => [
                 [
                    'class'=>'yii\rest\UrlRule',
-                    'controller' => ['competencias','movimientos-vacaciones','vacaciones','flujo-proceso-agente-updater'],
+                    'controller' => ['competencias','movimientos-vacaciones','vacaciones','flujo-proceso-agente-updater',
+                                    'enlaces-externos'],
                    'tokens' => [
                        '{id}'=>'<id:\\w+(,+\\w+)*>'
                    ],
