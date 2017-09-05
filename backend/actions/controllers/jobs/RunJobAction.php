@@ -9,6 +9,7 @@ namespace backend\actions\controllers\jobs;
 
 use yii\rest\Action;
 use Yii;
+use yii\web\ServerErrorHttpException;
 
 
 
