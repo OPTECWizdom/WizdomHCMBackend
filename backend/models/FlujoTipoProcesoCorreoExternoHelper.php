@@ -77,7 +77,7 @@ class FlujoTipoProcesoCorreoExternoHelper
     public function createEnlaceExterno()
     {
         $enlaceExterno = new EnlaceExterno();
-        $enlaceExterno->setAttribute('id_url', EnlaceExterno::getRandomId());
+        $enlaceExterno->setAttribute('id_url', urlencode(EnlaceExterno::getRandomId()));
         $enlaceExterno->setAttribute('nombre_aplicacion', $this->flujoTipoProceso->getAttribute('aplicacion'));
         $enlaceExterno->setAttribute('parametros', $this->flujoProceso->getAttribute('parametros_aplicacion'));
         $enlaceExterno->save();
@@ -148,7 +148,6 @@ class FlujoTipoProcesoCorreoExternoHelper
             ->setTextBody($message)
             ->setHtmlBody($htmlContent)
             ->send();
-        var_dump($result);
         return $result;
 
     }
