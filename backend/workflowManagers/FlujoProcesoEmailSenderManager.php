@@ -33,7 +33,7 @@ class FlujoProcesoEmailSenderManager extends AbstractWorkflowManager
         try {
 
             $transaction = Yii::$app->getDb()->beginTransaction();
-            $flujoProcesos = \app\models\FlujoProceso::find()->all();
+            $flujoProcesos = \app\models\FlujoProceso::find()->where(['estado'=>'FlujoProcesoWorkflow/PE'])->all();
             foreach ($flujoProcesos as $flujoProceso)
             {
                 $correoHelper = new \app\models\FlujoTipoProcesoCorreoExternoHelper($flujoProceso);

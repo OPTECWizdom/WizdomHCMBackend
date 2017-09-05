@@ -73,7 +73,7 @@ return [
                     'controller' => ['competencias','movimientos-vacaciones','vacaciones','flujo-proceso-agente-updater',
                                     'enlaces-externos','flujo-proceso-email-sender'],
                    'tokens' => [
-                       '{id}'=>'<id:\\w+(,+\\w+)*>'
+                       '{id}'=>'<id:(\\w|-)+(,+(\\w|-)+)*>'
                    ],
                     'pluralize' => false
 
