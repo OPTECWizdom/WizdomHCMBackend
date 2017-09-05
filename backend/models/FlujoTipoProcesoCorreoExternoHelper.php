@@ -93,7 +93,8 @@ class FlujoTipoProcesoCorreoExternoHelper
     {
         $ids = FlujoProceso::primaryKey();
         $primaryKeys = $this->flujoProceso->getAttributes($ids);
-        $flujoProcesoAgentes = FlujoProcesoAgente::find()->where($primaryKeys)->where(["correo_enviado"=>'N'])->all();
+        $primaryKeys["correo_enviado"]="N";
+        $flujoProcesoAgentes = FlujoProcesoAgente::find()->where($primaryKeys)->where($primaryKeys)->all();
         return $flujoProcesoAgentes;
 
     }
