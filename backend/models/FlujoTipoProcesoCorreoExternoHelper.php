@@ -38,7 +38,7 @@ class FlujoTipoProcesoCorreoExternoHelper
     {
         $flujoProcesoAgentes = $this->getAgentesWithoutEmailSent();
         $correosFlujoProceso = $this->getCorreosOfFlujoTipoProceso();
-        if (!empty($flujoProcesoAgentes) || !empty($correosFlujoProceso)) {
+        if (!empty($flujoProcesoAgentes) && !empty($correosFlujoProceso)) {
             foreach ($flujoProcesoAgentes as $flujoProcesoAgente) {
                 foreach ($correosFlujoProceso as $correo) {
                     $mensaje = $this->formatEmail($correo);
