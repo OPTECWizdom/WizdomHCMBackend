@@ -30,7 +30,7 @@ class DepartamentoFlujoProcesoSearcher implements IAgenteFlujoProcesoSearcher
         {
             $compania = $arrayParmsAgente[0];
             $organigrama = $arrayParmsAgente[1];
-            $searchConditions = ["compania"=>$compania,"ogranigrama"=>$organigrama];
+            $searchConditions = ["compania"=>$compania,"organigrama"=>$organigrama];
             $empleados = Empleado::find()->where($searchConditions)->all();
             return $empleados;
 
