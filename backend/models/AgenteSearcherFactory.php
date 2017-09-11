@@ -22,7 +22,11 @@ class AgenteSearcherFactory
         $this->flujoProceso = $flujoProceso;
         $this->agenteClasses = ["EMPLEADO_SOLICITA"=>"app\models\EmpleadoSolicitanteFlujoProcesoSearcher",
                                 "GRUPO"=>"app\models\GrupoFlujoProcesoSearcher",
-                                "JEFE_INMEDIATO"=>"app\models\JefeInmediatoFlujoProcesoSearcher"];
+                                "JEFE_INMEDIATO"=>"app\models\JefeInmediatoFlujoProcesoSearcher",
+                                "DEPARTAMENTO"=>'app\models\DepartamentoFlujoProcesoSearcher',
+                                "PUESTO"=>'app\models\PuestoFlujoProcesoSearcher',
+                                "EMPLEADO"=>'app\models\EmpleadoFlujoProcesoSearcher',
+                                "JEFE_SUPERIOR"=>'app\models\JefeSuperiorFlujoProcesoSearcher'];
         $this->proceso = $proceso;
         $this->parametroAgente = $parametroAgente;
 

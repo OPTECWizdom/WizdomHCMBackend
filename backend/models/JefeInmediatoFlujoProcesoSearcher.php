@@ -14,7 +14,7 @@ class JefeInmediatoFlujoProcesoSearcher implements IAgenteFlujoProcesoSearcher
     private $flujoProceso;
     private $proceso;
 
-    public function __construct(FlujoProceso $flujoProceso,Proceso $proceso,string $flujoTipoProcesoNotificacion = null)
+    public function __construct(FlujoProceso $flujoProceso,Proceso $proceso,string $parametroAgente  = null)
     {
         $this->flujoProceso;
         $this->proceso = $proceso;
