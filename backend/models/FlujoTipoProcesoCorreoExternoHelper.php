@@ -146,7 +146,7 @@ class FlujoTipoProcesoCorreoExternoHelper
         $result =
          Yii::$app->mailer->compose()
             ->setFrom('optec.wizdom@gmail.com')
-            ->setTo("ldrc2895@gmail.com")
+            ->setTo($email)
             ->setSubject($subject)
             ->setTextBody($message)
             ->setHtmlBody($htmlContent)
