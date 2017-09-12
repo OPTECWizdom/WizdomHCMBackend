@@ -114,7 +114,9 @@ class FlujoTipoProcesoCorreoExternoHelper
         $agente = $flujoProcesoAgente->getAttribute("agente");
         $agenteSearcherFactory = new AgenteSearcherFactory($this->flujoProceso,$this->proceso,$parametroAgente);
         $agenteSearcher = $agenteSearcherFactory->createAgenteSearcher($agente);
-        return $agenteSearcher->search();
+        $search = $agenteSearcher->search();
+        return $search;
+
 
 
     }

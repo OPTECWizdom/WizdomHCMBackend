@@ -17,9 +17,9 @@ class PuestoFlujoProcesoSearcher implements IAgenteFlujoProcesoSearcher
 
     public function __construct(FlujoProceso $flujoProceso,Proceso $proceso,string $parametroAgente = null)
     {
-        $this->flujoProceso;
+        $this->flujoProceso = $flujoProceso;
         $this->proceso = $proceso;
-        $this->parametroAgente;
+        $this->parametroAgente = $parametroAgente;
     }
 
 

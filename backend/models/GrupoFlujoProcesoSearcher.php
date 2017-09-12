@@ -19,7 +19,7 @@ class GrupoFlujoProcesoSearcher implements IAgenteFlujoProcesoSearcher
 
     public function __construct(FlujoProceso $flujoProceso,Proceso $proceso,string $parametroAgente)
     {
-        $this->flujoProceso;
+        $this->flujoProceso = $flujoProceso;
         $this->proceso = $proceso;
         $this->parametroAgente = $parametroAgente;
     }
