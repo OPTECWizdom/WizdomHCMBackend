@@ -69,6 +69,7 @@ class VacacionesWorkflowManager extends AbstractWorkflowManager
         $transaction = Yii::$app->getDb()->beginTransaction();
         try
         {
+            $this->setEstadoVacacionesWorkflow();
             $this->updateEstadoMovimientoVacacionesFromEstadoFlujoProceso();
             $this->movimientoVacaciones->save();
             $this->getFlujoProcesoFromParams();
@@ -85,6 +86,27 @@ class VacacionesWorkflowManager extends AbstractWorkflowManager
         return false;
 
 
+
+    }
+
+
+    public function setEstadoVacacionesWorkflow()
+    {
+        $oldEstado = $this->movimientoVacaciones->getOldAttributes("estado_flujo_proceso");
+        $estado = $this->movimientoVacaciones->getAttribute("estado_flujo_proceso");
+        if($estado=="MovimientoVacacionesWorkflow/AP")
+        {
+            $transitions = [
+                                "MovimientoVacacionesWorkflow/RV"=>"AG",
+                                "MovimientoVacacionesWorkflow/AG"=>"AI",
+                                "MovimientoVacacionesWorkflow/AI"=>"AS",
+                                "MovimientoVacacionesWorkflow/AS"=>"AP",
+                            ];
+            if(array_key_exists($oldEstado,$transitions))
+            {
+                $this->movimientoVacaciones->sendToStatus($transitions[$oldEstado]);
+            }
+        }
 
     }
 
@@ -191,7 +213,11 @@ class VacacionesWorkflowManager extends AbstractWorkflowManager
 
     private function updateFlujoProcesoStatus(){
         $estadoFlujoProceso = $this->movimientoVacaciones->getAttribute("estado_flujo_proceso");
-        $flujoProcesoTranslations =     ["MovimientoVacacionesWorkflow/AP"=>"AP",
+        $flujoProcesoTranslations =     [
+                                        "MovimientoVacacionesWorkflow/AG"=>"AP",
+                                        "MovimientoVacacionesWorkflow/AP"=>"FI",
+                                        "MovimientoVacacionesWorkflow/AI"=>"AP",
+                                        "MovimientoVacacionesWorkflow/AS"=>"AP",
                                         "MovimientoVacacionesWorkflow/RE"=>"RE"];
         if (array_key_exists($estadoFlujoProceso,$flujoProcesoTranslations)){
             $this->flujoProceso->sendToStatus($flujoProcesoTranslations[$estadoFlujoProceso]);

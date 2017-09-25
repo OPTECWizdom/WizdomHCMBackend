@@ -20,18 +20,29 @@ class MovimientoVacacionesWorkflow implements \raoul2000\workflow\source\file\IW
     public function getDefinition()
     {
         return [
-            'initialStatusId'=>'PE', //Pendiente
+            'initialStatusId'=>'RV',
             'status'=>[
-                'PE'=>[
-                    'label'=> 'Pendiente',
-                    'transition'=>['AP','RE'] //Primera aprobacion, Rechazo
+                'RV'=>[
+                    'label'=> 'EN REVISION',
+                    'transition'=>['AG','RE']
                 ],
-                'AP'=>[
-                    'label' => 'Aprobacion Final ',
-                    'transition' => ['AP'] //Aprobacion Final
+                'AG'=>[
+                    'label'=>'APROBACION GRUPAL',
+                    'transition'=>['AI','RE']
+                ],
+                'AI'=>[
+                    'label' => 'APROBACION INICIAL ',
+                    'transition' => ['AS','RE','AP']
+                ],
+                'AS'=>[
+                    'label'=>'APROBACION SECUNDARIA'  ,
+                    'transition'=>['AP','RE']
                 ],
                 'RE'=>[
-                    'label'=>'Rechazado'
+                    'label'=>'RECHAZADO'
+                ],
+                'AP'=>[
+                    'label'=>'APROBADO'
                 ]
             ]
         ];

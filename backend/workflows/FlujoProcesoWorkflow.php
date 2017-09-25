@@ -20,13 +20,16 @@ class FlujoProcesoWorkflow implements \raoul2000\workflow\source\file\IWorkflowD
             'status'=>[
                 'PE'=>[
                     'label'=> 'Pendiente',
-                    'transition'=>['AP','RE']
+                    'transition'=>['AP','RE','FI']
                 ],
                 'AP'=>[
                     'label'=>'Aprobado',
                 ],
                 'RE'=>[
                     'label' => 'Rechazado',
+                ],
+                'FI'=>[
+                    'label'=>'Finalizado y Aprobado'
                 ]
             ]
         ];

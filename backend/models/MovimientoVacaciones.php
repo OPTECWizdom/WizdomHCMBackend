@@ -18,6 +18,10 @@ class MovimientoVacaciones extends  ActiveRecord
 
     public function init()
     {
+        $this->on(
+            'afterEnterStatus{MovimientoVacacionesWorkflow/AS}',
+            [$this,'afterEnterStatusAS']
+        );
 
 
     }
@@ -99,5 +103,20 @@ class MovimientoVacaciones extends  ActiveRecord
 
         ];
     }
+
+
+    public function afterEnterStatusAS()
+    {
+        $pks = $this->getAttributes(["compania","codigo_empleado"]);
+        $vacacionesEmpleado = VacacionesEmpleado::find()->select(["dias_disponibles"])->where($pks)->sum('dias_disponibles');
+        if($vacacionesEmpleado>0)
+        {
+            $this->sendToStatus('AP');
+        }
+
+    }
+
+
+
 
 }
