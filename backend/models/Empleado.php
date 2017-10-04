@@ -26,4 +26,25 @@ class Empleado extends  ActiveRecord
         ];
     }
 
+    public function rules()
+    {
+        return [
+            [
+                [
+                    "compania","codigo_empleado"
+                ],'required'
+            ],
+            [
+                [
+                    "nombre","primer_apellido","segundo_apellido",
+                    "codigo_nodo_organigrama","codigo_puesto",
+                    "jefe_inmediato"
+                ],"string"
+            ]
+
+
+        ];
+    }
+
+
 }

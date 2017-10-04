@@ -92,7 +92,7 @@ class VacacionesWorkflowManager extends AbstractWorkflowManager
 
     public function setEstadoVacacionesWorkflow()
     {
-        $oldEstado = $this->movimientoVacaciones->getOldAttributes("estado_flujo_proceso");
+        $oldEstado = $this->movimientoVacaciones->getOldAttribute("estado_flujo_proceso");
         $estado = $this->movimientoVacaciones->getAttribute("estado_flujo_proceso");
         if($estado=="MovimientoVacacionesWorkflow/AP")
         {
