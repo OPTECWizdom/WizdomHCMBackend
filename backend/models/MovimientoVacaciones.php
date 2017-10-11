@@ -18,10 +18,7 @@ class MovimientoVacaciones extends  ActiveRecord
 
     public function init()
     {
-        $this->on(
-            'afterEnterStatus{MovimientoVacacionesWorkflow/AI}',
-            [$this,'afterEnterStatusAI']
-        );
+
 
 
     }
@@ -104,7 +101,7 @@ class MovimientoVacaciones extends  ActiveRecord
         ];
     }
 
-
+/*
     public function afterEnterStatusAI()
     {
         $pks = $this->getAttributes(["compania","codigo_empleado"]);
@@ -126,6 +123,7 @@ class MovimientoVacaciones extends  ActiveRecord
         }
 
     }
+*/
 
 
 

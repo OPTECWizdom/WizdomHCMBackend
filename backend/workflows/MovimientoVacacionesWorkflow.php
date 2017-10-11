@@ -24,27 +24,20 @@ class MovimientoVacacionesWorkflow implements \raoul2000\workflow\source\file\IW
             'status'=>[
                 'RV'=>[
                     'label'=> 'EN REVISION',
-                    'transition'=>['AG','RE']
+                    'transition'=>['AR','RE']
                 ],
-                'AG'=>[
-                    'label'=>'APROBACION GRUPAL',
-                    'transition'=>['AI','RE']
-                ],
-                'AI'=>[
-                    'label' => 'APROBACION INICIAL ',
-                    'transition' => ['AS','RE','AP']
-                ],
-                'AS'=>[
-                    'label'=>'APROBACION SECUNDARIA'  ,
+                'AR'=>[
+                    'label'=>'APROBACION REVISION',
                     'transition'=>['AP','RE']
+                ],
+                'AP'=>[
+                    'label' => 'APROBACION FINAL '
                 ],
                 'RE'=>[
                     'label'=>'RECHAZADO'
-                ],
-                'AP'=>[
-                    'label'=>'APROBADO'
                 ]
             ]
+
         ];
     }
 }

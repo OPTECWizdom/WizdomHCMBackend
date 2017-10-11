@@ -97,10 +97,8 @@ class VacacionesWorkflowManager extends AbstractWorkflowManager
         if($estado=="MovimientoVacacionesWorkflow/AP")
         {
             $transitions = [
-                                "MovimientoVacacionesWorkflow/RV"=>"AG",
-                                "MovimientoVacacionesWorkflow/AG"=>"AI",
-                                "MovimientoVacacionesWorkflow/AI"=>"AS",
-                                "MovimientoVacacionesWorkflow/AS"=>"AP",
+                                "MovimientoVacacionesWorkflow/RV"=>"AR",
+                                "MovimientoVacacionesWorkflow/AR"=>"AP"
                             ];
             if(array_key_exists($oldEstado,$transitions))
             {
@@ -214,10 +212,8 @@ class VacacionesWorkflowManager extends AbstractWorkflowManager
     private function updateFlujoProcesoStatus(){
         $estadoFlujoProceso = $this->movimientoVacaciones->getAttribute("estado_flujo_proceso");
         $flujoProcesoTranslations =     [
-                                        "MovimientoVacacionesWorkflow/AG"=>"AP",
-                                        "MovimientoVacacionesWorkflow/AP"=>"FI",
-                                        "MovimientoVacacionesWorkflow/AI"=>"AP",
-                                        "MovimientoVacacionesWorkflow/AS"=>"AP",
+                                        "MovimientoVacacionesWorkflow/AR"=>"AP",
+                                        "MovimientoVacacionesWorkflow/AP"=>"AP",
                                         "MovimientoVacacionesWorkflow/RE"=>"RE"];
         if (array_key_exists($estadoFlujoProceso,$flujoProcesoTranslations)){
             $this->flujoProceso->sendToStatus($flujoProcesoTranslations[$estadoFlujoProceso]);
