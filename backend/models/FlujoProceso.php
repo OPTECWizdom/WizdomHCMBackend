@@ -108,7 +108,7 @@ class FlujoProceso extends ActiveRecord
 
     public function getNextFlujoProceso(){
         $nextFlujoProceso = new FlujoProceso();
-        $nextFlujoProceso->setAttributes($this->getAttributes());
+        $nextFlujoProceso->setAttributes($this->getInitialAttributes());
         $flujoTipoProcesoSiguiente = FlujoTipoProceso::getNextFlujoTipoProceso($this);
         if(!empty($flujoTipoProcesoSiguiente)){
            $nextFlujoProceso->setAttribute('codigo_tarea',$flujoTipoProcesoSiguiente->getAttribute('codigo_tarea'));
@@ -127,6 +127,10 @@ class FlujoProceso extends ActiveRecord
         $this->setAttribute('parametros_aplicacion',$parametros);
 
 
+    }
+    private function getInitialAttributes()
+    {
+        return $this->getAttributes(["compania","tipo_flujo_proceso","id_proceso","parametros_aplicacion"]);
     }
 
 
