@@ -65,16 +65,17 @@ return [
 
         'urlManager' => [
             'enablePrettyUrl' => true,
+
             'showScriptName' => true,
 
             'rules' => [
                 [
                    'class'=>'yii\rest\UrlRule',
                     'controller' => ['competencias','movimientos-vacaciones','vacaciones','flujo-proceso-agente-updater',
-                                    'enlaces-externos','flujo-proceso-email-sender','empleados',
+                                    'enlaces-externos','flujo-proceso-email-sender','empleados','flujos-procesos',
                                     'relaciones-empleados'],
                    'tokens' => [
-                       '{id}'=>'<id:(\\w|-)+(,+(\\w|-)+)*>'
+                       '{id}'=>'<id:(\\w|-|_)+(,(\\w|-|_)+)*>'
                    ],
                     'pluralize' => false
 

@@ -59,9 +59,6 @@ class FlujoProceso extends ActiveRecord
                 "string"
             ]
 
-
-
-
         ];
     }
     public function init()
