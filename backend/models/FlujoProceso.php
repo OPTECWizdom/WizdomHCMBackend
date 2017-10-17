@@ -53,7 +53,7 @@ class FlujoProceso extends ActiveRecord
             ],
             [
                 [
-                    "fecha_creacion","tstamp","parametros_aplicacion","estado","codigo_empleado_ejecucion",
+                    "fecha_creacion","tstamp","parametros_aplicacion","estado","codigo_empleado_ejecutante",
                     "fecha_ejecucion"
                 ],
                 "string"
