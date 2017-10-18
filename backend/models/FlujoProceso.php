@@ -127,7 +127,7 @@ class FlujoProceso extends ActiveRecord
     }
     private function getInitialAttributes()
     {
-        return $this->getAttributes(["compania","tipo_flujo_proceso","id_proceso","parametros_aplicacion"]);
+        return $this->getAttributes(["compania","tipo_flujo_proceso","codigo_tarea","id_proceso","parametros_aplicacion"]);
     }
 
 
