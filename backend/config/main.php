@@ -73,7 +73,7 @@ return [
                    'class'=>'yii\rest\UrlRule',
                     'controller' => ['competencias','movimientos-vacaciones','vacaciones','flujo-proceso-agente-updater',
                                     'enlaces-externos','flujo-proceso-email-sender','empleados','flujos-procesos',
-                                    'relaciones-empleados'],
+                                    'relaciones-empleados','puestos'],
                    'tokens' => [
                        '{id}'=>'<id:(\\w|-|_)+(,(\\w|-|_)+)*>'
                    ],
