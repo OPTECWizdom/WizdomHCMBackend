@@ -200,7 +200,7 @@ class VacacionesWorkflowManager extends AbstractWorkflowManager
         $tipoFlujoProceso = $this->params["flujo_proceso"]["tipo_flujo_proceso"];
         $codigoTarea = $this->params["flujo_proceso"]["codigo_tarea"];
         $idProceso = $this->params["flujo_proceso"]["id_proceso"];
-        $whereParams = ["compania"=>$compania,"tipo_flujo_proceso"=>$tipoFlujoProceso,"codigo_tarea"=>$codigoTarea];
+        $whereParams = ["compania"=>$compania,"id_proceso"=>$idProceso,"tipo_flujo_proceso"=>$tipoFlujoProceso,"codigo_tarea"=>$codigoTarea];
         $flujoProceso = FlujoProceso::find()->where($whereParams)->one();
         $flujoProceso->setAttributes($this->params["flujo_proceso"]);
         $this->flujoProceso = $flujoProceso;
