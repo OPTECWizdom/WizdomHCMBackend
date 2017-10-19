@@ -1,0 +1,417 @@
+<style>
+    p{
+        text-align: left;
+        font-family: Arial, sans-serif;
+        font-size:10px;
+    }
+
+    td{
+        border:none;
+        text-align: left;
+        font-family: Arial, sans-serif;
+        font-size:10px;
+    }
+
+    th{
+        font-weight:bold;
+        border:none;
+        text-align: left;
+        font-family: Arial, sans-serif;
+        font-size:10px;
+    }
+
+    .table-info{
+
+        -moz-border-radius:10px;
+        -webkit-border-radius:10px;
+        border-radius:10px;
+        font-family: Arial, sans-serif;
+        border: 1px solid black;
+        padding: 10px;
+        border-collapse:separate;
+        margin:1px;
+    }
+    .form-detail{
+        border-collapse:collapse;
+    }
+    .form-detail th{
+        text-align: center;
+        border: 1px solid black;
+
+
+    }
+    .form-detail td{
+        text-align:center;
+        border: 1px solid black;
+
+    }
+
+    .table-header th{
+        text-align:center;
+        font-size:14px;
+        font-weight: bold;
+    }
+
+
+
+</style>
+<table class="table-header table-info">
+    <tr>
+        <td width = "20%">
+            <br>
+        </td>
+        <th width = "60%">
+            ABR-CECAB-COSTA_RICA-{$shortYear}-{$idMovimiento}
+        </th>
+        <td width = "20%">
+            {$logo}
+        </td>
+    </tr>
+
+</table>
+<table><tr><td><br></td></tr></table>
+<table class="table-info">
+    <tr>
+        <th>
+            Form Header
+        </th>
+    </tr>
+    <tr>
+        <td>
+            <table>
+                <tr>
+                    <th>
+                        Form
+                    </th>
+                    <td>
+                        Absence Request (ABR)
+                    </td>
+                    <th>
+                        Form Type
+                    </th>
+                    <td>
+                        Standard Form
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        Form Status
+                    </th>
+                    <td>
+                        {$formStatus}
+                    </td>
+                    <th>
+                        Form Process Status
+                    </th>
+                    <td>
+                        {$formProcessStatus}
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        Employee
+                    </th>
+                    <td>
+                        {$employee}
+                    </td>
+                    <th>
+                        Region
+                    </th>
+                    <td>
+                        Central America
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        Employee Name
+                    </th>
+                    <td>
+                        {$employeeName}
+                    </td>
+                    <th>
+                        Location
+                    </th>
+                    <td>
+                        Costa Rica
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        Position
+                    </th>
+                    <td>
+                        {$position}
+                    </td>
+                    <th>
+                        Department
+                    </th>
+                    <td>
+                        {$department}
+                    </td>
+                </tr>
+
+            </table>
+        </td>
+    </tr>
+</table>
+<table><tr><td><br></td></tr></table>
+<table class = "table-info">
+    <tr>
+        <th>
+            Form Info
+        </th>
+    </tr>
+</table>
+
+<table cellpadding="10px">
+    <tr>
+        <th width = "20%">
+            Period
+        </th>
+        <td width = "10%">
+            {$period}
+        </td>
+        <th width = "30%">
+            Total Days
+        </th>
+        <td width = "10%">
+            {$totalDays}
+        </td>
+        <th width = "20%">
+            Balance YTD
+        </th>
+        <td width = "10%">
+            {$balance}
+        </td>
+    </tr>
+    <tr>
+        <th>
+            Available YTD
+        </th>
+        <td>
+            {$availableDays}
+        </td>
+        <th>
+            Total Calendar Days
+        </th>
+        <td>
+            {$calendarDays}
+        </td>
+    </tr>
+</table>
+<table cellpadding="10px">
+    <tr>
+        <th width="15%">
+            Justification
+        </th>
+        <td width="85%">
+            Note:Available YTD is just a reference based on the information provided by the employee in this form.<br>
+            Employee and Supervisors are responsible for validating this information.<br>
+            {$justification}
+        </td>
+    </tr>
+</table>
+<table class = "table-info">
+    <tr>
+        <th>
+            Form Detail
+        </th>
+    </tr>
+</table>
+<table><tr><td><br></td></tr></table>
+<table class = "table-info form-detail">
+    <tr>
+        <th width="20%">
+            Reason
+        </th>
+        <th width="13%">
+            Start Date
+        </th>
+        <th width = "13%">
+            End Date
+        </th>
+        <th width="14%">
+            No. of Days
+        </th>
+        <th width = "13%">
+            Available<br>(YTD)
+        </th>
+        <th width = "13%">
+            Balance<br>(YTD)
+        </th>
+        <th width = "14%">
+            Calendar<br>Days
+        </th>
+    </tr>
+    <tr>
+        <td>
+            {$reason}
+        </td>
+        <td>
+            {$startDate}
+        </td>
+        <td>
+            {$endDate}
+        </td>
+        <td>
+            {$totalDays}
+        </td>
+        <td>
+            {$availableDays}
+        </td>
+        <td>
+            {$balance}
+        </td>
+        <td>
+            {$calendarDays}
+        </td>
+
+    </tr>
+
+</table>
+<table><tr><td><br></td></tr></table>
+<table class = "table-info">
+    <tr>
+        <th>
+            Approvers
+        </th>
+    </tr>
+</table>
+<table><tr><td><br></td></tr></table>
+<table class = "table-info form-detail">
+    <tr>
+        <th>
+            Approver-Type
+        </th>
+        <th>
+            Name
+        </th>
+        <th>
+            Position
+        </th>
+        <th>
+            Approved
+        </th>
+        <th>
+            Approval Date
+        </th>
+        <th>
+            Approval Type
+        </th>
+        <th>
+            Amount from
+        </th>
+        <th>
+            Amount to
+        </th>
+    </tr>
+    <tr>
+        <td>
+            {$approverType}
+        </td>
+        <td>
+            {$namePrimerAprobador}
+        </td>
+        <td>
+            {$positionPrimerAprobador}
+        </td>
+        <td>
+            {$approvedPrimerAprobador}
+        </td>
+        <td>
+            {$approvalDatePrimerAprobador}
+        </td>
+        <td>
+            {$approvalTypePrimerAprobador}
+        </td>
+        <td>
+            {$amountFromPrimerAprobador}
+
+        </td>
+        <td>
+            {$amountToPrimerAprobador}
+        </td>
+
+    </tr>
+    <tr>
+        <td>
+            {$approverType}
+        </td>
+        <td>
+            {$nameSegundoAprobador}
+        </td>
+        <td>
+            {$positionSegundoAprobador}
+        </td>
+        <td>
+            {$approvedSegundoAprobador}
+        </td>
+        <td>
+            {$approvalDateSegundoAprobador}
+        </td>
+        <td>
+            {$approvalTypeSegundoAprobador}
+        </td>
+        <td>
+            {$amountFromSegundoAprobador}
+
+        </td>
+        <td>
+            {$amountToSegundoAprobador}
+
+        </td>
+
+    </tr>
+
+</table>
+<table><tr><td><br></td></tr></table>
+
+<table class = "table-info">
+    <tr>
+        <th>
+            Comments
+        </th>
+    </tr>
+</table>
+<table><tr><td><br></td></tr></table>
+
+<table class = "table-info">
+    <tr>
+        <th>
+            Key Columns History
+        </th>
+    </tr>
+</table>
+<table><tr><td><br></td></tr></table>
+<table class = "table-info form-detail">
+    <tr>
+        <th width  = "15%">
+            Date Time
+        </th>
+        <th width = "70%">
+            Description
+        </th>
+        <th width = "15%">
+            Total Days
+        </th>
+
+    </tr>
+    <tr>
+        <td >
+            {$fechaRegistroLarga}
+        </td>
+        <td>
+            {$longDescription}
+        </td>
+        <td >
+            {$totalDays}
+        </td>
+    </tr>
+
+</table>
+<p>
+    {$fechaRegistroLetras}
+</p>
+
+
+
