@@ -108,7 +108,7 @@ class CincoMasUnoVacacionesCalculator implements IDiasVacacionesCalculator
     {
         $diasAjustes = $this->getControlAjusteVacacionesAcumulado()->getAttribute("dias_ajuste");
         $diasHabiles = $this->movimientoVacaciones->getAttribute("dias_habiles");
-        $diasHabilesConAjuste = $diasHabiles+($diasHabiles/5)+$diasAjustes;
+        $diasHabilesConAjuste = $diasHabiles+($diasHabiles*0.2)+$diasAjustes;
         $diasAjustes = $diasHabilesConAjuste-intval($diasHabilesConAjuste);
         return [intval($diasHabilesConAjuste),$diasAjustes];
 
