@@ -14,7 +14,7 @@ interface IDiasVacacionesCalculator
     /**
      * @return int
      */
-    public function calcularVacaciones() : int;
+    public function calcularVacaciones() : double;
 
 
     /**
