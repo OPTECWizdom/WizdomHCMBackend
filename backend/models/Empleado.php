@@ -46,5 +46,23 @@ class Empleado extends  ActiveRecord
         ];
     }
 
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+
+
+    public function getHorariosEmpleado()
+    {
+        return $this->hasMany(HorarioEmpleado::className(),["compania"=>"compania","codigo_empleado"=>"codigo_empleado"]);
+    }
+
+    /**
+     * @return array|null|HorarioEmpleado
+     */
+    public function getHorarioActual()
+    {
+        return $this->getHorariosEmpleado()->where(["fecha_final"=>null])->one();
+    }
+
 
 }
