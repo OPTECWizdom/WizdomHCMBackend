@@ -9,6 +9,8 @@
 namespace app\models;
 
 
+use yii\db\Exception;
+
 class CincoMasUnoVacacionesCalculator implements IDiasVacacionesCalculator
 {
     /**
@@ -24,12 +26,26 @@ class CincoMasUnoVacacionesCalculator implements IDiasVacacionesCalculator
      * @var ControlAjusteVacacionAcumulado $controlAjusteVacacionesAcumulado
      */
     private $controlAjusteVacacionesAcumulado;
+
     /**
      * @return int
      */
-    public function calcularVacaciones():double
+    public function calcularVacaciones():int
     {
-        return $this->getControlAjusteVacacionesAcumulado()->getAttribute("dias_ajuste");
+        try
+        {
+            $diasCalculados = $this->calcularDiasVacacionesConAcumulado();
+            $diasHabiles = $diasCalculados[0];
+            $diasAjuste = $diasCalculados[1];
+            $this->guardarAcumuladoRelacionadoAVacaciones($diasAjuste);
+            return $diasHabiles;
+        }
+        catch (\Exception $e)
+        {
+            return $this->getMovimientoVacaciones()->getAttribute('dias_habiles');
+        }
+
+
     }
 
     /**
@@ -45,7 +61,7 @@ class CincoMasUnoVacacionesCalculator implements IDiasVacacionesCalculator
      * @return Empleado
      */
 
-    public function getEmpleado()
+    private function getEmpleado()
     {
         if(empty($this->empleado))
         {
@@ -64,7 +80,7 @@ class CincoMasUnoVacacionesCalculator implements IDiasVacacionesCalculator
     /**
      * @return array|null|ControlAjusteVacacionAcumulado
      */
-    public function getControlAjusteVacacionesAcumulado()
+    private function getControlAjusteVacacionesAcumulado()
     {
         if(!empty($this->controlAjusteVacacionesAcumulado))
         {
@@ -84,7 +100,7 @@ class CincoMasUnoVacacionesCalculator implements IDiasVacacionesCalculator
     /**
      * @return ControlAjusteVacacionAcumulado
      */
-    public function insertNuevoAcumulado()
+    private function insertNuevoAcumulado()
     {
         $controlAjusteVacacionAcumulado =  new ControlAjusteVacacionAcumulado();
         $compania = $this->movimientoVacaciones->getAttribute("compania");
@@ -104,13 +120,41 @@ class CincoMasUnoVacacionesCalculator implements IDiasVacacionesCalculator
      */
 
 
-    public function calcularDiasVacacionesConAcumulado()
+    private function calcularDiasVacacionesConAcumulado()
     {
         $diasAjustes = $this->getControlAjusteVacacionesAcumulado()->getAttribute("dias_ajuste");
         $diasHabiles = $this->movimientoVacaciones->getAttribute("dias_habiles");
         $diasHabilesConAjuste = $diasHabiles+($diasHabiles*0.2)+$diasAjustes;
         $diasAjustes = $diasHabilesConAjuste-intval($diasHabilesConAjuste);
         return [intval($diasHabilesConAjuste),$diasAjustes];
+
+    }
+
+    /**
+     * @return MovimientoVacaciones
+     */
+
+    private function getMovimientoVacaciones()
+    {
+        return $this->movimientoVacaciones;
+    }
+
+    /**
+     * @param $diasAjustes
+     * @return ControlAjusteVacacionesMovimiento
+     */
+
+
+    private function guardarAcumuladoRelacionadoAVacaciones($diasAjustes)
+    {
+        $controlAjusteVacacionesMoV = new ControlAjusteVacacionesMovimiento();
+        $atributosVacaciones = $this->getMovimientoVacaciones()->getAttributes(['compania','tipo_mov','consecutivo_movimiento']);
+        $atributosEmpleado = $this->getEmpleado()->getAttributes(['compania','codigo_empleado']);
+        $atributosEmpleado['emp_compania']=$atributosEmpleado['compania'];
+        $controlAjusteVacacionesMoV->setAttributes(array_merge($atributosEmpleado,$atributosVacaciones));
+        $controlAjusteVacacionesMoV->setAttribute('dias_ajuste',$diasAjustes);
+        $controlAjusteVacacionesMoV->save();
+        return $controlAjusteVacacionesMoV;
 
     }
 

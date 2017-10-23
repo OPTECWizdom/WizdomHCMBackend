@@ -72,13 +72,18 @@ class VacacionesCalculatorFactory
 
     public function getVacacionesCalculator()
     {
-        $diasTrabajo = $this->getDiasDeTrabajo();
-        if(array_key_exists($diasTrabajo,$this->vacacionesCalculators))
-        {
-            $this->vacacionesCalculators[$diasTrabajo]->setMovimientoVacaciones($this->movimientoVacaciones);
-            return $this->vacacionesCalculators[$diasTrabajo];
+        try {
+            $diasTrabajo = $this->getDiasDeTrabajo();
+            if (array_key_exists($diasTrabajo, $this->vacacionesCalculators)) {
+                $this->vacacionesCalculators[$diasTrabajo]->setMovimientoVacaciones($this->movimientoVacaciones);
+                return $this->vacacionesCalculators[$diasTrabajo];
+            }
+            return null;
         }
-        return null;
+        catch(\Exception $e)
+        {
+            return null;
+        }
 
     }
 
