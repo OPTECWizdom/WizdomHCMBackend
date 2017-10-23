@@ -16,11 +16,13 @@ class MovimientoVacaciones extends  ActiveRecord
 {
 
 
+
+
     public function init()
     {
-
-
-
+        parent::init();
+        $this->on(self::EVENT_BEFORE_INSERT,[$this,'getDiasHabiles']);
+        $this->on(self::EVENT_AFTER_INSERT,[$this,'guardarDesgloseVacaciones']);
     }
 
     public static function tableName()
@@ -72,7 +74,7 @@ class MovimientoVacaciones extends  ActiveRecord
                         "estado","usuario","regimen_vacaciones",
                         "fecha_inicial","fecha_final","motivo_goce_vacaciones",
                         "codigo_nodo_organigrama","codigo_puesto","fecha_registro",
-                        "estado_flujo_proceso"
+                        "estado_flujo_proceso","codigo_empleado"
                         ,"tstamp"
                     ],"string"
                 ],
@@ -101,29 +103,24 @@ class MovimientoVacaciones extends  ActiveRecord
         ];
     }
 
-/*
-    public function afterEnterStatusAI()
+
+    public function getDiasHabiles()
     {
-        $pks = $this->getAttributes(["compania","codigo_empleado"]);
-        $diasHabiles = $this->getAttribute("dias_habiles");
-        $vacacionesEmpleado = VacacionesEmpleado::find()->select(["dias_disponibles"])->where($pks)->sum('dias_disponibles');
-        $saldoDisponible = 0;
-        if(!empty($vacacionesEmpleado))
+        $calculatorVacacionesFactory = new VacacionesCalculatorFactory($this);
+        $calculatorVacaciones = $calculatorVacacionesFactory->getVacacionesCalculator();
+        if(!empty($calculatorVacaciones))
         {
-            $saldoDisponible = $vacacionesEmpleado - $diasHabiles;
+            $diasHabiles = $calculatorVacaciones->calcularVacaciones();
+            $this->setAttribute('dias_habiles',$diasHabiles);
         }
-        if($saldoDisponible<=0)
-        {
-            $this->sendToStatus('AS');
-        }
-        else
-        {
-            $this->sendToStatus('AP');
-
-        }
-
     }
-*/
+
+    public function guardarDesgloseVacaciones()
+    {
+        $vacacionesEmpleadoMovimientoHelper = new VacacionesEmpleadoMovimientoHelper($this);
+        $vacacionesEmpleadoMovimientoHelper->guardarVacacionesEmpleado();
+    }
+
 
 
 

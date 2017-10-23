@@ -107,7 +107,7 @@ class VacacionesCalculatorFactory
         return 0;
 
     }
-    public function getHorarioEmpleado() : HorarioEmpleado
+    public function getHorarioEmpleado()
     {
         $pksEmpleado = Empleado::primaryKey();
         $empleado = new Empleado();

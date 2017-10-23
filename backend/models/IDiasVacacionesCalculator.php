@@ -17,6 +17,8 @@ interface IDiasVacacionesCalculator
     public function calcularVacaciones() : int;
 
 
+
+
     /**
      * @param MovimientoVacaciones $movimientoVacaciones
      * @return mixed

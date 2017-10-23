@@ -8,13 +8,8 @@
 
 namespace app\models;
 
-/**
- * Class VacacionesEmpleadoMovimientoHelper
- * @package app\models
- *
- * @property MovimientoVacaciones $movimientoVacaciones
- * @property  VacacionesEmpleadoMovimiento[] $vacacionesEmpleadoMovimiento
- */
+
+
 
 class VacacionesEmpleadoMovimientoHelper
 {
@@ -25,108 +20,181 @@ class VacacionesEmpleadoMovimientoHelper
      */
     private $movimientoVacaciones;
     /**
-     * @var VacacionesEmpleadoMovimiento[]
+     * @var VacacionesEmpleado[]
      */
 
-    private $vacacionesEmpleadoMovimiento;
+    private $vacacionesEmpleado;
 
+    /**
+     * @var Empleado
+     */
+    private $empleado;
 
-    public function __construct($movimientoVacaciones)
+    /**
+     * VacacionesEmpleadoMovimientoHelper constructor.
+     * @param MovimientoVacaciones $movimientoVacaciones
+     */
+
+    public function __construct(MovimientoVacaciones $movimientoVacaciones)
     {
         $this->movimientoVacaciones = $movimientoVacaciones;
-        $this->vacacionesEmpleadoMovimiento = $this->getVacacionesEmpleadoMovimiento();
+        $this->setEmpleadoFromMovimientosVacaciones();
+        $this->setVacacionesEmpleadoFromEmpleado();
     }
 
+    private function setVacacionesEmpleadoFromEmpleado()
+    {
+        $maximoPeriodo = $this->getUltimoPeriodoVacacionesEmpleado();
+        $this->vacacionesEmpleado = $this->empleado->getVacacionesEmpleado()
+                                    ->where(['>','dias_disponibles',0])
+                                    ->orWhere(["periodo"=>$maximoPeriodo])
+                                    ->orderBy("periodo asc")->all();
+    }
+
+    private function getUltimoPeriodoVacacionesEmpleado()
+    {
+        $maximoPeriodo = $this->empleado->getVacacionesEmpleado()->max("periodo");
+        if(empty($maximoPeriodo))
+        {
+            $maximoPeriodo = date('Y');
+        }
+        return $maximoPeriodo;
+
+    }
+
+
+    private function setEmpleadoFromMovimientosVacaciones()
+    {
+        $this->empleado = new Empleado();
+        $atributosEmpleado = $this->movimientoVacaciones->getAttributes(["compania","codigo_empleado"]);
+        $this->empleado->setAttributes($atributosEmpleado);
+
+    }
 
     /**
      * @return MovimientoVacaciones
      */
-
-    public function getMovimientoVacaciones()
+    public function getMovimientoVacaciones(): MovimientoVacaciones
     {
         return $this->movimientoVacaciones;
-
     }
 
     /**
-
-     *
-     * @param MovimientoVacaciones $movimientoVacaciones
-     *
+     * @return VacacionesEmpleado[]
      */
-    public function setMovimientoVacaciones(MovimientoVacaciones $movimientoVacaciones)
+    public function getVacacionesEmpleado(): array
     {
-        $this->movimientoVacaciones = $movimientoVacaciones;
+        return $this->vacacionesEmpleado;
     }
 
     /**
-     *
-     * @return VacacionesEmpleadoMovimiento[]
-     */
-
-    public function getVacacionesEmpleadoMovimiento():array
-    {
-        if(!empty($this->vacacionesEmpleadoMovimiento))
-        {
-            return $this->vacacionesEmpleadoMovimiento;
-        }
-        $vacacionesEmpleado = $this->getVacacionesEmpleadoDisponibles();
-        $vacacionesEmpleadoMovimientos = $this->setVacacionesEmpleadoMovimientosData($vacacionesEmpleado);
-        return $vacacionesEmpleadoMovimientos;
-
-
-    }
-
-    /**
-     *
-     *@return  VacacionesEmpleado[]
-     */
-    private function getVacacionesEmpleadoDisponibles():array{
-        $movimientoVacaciones = $this->movimientoVacaciones;
-        $compania = $movimientoVacaciones->getAttribute(["compania"]);
-        $codigoEmpleado = $movimientoVacaciones->getAttribute(["codigo_empleado"]);
-        $vacacionesEmpleado = VacacionesEmpleado::find()->where(["compania"=>$compania, "codigo_empleado"=>$codigoEmpleado])->andWhere(['>','dias_disponibles',0])->all();
-        return $vacacionesEmpleado;
-
-    }
-
-
-
-
-
-    /**
-     *
      * @param VacacionesEmpleado[] $vacacionesEmpleado
-     * @return VacacionesEmpleadoMovimiento[]
      */
-
-    private function setVacacionesEmpleadoMovimientosData(array $vacacionesEmpleado) :array
+    public function setVacacionesEmpleado(array $vacacionesEmpleado)
     {
-        $vacacionesEmpleadoMovimiento = [];
-        foreach ($vacacionesEmpleado as $vacacionEmpleado)
-        {
-            $vacacionesEmpleadoMovimiento[] = $this->setVacacionEmpleadoMovimientoData($vacacionEmpleado);
+        $this->vacacionesEmpleado = $vacacionesEmpleado;
+    }
 
-        }
-        return $vacacionesEmpleadoMovimiento;
 
+
+
+
+    /**
+     * @return Empleado
+     */
+    public function getEmpleado(): Empleado
+    {
+        return $this->empleado;
     }
 
     /**
-     * @param VacacionesEmpleado $vacacionesEmpleado
-     * @return VacacionesEmpleadoMovimiento
+     * @param Empleado $empleado
      */
-
-    private function setVacacionEmpleadoMovimientoData(VacacionesEmpleado $vacacionesEmpleado):VacacionesEmpleadoMovimiento
+    public function setEmpleado(Empleado $empleado)
     {
-        $vacacionesEmpleadoMovimiento = new VacacionesEmpleadoMovimiento();
-        $vacacionesEmpleadoMovimiento->setAttributes($vacacionesEmpleado->getAttributes(["regimen_vacaciones","periodo","consecutivo",
-	                                                                                                "dias_disponibles","dias_disfrutados"]));
-        $vacacionesEmpleadoMovimiento->setAttributes($this->movimientoVacaciones->getAttributes(["compania","tipo_mov","codigo_empleado",
-                                                                                                "consecutivo_movimiento"]));
-        return $vacacionesEmpleadoMovimiento;
+        $this->empleado = $empleado;
+    }
+
+    public function guardarVacacionesEmpleado()
+    {
+        $vacacionEmpleadoUltimo = end($this->vacacionesEmpleado);
+        $diasHabiles = $this->movimientoVacaciones->getAttribute('dias_habiles');
+        foreach ($this->vacacionesEmpleado as $vacacionEmpleado)
+        {
+            $ultimo = $vacacionEmpleado==$vacacionEmpleadoUltimo;
+            $vacacionEmpleadoMovimiento = $this->restarVacacionesPeriodo($diasHabiles,$vacacionEmpleado,$ultimo);
+            $diasHabiles = $diasHabiles-$vacacionEmpleadoMovimiento->getAttribute('dias_disfrutado_movimiento');
+            $vacacionEmpleadoMovimiento->save();
+        }
 
     }
+
+
+
+
+    /**
+     * @param double $diasHabiles
+     * @param VacacionesEmpleado $vacacionEmpleado
+     * @return VacacionEmpleadoMovimiento
+     */
+
+    private function restarVacacionesPeriodo(float $diasHabiles,VacacionesEmpleado $vacacionEmpleado,bool $contarNegativos = false):VacacionEmpleadoMovimiento
+    {
+        $vacacionEmpleadoMovimiento = $this->getVacacionEmpleadoMovimiento($vacacionEmpleado);
+        $diasDisponibles = $vacacionEmpleado->getAttribute('dias_disponibles');
+        $calculoDias = $this->hacerCalculoVacaciones($diasHabiles,$diasDisponibles,$contarNegativos);
+        $vacacionEmpleadoMovimiento->setAttribute('dias_disponibles',$calculoDias[1]);
+        $vacacionEmpleadoMovimiento->setAttribute('dias_disfrutado_movimiento',$calculoDias[0]);
+        return $vacacionEmpleadoMovimiento;
+    }
+
+    /**
+     * @param float $diasHabiles
+     * @param float $diasDisponibles
+     * @param bool $contarNegativos
+     * @return array
+     * Se retorna un array:
+     *  En la posicion 0 se encuentran los dias que se van a disfrutar de ese periodo
+     *  En la posicion 1 se encuentran los dias disponibles que quedan de ese movimiento
+     *
+     */
+
+    private function hacerCalculoVacaciones(float $diasHabiles,float $diasDisponibles,bool $contarNegativos = false):array
+    {
+        $diasRestantesADisfrutar = $diasDisponibles-$diasHabiles;
+        $diasADisfrutar = $diasRestantesADisfrutar>0?$diasHabiles:$diasDisponibles;
+        if(!$contarNegativos)
+        {
+            $diasRestantesADisfrutar = $diasRestantesADisfrutar>=0?$diasRestantesADisfrutar:0;
+        }
+        return [$diasADisfrutar,$diasRestantesADisfrutar];
+
+
+    }
+
+
+    /**
+     * @param VacacionesEmpleado $vacacionEmpleado
+     * @return VacacionEmpleadoMovimiento
+     */
+    private function getVacacionEmpleadoMovimiento(VacacionesEmpleado $vacacionEmpleado) : VacacionEmpleadoMovimiento
+    {
+        $pksMovimientoVacaciones = $this->movimientoVacaciones->getPrimaryKey();
+        $pksVacacionEmpleado = $vacacionEmpleado->getPrimaryKey();
+        $vacacionEmpleadoMovimiento = new VacacionEmpleadoMovimiento();
+        $diasDisponibles = $vacacionEmpleado->getAttribute('dias_disponibles');
+        $diasDisfrutados = $vacacionEmpleado->getAttribute('dias_disfrutados');
+        $vacacionEmpleadoMovimiento->setAttributes(array_merge($pksMovimientoVacaciones,$pksVacacionEmpleado));
+        $vacacionEmpleadoMovimiento->setAttribute('dias_disponibles',$diasDisponibles);
+        $vacacionEmpleadoMovimiento->setAttribute('dias_disfrutados',$diasDisfrutados);
+        return $vacacionEmpleadoMovimiento;
+
+
+    }
+
+
+
+
 
 
 

@@ -73,5 +73,14 @@ class Empleado extends  ActiveRecord
         return $this->hasOne(ControlAjusteVacacionAcumulado::className(),["compania"=>"compania","codigo_empleado"=>"codigo_empleado"]);
     }
 
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+
+    public function getVacacionesEmpleado()
+    {
+        return $this->hasMany(VacacionesEmpleado::className(),["compania"=>"compania","codigo_empleado"=>"codigo_empleado"]);
+    }
+
 
 }
