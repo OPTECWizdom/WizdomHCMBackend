@@ -167,7 +167,7 @@ class VacacionesEmpleadoMovimientoHelper
         {
             $diasRestantesADisfrutar = $diasRestantesADisfrutar>=0?$diasRestantesADisfrutar:0;
         }
-        return [$diasADisfrutar,$diasRestantesADisfrutar];
+        return [$diasADisfrutar,$diasDisponibles];
 
 
     }

@@ -83,4 +83,10 @@ class Empleado extends  ActiveRecord
     }
 
 
+    public function getMovimientosVacaciones()
+    {
+        return $this->hasMany(MovimientoVacaciones::className(),["compania"=>"compania","codigo_empleado"=>"codigo_empleado"]);
+    }
+
+
 }
