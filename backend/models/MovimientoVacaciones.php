@@ -146,16 +146,11 @@ class MovimientoVacaciones extends  ActiveRecord
                                                                         "consecutivo_movimiento"=>"consecutivo_movimiento"]);
     }
 
-    /**
-     * @return \yii\db\ActiveQuery[]
-     */
-    public function getDependencias()
+    public function getProcesoMovimientoVacaciones()
     {
-        $vacacionesEmpleadoMovimiento = $this->getVacacionesEmpleadoMovimiento();
-        $controlAjusteVacacionesMov = $this->getControlAjusteVacacionesMov();
-        $dependencias = [$vacacionesEmpleadoMovimiento,$controlAjusteVacacionesMov];
-        return $dependencias;
-
+        return $this->hasOne(ProcesoMovimientoVacacion::className(),["compania"=>"compania",
+                                                                    "tipo_mov"=>"tipo_mov",
+                                                                    "consecutivo_movimiento"=>"consecutivo_movimiento"]);
     }
 
 

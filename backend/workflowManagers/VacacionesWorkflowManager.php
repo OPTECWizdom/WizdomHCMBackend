@@ -121,13 +121,8 @@ class VacacionesWorkflowManager extends AbstractWorkflowManager
         $transaction = Yii::$app->getDb()->beginTransaction();
         try
         {
-            $this->setEstadoVacacionesWorkflow();
-            $this->updateEstadoMovimientoVacacionesFromEstadoFlujoProceso();
-            $this->movimientoVacaciones->save();
-            $this->getFlujoProcesoFromParams();
-            $this->updateFlujoProcesoStatus();
-            $this->flujoProceso->save();
-            $transaction->commit();
+            $this->deleteProceso();
+            $this->movimientoVacaciones->delete();
             return true;
 
         }
@@ -266,6 +261,19 @@ class VacacionesWorkflowManager extends AbstractWorkflowManager
         $movVacacionesPk = $this->movimientoVacaciones->getAttributes(MovimientoVacaciones::primaryKey());
         $procesoMovVacaciones->setAttributes(array_merge($procesoPk,$movVacacionesPk));
         $procesoMovVacaciones->save();
+
+    }
+
+
+    public function deleteProceso()
+    {
+        $procesoMovVacaciones = $this->movimientoVacaciones->getProcesoMovimientoVacaciones()->one();
+        if(!empty($procesoMovVacaciones))
+        {
+            $proceso = new Proceso();
+            $proceso->setAttributes($procesoMovVacaciones->getAttributes(Proceso::primaryKey()));
+            $proceso->delete();
+        }
 
     }
 

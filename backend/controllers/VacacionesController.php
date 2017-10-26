@@ -46,7 +46,7 @@ class VacacionesController extends ActiveController
                 'class' => 'backend\actions\controllers\workflows\DeleteAction',
                 'checkAccess' => [$this, 'checkAccess'],
                 'workflowManager'=>$this->workflowManager,
-                'modelClass' => $this->modelClass,
+                'modelClass' => $this->modelClass
 
             ],
 
