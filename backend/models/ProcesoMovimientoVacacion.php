@@ -35,7 +35,7 @@ class ProcesoMovimientoVacacion extends ActiveRecord
                 ["compania","tipo_mov","tipo_flujo_proceso"],"string"
             ],
             [
-                ["consecutivo_movimiento","id_proceso"],"int"
+                ["consecutivo_movimiento","id_proceso"],"integer"
             ]
         ];
     }
