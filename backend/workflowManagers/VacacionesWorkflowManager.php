@@ -11,16 +11,24 @@ namespace backend\workflowManagers;
 use app\models\FlujoProceso;
 use app\models\MovimientoVacaciones;
 use app\models\Proceso;
+use app\models\ProcesoMovimientoVacacion;
 use app\models\VacacionesFlujoProcesoHelper;
 use Yii;
 
 
 class VacacionesWorkflowManager extends AbstractWorkflowManager
 {
+    /**
+     * @var MovimientoVacaciones $movimientoVacaciones
+     */
     private $movimientoVacaciones;
-
+    /**
+     * @var FlujoProceso $flujoProceso
+     */
     private $flujoProceso;
-
+    /**
+     * @var Proceso $proceso
+     */
     private $proceso;
 
     private $scenario;
@@ -51,6 +59,7 @@ class VacacionesWorkflowManager extends AbstractWorkflowManager
         {
             $this->insertMovimientoVacaciones();
             $this->insertProceso();
+            $this->insertProcesoMovimientoVacaciones();
             $this->insertFlujoProceso();
             $transaction->commit();
             return true;
@@ -109,6 +118,24 @@ class VacacionesWorkflowManager extends AbstractWorkflowManager
     }
 
     public function delete(){
+        $transaction = Yii::$app->getDb()->beginTransaction();
+        try
+        {
+            $this->setEstadoVacacionesWorkflow();
+            $this->updateEstadoMovimientoVacacionesFromEstadoFlujoProceso();
+            $this->movimientoVacaciones->save();
+            $this->getFlujoProcesoFromParams();
+            $this->updateFlujoProcesoStatus();
+            $this->flujoProceso->save();
+            $transaction->commit();
+            return true;
+
+        }
+        catch (\Exception $e){
+            $transaction->rollBack();
+            throw $e;
+        }
+        return false;
 
     }
 
@@ -231,6 +258,18 @@ class VacacionesWorkflowManager extends AbstractWorkflowManager
     public function getMovimientoVacaciones(){
         return $this->movimientoVacaciones;
     }
+
+    public function insertProcesoMovimientoVacaciones()
+    {
+        $procesoMovVacaciones = new ProcesoMovimientoVacacion();
+        $procesoPk = $this->proceso->getAttributes(Proceso::primaryKey());
+        $movVacacionesPk = $this->movimientoVacaciones->getAttributes(MovimientoVacaciones::primaryKey());
+        $procesoMovVacaciones->setAttributes(array_merge($procesoPk,$movVacacionesPk));
+        $procesoMovVacaciones->save();
+
+    }
+
+
 
 
 

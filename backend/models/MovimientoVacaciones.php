@@ -10,6 +10,7 @@ namespace app\models;
 
 
 use raoul2000\workflow\events\WorkflowEvent;
+use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
 
 class MovimientoVacaciones extends  ActiveRecord
@@ -23,6 +24,7 @@ class MovimientoVacaciones extends  ActiveRecord
         parent::init();
         $this->on(self::EVENT_BEFORE_INSERT,[$this,'getDiasHabiles']);
         $this->on(self::EVENT_AFTER_INSERT,[$this,'guardarDesgloseVacaciones']);
+
     }
 
     public static function tableName()
@@ -120,6 +122,45 @@ class MovimientoVacaciones extends  ActiveRecord
         $vacacionesEmpleadoMovimientoHelper = new VacacionesEmpleadoMovimientoHelper($this);
         $vacacionesEmpleadoMovimientoHelper->guardarVacacionesEmpleado();
     }
+
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+
+    public function getControlAjusteVacacionesMov()
+    {
+        return $this->hasOne(ControlAjusteVacacionesMovimiento::className(),["compania"=>"compania",
+                                                                        "tipo_mov"=>"tipo_mov",
+                                                                        "consecutivo_movimiento"=>"consecutivo_movimiento"]);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+
+    public function getVacacionesEmpleadoMovimiento()
+    {
+        return $this->hasMany(VacacionEmpleadoMovimiento::className(),["compania"=>"compania",
+                                                                        "tipo_mov"=>"tipo_mov",
+                                                                        "consecutivo_movimiento"=>"consecutivo_movimiento"]);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery[]
+     */
+    public function getDependencias()
+    {
+        $vacacionesEmpleadoMovimiento = $this->getVacacionesEmpleadoMovimiento();
+        $controlAjusteVacacionesMov = $this->getControlAjusteVacacionesMov();
+        $dependencias = [$vacacionesEmpleadoMovimiento,$controlAjusteVacacionesMov];
+        return $dependencias;
+
+    }
+
+
+
+
 
 
 
