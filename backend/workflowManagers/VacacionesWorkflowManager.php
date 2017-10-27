@@ -270,9 +270,9 @@ class VacacionesWorkflowManager extends AbstractWorkflowManager
         $procesoMovVacaciones = $this->movimientoVacaciones->getProcesoMovimientoVacaciones()->one();
         if(!empty($procesoMovVacaciones))
         {
-            $proceso = new Proceso();
-            $proceso->setAttributes($procesoMovVacaciones->getAttributes(Proceso::primaryKey()));
-            $proceso->delete();
+            $proceso = Proceso::find()->where($procesoMovVacaciones->getAttributes(Proceso::primaryKey()))->one();
+            if(!empty($proceso))
+                $proceso->delete();
         }
 
     }
