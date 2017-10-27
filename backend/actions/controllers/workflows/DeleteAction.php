@@ -31,7 +31,7 @@ class DeleteAction extends Action
     public function run($id)
     {
         $model = $this->findModel($id);
-
+        Yii::$app->getResponse();
         if ($this->checkAccess) {
             call_user_func($this->checkAccess, $this->id, $model);
         }
@@ -43,7 +43,6 @@ class DeleteAction extends Action
         if ($result === false) {
             throw new ServerErrorHttpException('Failed to delete the object for unknown reason.');
         }
-
         Yii::$app->getResponse()->setStatusCode(204);
     }
 }

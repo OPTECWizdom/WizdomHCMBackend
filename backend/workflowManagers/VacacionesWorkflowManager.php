@@ -123,14 +123,14 @@ class VacacionesWorkflowManager extends AbstractWorkflowManager
         {
             $this->deleteProceso();
             $this->movimientoVacaciones->delete();
+            $transaction->commit();
             return true;
 
         }
         catch (\Exception $e){
             $transaction->rollBack();
-            throw $e;
+            return false;
         }
-        return false;
 
     }
 
