@@ -14,6 +14,7 @@ use app\models\Proceso;
 use app\models\ProcesoMovimientoVacacion;
 use app\models\VacacionesFlujoProcesoHelper;
 use Yii;
+use yii\db\Exception;
 
 
 class VacacionesWorkflowManager extends AbstractWorkflowManager
@@ -122,7 +123,7 @@ class VacacionesWorkflowManager extends AbstractWorkflowManager
         try
         {
             $this->deleteProceso();
-            $this->movimientoVacaciones->delete();
+            $this->deleteMovimientoVacaciones();
             $transaction->commit();
             return true;
 
@@ -273,6 +274,20 @@ class VacacionesWorkflowManager extends AbstractWorkflowManager
             $proceso = Proceso::find()->where($procesoMovVacaciones->getAttributes(Proceso::primaryKey()))->one();
             if(!empty($proceso))
                 $proceso->delete();
+        }
+
+    }
+
+    private function deleteMovimientoVacaciones()
+    {
+        if($this->movimientoVacaciones->getAttribute("estado_flujo_proceso")=='MovimientoVacacionesWorkflow/RV')
+        {
+            $this->movimientoVacaciones->setAttribute('estado','B');
+            $this->movimientoVacaciones->save();
+           return 1;
+        }
+        else{
+            throw new \Exception();
         }
 
     }
