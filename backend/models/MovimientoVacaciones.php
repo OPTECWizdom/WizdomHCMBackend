@@ -83,7 +83,8 @@ class MovimientoVacaciones extends  ActiveRecord
                 [
                   [
                     "consecutivo_movimiento","dias_feriados",
-                    "dias_descanso","dias_calendario","periodo"
+                    "dias_descanso","dias_calendario","periodo",
+                      "dias_obsequiados","dias_pagados"
                   ],"integer"
 
                 ],
