@@ -61,7 +61,7 @@ class Empleado extends  ActiveRecord
      */
     public function getHorarioActual()
     {
-        return $this->getHorariosEmpleado()->where([[">=","fecha_final",date('Y-m-d')]])->orderBy('fecha_inicial desc')->one();
+        return $this->getHorariosEmpleado()->where([">=","fecha_final",date('Y-m-d')])->orderBy('fecha_inicial desc')->one();
 
     }
 
