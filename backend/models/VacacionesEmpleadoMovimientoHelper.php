@@ -162,6 +162,10 @@ class VacacionesEmpleadoMovimientoHelper
 
     private function hacerCalculoVacaciones(float $diasHabiles,float $diasDisponibles,bool $ultimo = false):array
     {
+        if($diasHabiles<=0)
+        {
+            return [0,$diasDisponibles];
+        }
         if($ultimo)
         {
            return [$diasHabiles,$diasDisponibles];
