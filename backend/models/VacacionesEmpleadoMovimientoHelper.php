@@ -117,10 +117,12 @@ class VacacionesEmpleadoMovimientoHelper
 
     public function guardarVacacionesEmpleado()
     {
+        $ultimo = end($this->vacacionesEmpleado);
         $diasHabiles = $this->movimientoVacaciones->getAttribute('dias_habiles');
         foreach ($this->vacacionesEmpleado as $vacacionEmpleado)
         {
-            $vacacionEmpleadoMovimiento = $this->restarVacacionesPeriodo($diasHabiles,$vacacionEmpleado);
+            $ultimoBool = $vacacionEmpleado == $ultimo;
+            $vacacionEmpleadoMovimiento = $this->restarVacacionesPeriodo($diasHabiles,$vacacionEmpleado,$ultimoBool);
             $diasHabiles = $diasHabiles-$vacacionEmpleadoMovimiento->getAttribute('dias_disfrutado_movimiento');
             $vacacionEmpleadoMovimiento->save();
         }
@@ -133,14 +135,15 @@ class VacacionesEmpleadoMovimientoHelper
     /**
      * @param double $diasHabiles
      * @param VacacionesEmpleado $vacacionEmpleado
+     * @param bool $ultimo
      * @return VacacionEmpleadoMovimiento
      */
 
-    private function restarVacacionesPeriodo(float $diasHabiles,VacacionesEmpleado $vacacionEmpleado):VacacionEmpleadoMovimiento
+    private function restarVacacionesPeriodo(float $diasHabiles,VacacionesEmpleado $vacacionEmpleado,bool $ultimo):VacacionEmpleadoMovimiento
     {
         $vacacionEmpleadoMovimiento = $this->getVacacionEmpleadoMovimiento($vacacionEmpleado);
         $diasDisponibles = $vacacionEmpleado->getAttribute('dias_disponibles');
-        $calculoDias = $this->hacerCalculoVacaciones($diasHabiles,$diasDisponibles);
+        $calculoDias = $this->hacerCalculoVacaciones($diasHabiles,$diasDisponibles,$ultimo);
         $vacacionEmpleadoMovimiento->setAttribute('dias_disponibles',$calculoDias[1]);
         $vacacionEmpleadoMovimiento->setAttribute('dias_disfrutado_movimiento',$calculoDias[0]);
         return $vacacionEmpleadoMovimiento;
@@ -149,6 +152,7 @@ class VacacionesEmpleadoMovimientoHelper
     /**
      * @param float $diasHabiles
      * @param float $diasDisponibles
+     * @param bool $ultimo
      * @return array
      * Se retorna un array:
      *  En la posicion 0 se encuentran los dias que se van a disfrutar de ese periodo
@@ -156,9 +160,9 @@ class VacacionesEmpleadoMovimientoHelper
      *
      */
 
-    private function hacerCalculoVacaciones(float $diasHabiles,float $diasDisponibles):array
+    private function hacerCalculoVacaciones(float $diasHabiles,float $diasDisponibles,bool $ultimo = false):array
     {
-        if($diasDisponibles<=0)
+        if($ultimo)
         {
            return [$diasHabiles,$diasDisponibles];
         }
