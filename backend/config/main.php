@@ -19,8 +19,8 @@ return [
             'transport' => [
                 'class' => 'Swift_SmtpTransport',
                 'host' => 'smtp.gmail.com',
-                'username' => 'optec.wizdom@gmail.com',
-                'password' => 'Optec*wiz2017',
+                'username' => $params['adminEmail'],
+                'password' => $params['passwordEmail'],
                 'port' => '465',
                 'encryption' => 'ssl',
             ],
@@ -73,7 +73,7 @@ return [
                    'class'=>'yii\rest\UrlRule',
                     'controller' => ['competencias','movimientos-vacaciones','vacaciones','flujo-proceso-agente-updater',
                                     'enlaces-externos','flujo-proceso-email-sender','empleados','flujos-procesos',
-                                    'relaciones-empleados','puestos'],
+                                    'relaciones-empleados','puestos','movimiento-vacaciones-ejecutor'],
                    'tokens' => [
                        '{id}'=>'<id:(\\w|-|_)+(,(\\w|-|_)+)*>'
                    ],
@@ -81,7 +81,8 @@ return [
 
                 ]
             ],
-        ],
+        ]
+
 
     ],
     'params' => $params,

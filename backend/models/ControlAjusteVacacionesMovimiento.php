@@ -57,5 +57,15 @@ class ControlAjusteVacacionesMovimiento extends ActiveRecord
 
     }
 
+    /**\
+     * @return \yii\db\ActiveQuery
+     */
+
+    public function getControlAjusteAcumulado()
+    {
+
+        return $this->hasOne(ControlAjusteVacacionAcumulado::className(),["compania"=>"compania","codigo_empleado"=>"codigo_empleado"]);
+    }
+
 
 }
