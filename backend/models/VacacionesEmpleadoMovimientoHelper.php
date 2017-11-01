@@ -117,12 +117,10 @@ class VacacionesEmpleadoMovimientoHelper
 
     public function guardarVacacionesEmpleado()
     {
-        $vacacionEmpleadoUltimo = end($this->vacacionesEmpleado);
         $diasHabiles = $this->movimientoVacaciones->getAttribute('dias_habiles');
         foreach ($this->vacacionesEmpleado as $vacacionEmpleado)
         {
-            $ultimo = $vacacionEmpleado==$vacacionEmpleadoUltimo;
-            $vacacionEmpleadoMovimiento = $this->restarVacacionesPeriodo($diasHabiles,$vacacionEmpleado,$ultimo);
+            $vacacionEmpleadoMovimiento = $this->restarVacacionesPeriodo($diasHabiles,$vacacionEmpleado);
             $diasHabiles = $diasHabiles-$vacacionEmpleadoMovimiento->getAttribute('dias_disfrutado_movimiento');
             $vacacionEmpleadoMovimiento->save();
         }
@@ -138,11 +136,11 @@ class VacacionesEmpleadoMovimientoHelper
      * @return VacacionEmpleadoMovimiento
      */
 
-    private function restarVacacionesPeriodo(float $diasHabiles,VacacionesEmpleado $vacacionEmpleado,bool $contarNegativos = false):VacacionEmpleadoMovimiento
+    private function restarVacacionesPeriodo(float $diasHabiles,VacacionesEmpleado $vacacionEmpleado):VacacionEmpleadoMovimiento
     {
         $vacacionEmpleadoMovimiento = $this->getVacacionEmpleadoMovimiento($vacacionEmpleado);
         $diasDisponibles = $vacacionEmpleado->getAttribute('dias_disponibles');
-        $calculoDias = $this->hacerCalculoVacaciones($diasHabiles,$diasDisponibles,$contarNegativos);
+        $calculoDias = $this->hacerCalculoVacaciones($diasHabiles,$diasDisponibles);
         $vacacionEmpleadoMovimiento->setAttribute('dias_disponibles',$calculoDias[1]);
         $vacacionEmpleadoMovimiento->setAttribute('dias_disfrutado_movimiento',$calculoDias[0]);
         return $vacacionEmpleadoMovimiento;
@@ -151,7 +149,6 @@ class VacacionesEmpleadoMovimientoHelper
     /**
      * @param float $diasHabiles
      * @param float $diasDisponibles
-     * @param bool $contarNegativos
      * @return array
      * Se retorna un array:
      *  En la posicion 0 se encuentran los dias que se van a disfrutar de ese periodo
@@ -159,15 +156,19 @@ class VacacionesEmpleadoMovimientoHelper
      *
      */
 
-    private function hacerCalculoVacaciones(float $diasHabiles,float $diasDisponibles,bool $contarNegativos = false):array
+    private function hacerCalculoVacaciones(float $diasHabiles,float $diasDisponibles):array
     {
-        $diasRestantesADisfrutar = $diasDisponibles-$diasHabiles;
-        $diasADisfrutar = $diasRestantesADisfrutar>0?$diasHabiles:$diasDisponibles;
-        if(!$contarNegativos)
+        if($diasDisponibles<=0)
         {
-            $diasRestantesADisfrutar = $diasRestantesADisfrutar>=0?$diasRestantesADisfrutar:0;
+           return [$diasHabiles,$diasDisponibles];
         }
-        return [$diasADisfrutar,$diasDisponibles];
+        else
+        {
+            $diasRestantesADisfrutar = $diasDisponibles-$diasHabiles;
+            $diasADisfrutar = $diasRestantesADisfrutar>0?$diasHabiles:$diasDisponibles;
+            return [$diasADisfrutar,$diasDisponibles];
+        }
+
 
 
     }
