@@ -46,6 +46,7 @@ class FlujoProcesoEmailSenderManager extends AbstractWorkflowManager
         }
         catch(\Exception $e)
         {
+            throw $e;
             $transaction->rollBack();
         }
         return false;

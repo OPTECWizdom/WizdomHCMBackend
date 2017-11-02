@@ -21,7 +21,11 @@ class EmailVariableFormatter
         $this->flujoProceso = $flujoProceso;
         $this->proceso = $proceso;
         $this->operations = [
-          "{\$nombre_empleado}"=>"getNombreEmpleadoSolicitante"
+            "{\$nombre_empleado}"=>"getNombreEmpleadoSolicitante",
+            "{\$fecha_inicial_vacaciones}"=>"getFechaInicialVacaciones",
+            "{\$fecha_final_vacaciones}"=>"getFechaFinalVacaciones"
+
+
         ];
 
 
@@ -52,8 +56,39 @@ class EmailVariableFormatter
             return $nombreEmpleado;
 
         }
+        return "";
 
     }
+
+    public function getFechaInicialVacaciones()
+    {
+        $procesoPks = $this->proceso->getAttributes(Proceso::primaryKey());
+        $procesoMovimientoVacaciones = ProcesoMovimientoVacacion::find()->where($procesoPks)->one();
+        if(!empty($procesoMovimientoVacaciones))
+        {
+            $movimientoVacaciones = $procesoMovimientoVacaciones->getMovimientoVacaciones()->one();
+            $fechaInicial =  $this->$movimientoVacaciones('fecha_inicial');
+            $dateTimeFechaInicial = new \DateTime($fechaInicial);
+            return $dateTimeFechaInicial->format(\Yii::$app->params['displayDateFormat']);
+        }
+        return "";
+
+    }
+    public function getFechaFinalVacaciones()
+    {
+        $procesoPks = $this->proceso->getAttributes(Proceso::primaryKey());
+        $procesoMovimientoVacaciones = ProcesoMovimientoVacacion::find()->where($procesoPks)->one();
+        if(!empty($procesoMovimientoVacaciones))
+        {
+            $movimientoVacaciones = $procesoMovimientoVacaciones->getMovimientoVacaciones()->one();
+            $fechaFinal =  $this->$movimientoVacaciones('fecha_final');
+            $dateTimeFechaFinal = new \DateTime($fechaFinal);
+            return $dateTimeFechaFinal->format(\Yii::$app->params['displayDateFormat']);
+        }
+        return "";
+
+    }
+
 
 
 }

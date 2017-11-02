@@ -55,7 +55,6 @@ class FlujoTipoProcesoCorreoExternoHelper
     public function sendEmailAgente(FlujoProcesoAgente $flujoProcesoAgente,string $mensaje, string $asunto)
     {
         $empleados = $this->getEmpleadosFromAgente($flujoProcesoAgente);
-        $enlaceExterno = $this->createEnlaceExterno();
 
         if(!empty($empleados))
         {
@@ -66,8 +65,7 @@ class FlujoTipoProcesoCorreoExternoHelper
                 {
                     $siteUrl = Yii::$app->params['siteUrl'];
                     $mensaje.="\n";
-                    $enlaceExternoId = $enlaceExterno->getAttribute('id_url');
-                    $htmlContent = "$mensaje<br><br><a href ='$siteUrl/?ext=$enlaceExternoId' >Ir a solicitud</a>";
+                    $htmlContent = "$mensaje<br>Para más información dirigirse al sitio del Autoservicio<br><a href ='$siteUrl' >Ir al sitio</a>";
                     $this->sendEmailToEmpleado($correo,$mensaje,$asunto,$htmlContent);
                 }
             }

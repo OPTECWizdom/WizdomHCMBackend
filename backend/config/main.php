@@ -21,7 +21,7 @@ return [
                 'host' => 'smtp.gmail.com',
                 'username' => $params['adminEmail'],
                 'password' => $params['passwordEmail'],
-                'port' => '465',
+                'port' => 465,
                 'encryption' => 'ssl',
             ],
 
@@ -36,6 +36,7 @@ return [
         'formatter' => [
             'dateFormat' => 'php:Y-m-d',
             'datetimeFormat' =>  'php:Y-m-d H:i:s',
+
         ],
         'request' => [
             'csrfParam' => '_csrf-backend',

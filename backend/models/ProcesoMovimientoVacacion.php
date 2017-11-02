@@ -40,10 +40,23 @@ class ProcesoMovimientoVacacion extends ActiveRecord
         ];
     }
 
+    /**
+     * @return \yii\db\ActiveQuery
+     */
     public function getProceso()
     {
         return $this->hasOne(Proceso::className(),["compania"=>"compania","tipo_flujo_proceso"=>"tipo_flujo_proceso",
                                                     "id_proceso"=>"id_proceso"]);
+    }
+
+    /**
+     *
+     */
+    public function getMovimientoVacaciones()
+    {
+        return $this->hasOne(MovimientoVacaciones::className(),["compania"=>"compania","tipo_mov"=>"tipo_mov",
+                                                                "consecutivo_movimiento"]);
+
     }
 
 
