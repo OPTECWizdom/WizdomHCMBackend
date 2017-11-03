@@ -5,7 +5,7 @@ $params = array_merge(
     require(__DIR__ . '/params.php'),
     require(__DIR__ . '/params-local.php')
 );
-
+//var_dump($params);
 return [
     'id' => 'app-backend',
     'basePath' => dirname(__DIR__),
@@ -18,11 +18,13 @@ return [
             'useFileTransport' => false,
             'transport' => [
                 'class' => 'Swift_SmtpTransport',
-                'host' => 'smtp.gmail.com',
+                'host' => $params['smtpServer'],
                 'username' => $params['adminEmail'],
                 'password' => $params['passwordEmail'],
-                'port' => 465,
-                'encryption' => 'ssl',
+                'port' => $params['smtpServerPort'],
+                'encryption' => $params['mailEncryption'],
+                'streamOptions' => $params['streamOptions']
+
             ],
 
         ],

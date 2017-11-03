@@ -146,12 +146,25 @@ class MovimientoVacaciones extends  ActiveRecord
                                                                         "tipo_mov"=>"tipo_mov",
                                                                         "consecutivo_movimiento"=>"consecutivo_movimiento"]);
     }
+    /**
+     * @return ActiveQuery
+     */
 
     public function getProcesoMovimientoVacaciones()
     {
         return $this->hasOne(ProcesoMovimientoVacacion::className(),["compania"=>"compania",
                                                                     "tipo_mov"=>"tipo_mov",
                                                                     "consecutivo_movimiento"=>"consecutivo_movimiento"]);
+    }
+
+    /**
+     * @return ActiveQuery
+     */
+
+    public function getEmpleado()
+    {
+        return $this->hasOne(Empleado::className(),['compania'=>'compania',
+                                                    'codigo_empleado'=>'codigo_empleado']);
     }
 
 

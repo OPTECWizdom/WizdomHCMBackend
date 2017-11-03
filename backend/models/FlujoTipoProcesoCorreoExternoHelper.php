@@ -8,7 +8,6 @@
 
 namespace app\models;
 
-use tests\unit\workflow\events\EnterWorkflowReducedEventTest;
 use Yii;
 
 
@@ -41,7 +40,7 @@ class FlujoTipoProcesoCorreoExternoHelper
         if (!empty($flujoProcesoAgentes) && !empty($correosFlujoProceso)) {
             foreach ($flujoProcesoAgentes as $flujoProcesoAgente) {
                 foreach ($correosFlujoProceso as $correo) {
-                    $mensaje = $this->formatEmail($correo);
+                    $mensaje = $correo->getAttribute('texto');
                     $asunto = $correo->getAttribute('asunto');
                     $this->sendEmailAgente($flujoProcesoAgente, $mensaje, $asunto);
                     $flujoProcesoAgente->setAttribute('correo_enviado','S');
@@ -63,10 +62,7 @@ class FlujoTipoProcesoCorreoExternoHelper
                 $correo = $empleado->getAttribute('correo_electronico_principal');
                 if(!empty($correo))
                 {
-                    $siteUrl = Yii::$app->params['siteUrl'];
-                    $mensaje.="\n";
-                    $htmlContent = "$mensaje<br>Para más información dirigirse al sitio del Autoservicio<br><a href ='$siteUrl' >Ir al sitio</a>";
-                    $this->sendEmailToEmpleado($correo,$mensaje,$asunto,$htmlContent);
+                    $this->sendEmailToEmpleado($correo,$mensaje,$asunto);
                 }
             }
         }
@@ -120,34 +116,15 @@ class FlujoTipoProcesoCorreoExternoHelper
     }
 
 
-    public function formatEmail(FlujoTipoProcesoCorreoExterno $correo)
-    {
-        $message = $correo->getAttribute("texto");
-        $formatter = new EmailVariableFormatter($this->flujoProceso,$this->proceso);
-        $variables = [];
-        $pattern = '/{\$\w+}/';
-        $result = preg_match($pattern,$message,$variables);
-        if($result)
-        {
-            foreach ($variables as $variable)
-            {
-                $formattedVariable = $formatter->formatEmail($variable);
-                $message = str_replace($variable,$formattedVariable,$message);
-            }
-        }
-        return $message;
 
-    }
-
-    public function sendEmailToEmpleado(string $email,string $message,string $subject, string $htmlContent)
+    public function sendEmailToEmpleado(string $email,string $message,string $subject)
     {
         $result =
-         Yii::$app->mailer->compose()
-            ->setFrom('optec.wizdom@gmail.com')
+         Yii::$app->mailer->compose($message,['proceso'=>$this->proceso])
+            ->setFrom(Yii::$app->params['adminEmail'])
             ->setTo($email)
             ->setSubject($subject)
             ->setTextBody($message)
-            ->setHtmlBody($htmlContent)
             ->send();
         return $result;
 

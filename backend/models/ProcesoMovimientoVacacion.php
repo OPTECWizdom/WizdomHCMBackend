@@ -55,7 +55,7 @@ class ProcesoMovimientoVacacion extends ActiveRecord
     public function getMovimientoVacaciones()
     {
         return $this->hasOne(MovimientoVacaciones::className(),["compania"=>"compania","tipo_mov"=>"tipo_mov",
-                                                                "consecutivo_movimiento"]);
+                                                                "consecutivo_movimiento"=>'consecutivo_movimiento']);
 
     }
 
