@@ -9,6 +9,7 @@
 namespace app\models;
 
 
+use backend\commands\BackendBackgroundProcessFactory;
 use raoul2000\workflow\events\WorkflowEvent;
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
@@ -24,6 +25,7 @@ class MovimientoVacaciones extends  ActiveRecord
         parent::init();
         $this->on(self::EVENT_BEFORE_INSERT,[$this,'getDiasHabiles']);
         $this->on(self::EVENT_AFTER_INSERT,[$this,'guardarDesgloseVacaciones']);
+        $$this->on(SELF::EVENT_AFTER_UPDATE,[$this,'ejecutarVacaciones']);
 
     }
 
@@ -167,6 +169,21 @@ class MovimientoVacaciones extends  ActiveRecord
                                                     'codigo_empleado'=>'codigo_empleado']);
     }
 
+
+
+    public function ejecutarVacaciones()
+    {
+        if($this->getAttribute('estado')=='P')
+        {
+           $factory =  new BackendBackgroundProcessFactory();
+           $backgroundProcess = $factory->getBackgroundProcess('MovimientoVacacionesWebService');
+           if(!empty($backgroundProcess))
+           {
+               $backgroundProcess->runJob();
+
+           }
+        }
+    }
 
 
 
