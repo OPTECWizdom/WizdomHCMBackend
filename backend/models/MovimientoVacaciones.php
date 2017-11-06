@@ -25,7 +25,7 @@ class MovimientoVacaciones extends  ActiveRecord
         parent::init();
         $this->on(self::EVENT_BEFORE_INSERT,[$this,'getDiasHabiles']);
         $this->on(self::EVENT_AFTER_INSERT,[$this,'guardarDesgloseVacaciones']);
-        $$this->on(SELF::EVENT_AFTER_UPDATE,[$this,'ejecutarVacaciones']);
+        $this->on(SELF::EVENT_AFTER_UPDATE,[$this,'ejecutarVacaciones']);
 
     }
 
