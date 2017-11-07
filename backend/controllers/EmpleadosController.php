@@ -11,7 +11,7 @@ namespace backend\controllers;
 use yii\rest\ActiveController;
 class EmpleadosController extends  ActiveController
 {
-    public $modelClass = "app\models\Empleado";
+    public $modelClass = "backend\models\Empleado";
 
 
 

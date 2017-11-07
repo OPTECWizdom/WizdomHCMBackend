@@ -13,6 +13,6 @@ use yii\rest\ActiveController;
 
 class EnlacesExternosController extends ActiveController
 {
-    public $modelClass = 'app\models\EnlaceExterno';
+    public $modelClass = 'backend\models\EnlaceExterno';
 
 }

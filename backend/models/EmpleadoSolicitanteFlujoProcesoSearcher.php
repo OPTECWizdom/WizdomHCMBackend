@@ -6,7 +6,7 @@
  * Time: 12:07
  */
 
-namespace app\models;
+namespace backend\models;
 
 
 class EmpleadoSolicitanteFlujoProcesoSearcher implements IAgenteFlujoProcesoSearcher

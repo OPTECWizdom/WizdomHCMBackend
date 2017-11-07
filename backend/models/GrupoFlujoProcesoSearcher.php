@@ -6,7 +6,7 @@
  * Time: 15:45
  */
 
-namespace app\models;
+namespace backend\models;
 
 
 class GrupoFlujoProcesoSearcher implements IAgenteFlujoProcesoSearcher

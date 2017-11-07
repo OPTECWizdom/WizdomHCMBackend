@@ -6,7 +6,7 @@
  * Time: 12:08
  */
 
-namespace app\models;
+namespace backend\models;
 
 
 interface IAgenteFlujoProcesoSearcher

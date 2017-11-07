@@ -6,7 +6,7 @@
  * Time: 11:06
  */
 
-namespace app\models;
+namespace backend\models;
 
 
 class Competencias extends \yii\db\ActiveRecord

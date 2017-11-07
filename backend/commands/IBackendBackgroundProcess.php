@@ -12,6 +12,6 @@ namespace backend\commands;
 interface IBackendBackgroundProcess
 {
 
-    public function runJob();
+    public function runJob($config = []);
 
 }

@@ -22,7 +22,7 @@
         "mdmsoft/yii2-autonumber": "~1.0",
         "mongosoft/yii2-soap-client": "*",
         "trntv/yii2-command-bus": "^3.0",
-        "symfony/process": "3.0"
+        "symfony/process": "3.3.10"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.0.0",

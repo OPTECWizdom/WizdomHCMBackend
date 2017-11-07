@@ -9,8 +9,8 @@
 namespace backend\workflowManagers;
 
 
-use app\models\FlujoProceso;
-use app\models\FlujoProcesoAgenteHelper;
+use backend\models\FlujoProceso;
+use backend\models\FlujoProcesoAgenteHelper;
 
 class FlujoProcesoAgenteManager extends AbstractWorkflowManager
 

@@ -6,7 +6,7 @@
  * Time: 15:29
  */
 
-namespace app\models;
+namespace backend\models;
 
 
 interface IDiasVacacionesCalculator

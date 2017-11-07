@@ -9,7 +9,7 @@
 namespace backend\wizdomWebServices\MovimientosVacacionesWebService;
 
 
-use app\models\MovimientoVacaciones;
+use backend\models\MovimientoVacaciones;
 use backend\wizdomWebServices\AbstractWizdomWebService;
 
 class MovimientosVacacionesWebService extends  AbstractWizdomWebService

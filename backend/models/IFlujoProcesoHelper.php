@@ -6,7 +6,7 @@
  * Time: 16:02
  */
 
-namespace app\models;
+namespace backend\models;
 
 
 interface IFlujoProcesoHelper

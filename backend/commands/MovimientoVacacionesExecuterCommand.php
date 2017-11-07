@@ -8,6 +8,7 @@
 
 namespace backend\commands;
 
+use backend\models\MovimientoVacaciones;
 use backend\workflowManagers\MovimientoVacacionesEjecutorManager;
 use trntv\bus\interfaces\BackgroundCommand;
 use trntv\bus\interfaces\SelfHandlingCommand;
@@ -19,15 +20,41 @@ class MovimientoVacacionesExecuterCommand extends Object implements  BackgroundC
 {
     use BackgroundCommandTrait;
 
-    public  function runJob()
+    /**
+     * @var \backend\models\MovimientoVacaciones
+     */
+    public $movimientoVacacion;
+
+    public  function runJob($config = [])
     {
-        Yii::$app->commandBus->handle(new MovimientoVacacionesExecuterCommand(['async'=>true]));
+
+        $movimientoVacacionsPks = $this->getMovimientoVacacionesPK($config);
+         Yii::$app->commandBus->handle(new MovimientoVacacionesExecuterCommand(['async'=>true,'movimientoVacacion' =>$movimientoVacacionsPks]));
     }
 
 
     public function handle($command) {
-        $webServiceExecuter = new MovimientoVacacionesEjecutorManager();
+
+
+        $webServiceExecuter = new MovimientoVacacionesEjecutorManager($this->movimientoVacacion);
         $webServiceExecuter->run();
+        //echo "fin";
+
+    }
+
+
+    private function  getMovimientoVacacionesPK($config)
+    {
+        try
+        {
+           $movimientoVacaciones = $config[0];
+           return $movimientoVacaciones->getAttributes(MovimientoVacaciones::primaryKey());
+        }
+        catch(\Exception $e)
+        {
+            return [];
+        }
+
     }
 
 

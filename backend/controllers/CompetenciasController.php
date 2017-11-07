@@ -12,7 +12,7 @@ use yii\rest\ActiveController;
 
 class CompetenciasController extends  ActiveController
 {
-    public $modelClass = "app\models\Competencias";
+    public $modelClass = "backend\models\Competencias";
 
 
 

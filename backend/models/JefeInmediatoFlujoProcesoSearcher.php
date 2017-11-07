@@ -6,7 +6,7 @@
  * Time: 23:40
  */
 
-namespace app\models;
+namespace backend\models;
 
 
 class JefeInmediatoFlujoProcesoSearcher implements IAgenteFlujoProcesoSearcher

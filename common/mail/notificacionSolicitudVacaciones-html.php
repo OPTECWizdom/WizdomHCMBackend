@@ -6,25 +6,25 @@ use app\models\Proceso;
 
 
 /**
- * @var Proceso $proceso
+ * @var backend\models\Proceso $proceso
  */
 $proceso;
 
 $procesoPK = $proceso->getAttributes(Proceso::primaryKey());
 /**
- * @var ProcesoMovimientoVacacion $procesoMovimientoVacaciones
+ * @var backend\models\ProcesoMovimientoVacacion $procesoMovimientoVacaciones
  */
 
-$procesoMovimientoVacaciones = ProcesoMovimientoVacacion::find()->where($procesoPK)->one();
+$procesoMovimientoVacaciones = \backend\models\ProcesoMovimientoVacacion::find()->where($procesoPK)->one();
 
 /**
- * @var \app\models\MovimientoVacaciones $movimientoVacaciones
+ * @var \backend\models\MovimientoVacaciones $movimientoVacaciones
  */
 $movimientoVacaciones = $procesoMovimientoVacaciones->getMovimientoVacaciones()->one();
 
 
 /**
- * @var \app\models\Empleado $empleado
+ * @var \backend\models\Empleado $empleado
  */
 
 $empleado = $movimientoVacaciones->getEmpleado()->one();

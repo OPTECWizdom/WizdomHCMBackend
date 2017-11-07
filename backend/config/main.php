@@ -12,11 +12,7 @@ return [
     'controllerNamespace' => 'backend\controllers',
     'bootstrap' => ['log'],
     'modules' => [],
-    'controllerMap' => [
-        'background-bus' => [
-            'class' => 'trntv\bus\console\BackgroundBusController',
-        ]
-    ],
+
     'components' => [
         'mailer' => [
             'class' => 'yii\swiftmailer\Mailer',
@@ -81,7 +77,7 @@ return [
                    'class'=>'yii\rest\UrlRule',
                    'controller' => ['movimientos-vacaciones','vacaciones','flujo-proceso-agente-updater',
                                     'enlaces-externos','flujo-proceso-email-sender','empleados','flujos-procesos',
-                                    'relaciones-empleados','puestos','movimiento-vacaciones-ejecutor'],
+                                    'relaciones-empleados','puestos'],
                    'tokens' => [
                        '{id}'=>'<id:(\\w|-|_)+(,(\\w|-|_)+)*>'
                    ],
@@ -90,18 +86,9 @@ return [
                 ]
             ],
         ],
-        'commandBus'=>[
-            'class' => 'trntv\bus\CommandBus',
-            'middlewares' => [
 
-                [
-                    'class' => '\trntv\bus\middlewares\BackgroundCommandMiddleware',
-                    'backgroundHandlerPath' => '@console/yii',
-                    'backgroundHandlerRoute' => 'background-bus/handle',
-                ]
-            ]
 
-        ]
+
 
 
     ],

@@ -6,7 +6,7 @@
  * Time: 12:33
  */
 
-namespace app\models;
+namespace backend\models;
 use yii\db\ActiveRecord;
 
 class FlujoTipoProcesoAgente extends ActiveRecord

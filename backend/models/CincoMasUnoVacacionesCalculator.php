@@ -6,7 +6,7 @@
  * Time: 16:34
  */
 
-namespace app\models;
+namespace backend\models;
 
 
 

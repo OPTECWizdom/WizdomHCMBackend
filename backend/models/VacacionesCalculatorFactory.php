@@ -6,12 +6,12 @@
  * Time: 15:31
  */
 
-namespace app\models;
+namespace backend\models;
 
 
 /**
  * Class VacacionesCalculatorFactory
- * @package app\models
+ * @package backend\models
  */
 
 class VacacionesCalculatorFactory
@@ -39,7 +39,7 @@ class VacacionesCalculatorFactory
     public function __construct(MovimientoVacaciones $movimientoVacaciones)
     {
         $this->movimientoVacaciones = $movimientoVacaciones;
-        $this->vacacionesCalculatorsNames = [5=>'app\models\CincoMasUnoVacacionesCalculator'];
+        $this->vacacionesCalculatorsNames = [5=>'backend\models\CincoMasUnoVacacionesCalculator'];
         foreach ($this->vacacionesCalculatorsNames as $key=>$value)
         {
             $this->vacacionesCalculators[$key] = new $value();

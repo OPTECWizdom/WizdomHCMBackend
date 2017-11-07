@@ -14,7 +14,7 @@ use yii\rest\ActiveController;
 class FlujoProcesoAgenteUpdaterController extends ActiveController
 {
     private $workflowManager =  "FlujoProcesoAgenteManager";
-    public $modelClass = 'app\models\FlujoProcesoAgente';
+    public $modelClass = 'backend\models\FlujoProcesoAgente';
 
 
     public function actions()

@@ -13,7 +13,7 @@ use yii\rest\ActiveController;
 
 class MovimientosVacacionesController extends ActiveController
 {
-    public $modelClass = 'app\models\MovimientoVacaciones';
+    public $modelClass = 'backend\models\MovimientoVacaciones';
 
 
 

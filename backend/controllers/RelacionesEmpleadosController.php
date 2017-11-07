@@ -13,6 +13,6 @@ use yii\rest\ActiveController;
 
 class RelacionesEmpleadosController extends  ActiveController
 {
-    public $modelClass = 'app\models\RelacionEmpleado';
+    public $modelClass = 'backend\models\RelacionEmpleado';
 
 }

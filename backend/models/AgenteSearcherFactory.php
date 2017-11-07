@@ -6,7 +6,7 @@
  * Time: 11:54
  */
 
-namespace app\models;
+namespace backend\models;
 
 
 class AgenteSearcherFactory
@@ -21,14 +21,14 @@ class AgenteSearcherFactory
     {
         $this->flujoProceso = $flujoProceso;
         $this->agenteClasses = [
-                                "EMPLEADO_SOLICITA"=>"app\models\EmpleadoSolicitanteFlujoProcesoSearcher",
-                                "GRUPO"=>"app\models\GrupoFlujoProcesoSearcher",
-                                "JEFE_INMEDIATO"=>"app\models\JefeInmediatoFlujoProcesoSearcher",
-                                "DEPARTAMENTO"=>'app\models\DepartamentoFlujoProcesoSearcher',
-                                "PUESTO"=>'app\models\PuestoFlujoProcesoSearcher',
-                                "EMPLEADO"=>'app\models\EmpleadoFlujoProcesoSearcher',
-                                "JEFE_SUPERIOR"=>'app\models\JefeSuperiorFlujoProcesoSearcher',
-                                "RELACION_EMP"=>'app\models\RelacionEmpleadoFlujoProcesoSearcher'
+                                "EMPLEADO_SOLICITA"=>"backend\models\EmpleadoSolicitanteFlujoProcesoSearcher",
+                                "GRUPO"=>"backend\models\GrupoFlujoProcesoSearcher",
+                                "JEFE_INMEDIATO"=>"backend\models\JefeInmediatoFlujoProcesoSearcher",
+                                "DEPARTAMENTO"=>'backend\models\DepartamentoFlujoProcesoSearcher',
+                                "PUESTO"=>'backend\models\PuestoFlujoProcesoSearcher',
+                                "EMPLEADO"=>'backend\models\EmpleadoFlujoProcesoSearcher',
+                                "JEFE_SUPERIOR"=>'backend\models\JefeSuperiorFlujoProcesoSearcher',
+                                "RELACION_EMP"=>'backend\models\RelacionEmpleadoFlujoProcesoSearcher'
                                 ];
         $this->proceso = $proceso;
         $this->parametroAgente = $parametroAgente;

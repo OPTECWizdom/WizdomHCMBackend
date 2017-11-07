@@ -6,7 +6,7 @@
  * Time: 12:36
  */
 
-namespace app\models;
+namespace backend\models;
 
 
 use yii\db\ActiveRecord;
