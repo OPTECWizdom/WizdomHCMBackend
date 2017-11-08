@@ -174,7 +174,9 @@ class MovimientoVacaciones extends  ActiveRecord
 
     public function ejecutarVacaciones()
     {
-        if($this->getAttribute('estado')=='P')
+        $oldEstado = $this->getOldAttribute('estado');
+        $newEstado = $this->getAttribute('estado');
+        if($newEstado=='P' && $oldEstado!=$newEstado)
         {
            $factory =  new BackendBackgroundProcessFactory();
            $backgroundProcess = $factory->getBackgroundProcess('MovimientoVacacionesWebService');
