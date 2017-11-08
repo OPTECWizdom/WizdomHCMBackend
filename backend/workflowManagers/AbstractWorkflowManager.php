@@ -9,7 +9,7 @@
 namespace backend\workflowManagers;
 
 
-abstract class AbstractManager
+abstract class AbstractWorkflowManager
 {
 
     const REGISTER = 'register';
