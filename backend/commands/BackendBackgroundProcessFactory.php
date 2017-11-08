@@ -26,7 +26,7 @@ class BackendBackgroundProcessFactory
     {
         if(array_key_exists($processName,$this->backgroundProcessClasses))
         {
-            return new $this->backgroundProcessClasses[$processName];
+            return new $this->backgroundProcessClasses[$processName]();
         }
         return null;
 

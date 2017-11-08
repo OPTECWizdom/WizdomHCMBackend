@@ -13,6 +13,7 @@ use backend\commands\BackendBackgroundProcessFactory;
 use raoul2000\workflow\events\WorkflowEvent;
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
+use yii\db\Exception;
 
 class MovimientoVacaciones extends  ActiveRecord
 {
@@ -181,6 +182,10 @@ class MovimientoVacaciones extends  ActiveRecord
            {
                $backgroundProcess->runJob([$this]);
 
+           }
+           else
+           {
+               throw new \Exception();
            }
         }
     }
