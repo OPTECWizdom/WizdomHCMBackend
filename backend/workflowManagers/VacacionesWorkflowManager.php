@@ -70,7 +70,6 @@ class VacacionesWorkflowManager extends AbstractWorkflowManager
             $transaction->rollBack();
             throw $e;
         }
-        return false;
 
 
 
@@ -86,6 +85,7 @@ class VacacionesWorkflowManager extends AbstractWorkflowManager
             $this->updateFlujoProcesoStatus();
             $this->flujoProceso->save();
             $transaction->commit();
+            $this->ejecutarMovimientoVacaciones();
             return true;
 
         }
@@ -93,7 +93,6 @@ class VacacionesWorkflowManager extends AbstractWorkflowManager
             $transaction->rollBack();
             throw $e;
         }
-        return false;
 
 
 
@@ -190,7 +189,7 @@ class VacacionesWorkflowManager extends AbstractWorkflowManager
 
         }
         catch (\Exception $e){
-            throw e;
+            throw $e;
         }
     }
 
@@ -290,6 +289,15 @@ class VacacionesWorkflowManager extends AbstractWorkflowManager
             throw new \Exception();
         }
 
+    }
+
+    public function ejecutarMovimientoVacaciones()
+    {
+        if($this->movimientoVacaciones->getAttribute('estado')=='P')
+        {
+            $ejecutorVacaciones = new MovimientoVacacionesEjecutorManager([$this->movimientoVacaciones]);
+            return $ejecutorVacaciones->run();
+        }
     }
 
 

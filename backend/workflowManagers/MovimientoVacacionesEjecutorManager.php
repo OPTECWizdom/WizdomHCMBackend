@@ -28,7 +28,7 @@ class MovimientoVacacionesEjecutorManager extends AbstractWorkflowManager
         if(!empty($config)) {
             try
             {
-                $this->movimientoVacacion = MovimientoVacaciones::find()->where($config)->one();
+                $this->movimientoVacacion = $config[0];
 
             }catch (\Exception $e)
             {
@@ -63,14 +63,14 @@ class MovimientoVacacionesEjecutorManager extends AbstractWorkflowManager
         }
         catch(\Exception $e)
         {
-            var_dump($e->getMessage().' '.$e->getTrace().' '.$e->getLine().' '.$e->getFile());
-            return false;
+            throw $e;
         }
     }
 
     /**
      * @param MovimientoVacaciones $movimientoVacacion
      * @throws \Exception
+     * @return bool
      */
 
     private function ejecutarMovimiento(MovimientoVacaciones $movimientoVacacion)
@@ -86,13 +86,19 @@ class MovimientoVacacionesEjecutorManager extends AbstractWorkflowManager
                     $this->guardarControlAjuste($controlAjuste);
 
                 }
+                return true;
             }
+            else
+            {
+                throw new \Exception('Ha habido un error al procesar el web service');
+            }
+
 
 
         }
         catch (\Exception $e)
         {
-            throw $e;
+            throw  $e;
         }
     }
 

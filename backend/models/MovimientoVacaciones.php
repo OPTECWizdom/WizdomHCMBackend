@@ -26,7 +26,6 @@ class MovimientoVacaciones extends  ActiveRecord
         parent::init();
         $this->on(self::EVENT_BEFORE_INSERT,[$this,'getDiasHabiles']);
         $this->on(self::EVENT_AFTER_INSERT,[$this,'guardarDesgloseVacaciones']);
-        $this->on(self::EVENT_AFTER_UPDATE,[$this,'ejecutarVacaciones']);
 
     }
 
@@ -172,24 +171,8 @@ class MovimientoVacaciones extends  ActiveRecord
 
 
 
-    public function ejecutarVacaciones()
-    {
-        $newEstado = $this->getAttribute('estado');
-        if($newEstado=='P')
-        {
-           $factory =  new BackendBackgroundProcessFactory();
-           $backgroundProcess = $factory->getBackgroundProcess('MovimientoVacacionesWebService');
-           if(!empty($backgroundProcess))
-           {
-               $backgroundProcess->runJob([$this]);
 
-           }
-           else
-           {
-               throw new \Exception();
-           }
-        }
-    }
+
 
 
 
