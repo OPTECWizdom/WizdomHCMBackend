@@ -293,7 +293,7 @@ class VacacionesWorkflowManager extends AbstractWorkflowManager
 
     public function ejecutarMovimientoVacaciones()
     {
-        if($this->movimientoVacaciones->getAttribute('estado')=='P')
+        if($this->movimientoVacaciones->getAttribute('estado_flujo_proceso')=='MovimientoVacacionesWorkflow/AP')
         {
             $ejecutorVacaciones = new MovimientoVacacionesEjecutorManager([$this->movimientoVacaciones]);
             return $ejecutorVacaciones->run();
