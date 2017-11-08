@@ -9,9 +9,8 @@
 namespace backend\workflowManagers;
 
 
-use app\models\ControlAjusteVacacionAcumulado;
-use app\models\ControlAjusteVacacionesMovimiento;
-use app\models\MovimientoVacaciones;
+use \backend\models\ControlAjusteVacacionesMovimiento;
+use \backend\models\MovimientoVacaciones;
 use backend\wizdomWebServices\MovimientosVacacionesWebService\MovimientosVacacionesWebService;
 use yii\db\ActiveRecord;
 use yii\db\Transaction;
@@ -19,8 +18,23 @@ use yii\db\Transaction;
 class MovimientoVacacionesEjecutorManager extends AbstractWorkflowManager
 {
 
+    /**
+     * @var MovimientoVacaciones $movimientoVacacion
+     */
+    public $movimientoVacacion;
+
 
     public function __construct($config=[]){
+        if(!empty($config)) {
+            try
+            {
+                $this->movimientoVacacion = MovimientoVacaciones::find()->where($config)->one();
+
+            }catch (\Exception $e)
+            {
+
+            }
+        }
 
 
     }
@@ -39,19 +53,17 @@ class MovimientoVacacionesEjecutorManager extends AbstractWorkflowManager
 
     public function run()
     {
+
+
         try {
-            $movimientosVacaciones = MovimientoVacaciones::find()->where(['estado' => 'P'])->all();
-            if (!empty($movimientosVacaciones)) {
-                foreach ($movimientosVacaciones as $movimientosVacacion) {
-                    $this->ejecutarMovimiento($movimientosVacacion);
 
-                }
+            $this->ejecutarMovimiento($this->movimientoVacacion);
 
-            }
             return true;
         }
         catch(\Exception $e)
         {
+            var_dump($e->getMessage().' '.$e->getTrace().' '.$e->getLine().' '.$e->getFile());
             return false;
         }
     }

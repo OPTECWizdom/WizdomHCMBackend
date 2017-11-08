@@ -6,7 +6,7 @@
  * Time: 9:42
  */
 
-namespace app\models;
+namespace backend\models;
 
 
 use backend\commands\BackendBackgroundProcessFactory;
@@ -179,7 +179,7 @@ class MovimientoVacaciones extends  ActiveRecord
            $backgroundProcess = $factory->getBackgroundProcess('MovimientoVacacionesWebService');
            if(!empty($backgroundProcess))
            {
-               $backgroundProcess->runJob();
+               $backgroundProcess->runJob([$this]);
 
            }
         }
