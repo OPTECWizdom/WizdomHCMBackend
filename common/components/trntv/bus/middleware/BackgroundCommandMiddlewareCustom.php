@@ -26,14 +26,9 @@ class BackgroundCommandMiddlewareCustom extends BackgroundCommandMiddleware
         $arguments = implode(' ', $this->getBackgroundHandlerArguments($command));
         $binaryArguments = implode(' ', $this->backgroundHandlerBinaryArguments);
         if ($command->isAsync()) {
-            try {
-                exec("{$binary} {$binaryArguments} {$path} {$route} {$arguments} > nul &"); // no $output
+            exec("{$binary} {$binaryArguments} {$path} {$route} {$arguments} > nul &"); // no $output
 
-            }
-            catch (\Exception $e)
-            {
-                throw $e;
-            }
+
         }
         else {
             exec("{$binary} {$binaryArguments} {$path} {$route} {$arguments}"); // no $output
