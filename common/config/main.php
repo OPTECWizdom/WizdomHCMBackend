@@ -16,7 +16,7 @@ return [
                 [
                     'class' => 'common\components\trntv\bus\middleware\BackgroundCommandMiddlewareCustom',
                     'backgroundHandlerPath' => __DIR__."/../../yii",
-                    'backgroundHandlerBinary' => '"'.dirname(PHP_BINARY)."/php.exe".'"',
+                    'backgroundHandlerBinary' => '"'.dirname(PHP_BINARY)."\php.exe".'"',
                     'backgroundHandlerRoute' => 'background-bus/handle',
                     //'backgroundHandlerArguments' => ['&'],
                     'backgroundProcessTimeout' => 1000000,
