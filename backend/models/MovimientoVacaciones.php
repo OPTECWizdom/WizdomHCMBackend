@@ -74,7 +74,7 @@ class MovimientoVacaciones extends  ActiveRecord
             [
 
                 [
-                    ['compania','tipo_mov','consecutivo_movimiento'],'required'
+                    ['compania','tipo_mov'],'required'
                 ],
 
                 [
