@@ -158,7 +158,7 @@ class VacacionesWorkflowManager extends AbstractWorkflowManager
                 $this->movimientoVacaciones = $movimientoVacaciones;
 
             } else {
-                throw new \Exception(implode("|",$movimientoVacaciones->errors));
+                throw new \Exception("");
 
             }
         }

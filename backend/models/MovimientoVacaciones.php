@@ -24,8 +24,8 @@ class MovimientoVacaciones extends  ActiveRecord
     public function init()
     {
         parent::init();
-        $this->on(self::EVENT_BEFORE_INSERT,[$this,'calcularDesgloseVacaciones']);
         $this->on(self::EVENT_BEFORE_INSERT,[$this,'setDefaultValues']);
+        $this->on(self::EVENT_BEFORE_INSERT,[$this,'calcularDesgloseVacaciones']);
         $this->on(self::EVENT_AFTER_INSERT,[$this,'guardarDesgloseVacaciones']);
 
     }

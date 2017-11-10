@@ -65,6 +65,10 @@ class DiasHabilesCalculator implements IDiasVacacionesCalculator
         $diasTrabajo = $this->convertDays($diasTrabajo);
         $fechaInicial = new \DateTime($this->movimientoVacacion->getAttribute('fecha_inicial'));
         $fechaFinal = new \DateTime($this->movimientoVacacion->getAttribute('fecha_final'));
+        if($fechaInicial==$fechaFinal)
+        {
+            $fechaFinal->add(new \DateInterval('P1D'));
+        }
         $diasHabiles = 0;
         $intervalo =  new \DateInterval('P1D');
         $periodo = new \DatePeriod($fechaInicial,$intervalo,$fechaFinal);
