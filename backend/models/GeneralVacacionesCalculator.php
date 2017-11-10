@@ -49,16 +49,11 @@ class GeneralVacacionesCalculator implements IDiasVacacionesCalculator
         foreach ($this->calculators as $key=>&$value)
         {
             $value->setMovimientoVacaciones($this->movimientoVacaciones);
-            $results[$key]=$value->calcularVacaciones();
+            $results = array_merge($results,$value->calcularVacaciones());
 
         }
         $results['dias_descanso'] = $results['dias_calendario']-$results['dias_habiles']-$results['dias_feriados'];
         return $results;
-
-
-
-
-
 
     }
 

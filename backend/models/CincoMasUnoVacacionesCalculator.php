@@ -41,7 +41,7 @@ class CincoMasUnoVacacionesCalculator implements IDiasVacacionesCalculator
             $diasAjuste = $diasCalculados[1];
             $this->getAcumuladoRelacionadoAVacaciones($diasAjuste);
             $this->adjuntarEventoGuardarCalculo();
-            return ['dias_habiles',$diasHabiles];
+            return ['dias_habiles'=>$diasHabiles];
         }
         catch (\Exception $e)
         {

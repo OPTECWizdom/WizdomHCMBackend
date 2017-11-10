@@ -22,9 +22,9 @@ class DiasHabilesCalculator implements IDiasVacacionesCalculator
         $diasTrabajo = $this->getDiasTrabajo();
         if(!empty($diasTrabajo))
         {
-            return $this->contarDiasHabiles($diasTrabajo);
+            return ['dias_habiles'=>$this->contarDiasHabiles($diasTrabajo)];
         }
-        return 0;
+        return ['dias_habiles'=>0];
 
     }
 

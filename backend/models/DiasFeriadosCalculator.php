@@ -20,7 +20,7 @@ class DiasFeriadosCalculator implements IDiasVacacionesCalculator
      */
     public function calcularVacaciones()
     {
-        return $this->calcularDiasFeriados();
+        return ['dias_feriados'=>$this->calcularDiasFeriados()];
 
 
     }
