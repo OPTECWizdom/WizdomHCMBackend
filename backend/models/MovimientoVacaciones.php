@@ -184,7 +184,7 @@ class MovimientoVacaciones extends  ActiveRecord
         {
             $this->codigo_nodo_organigrama = $empleado->codigo_nodo_organigrama;
             $this->codigo_puesto = $empleado->codigo_puesto;
-            $this->usuario = $empleado->username;
+
         }
 
     }
@@ -192,6 +192,7 @@ class MovimientoVacaciones extends  ActiveRecord
     {
         $this->setDefaultValueFromEmpleado();
         $this->estado = 'T';
+        $this->regimen_vacaciones;
         $this->enterWorkflow();
     }
 
