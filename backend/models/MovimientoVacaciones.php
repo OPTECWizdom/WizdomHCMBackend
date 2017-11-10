@@ -24,7 +24,8 @@ class MovimientoVacaciones extends  ActiveRecord
     public function init()
     {
         parent::init();
-        $this->on(self::EVENT_BEFORE_INSERT,[$this,'getDiasHabiles']);
+        $this->on(self::EVENT_BEFORE_INSERT,[$this,'calcularDesgloseVacaciones']);
+        $this->on(self::EVENT_BEFORE_INSERT,[$this,'setDefaultValues']);
         $this->on(self::EVENT_AFTER_INSERT,[$this,'guardarDesgloseVacaciones']);
 
     }
@@ -73,6 +74,10 @@ class MovimientoVacaciones extends  ActiveRecord
             [
 
                 [
+                    ['compania','tipo_mov','consecutivo_movimiento'],'required'
+                ],
+
+                [
                     [
                         "compania","tipo_mov","consecutivo_movimiento",
                         "estado","usuario","regimen_vacaciones",
@@ -93,31 +98,29 @@ class MovimientoVacaciones extends  ActiveRecord
                 [
                     ["dias_habiles", "dias_obsequiados","dias_pagados"],"double"
                 ],
-                [
-                    [
-                        "compania","tipo_mov","codigo_empleado"
-                    ],  'required',"on"=>['register'],
-                ],
-                [
-                    [
-                        "compania","tipo_mov","consecutivo_movimiento"
-                    ],
-                    'required','on'=>['update']
-                ]
+
+
 
         ];
     }
 
 
-    public function getDiasHabiles()
+
+    public function calcularDesgloseVacaciones()
     {
-        $calculatorVacacionesFactory = new VacacionesCalculatorFactory($this);
-        $calculatorVacaciones = $calculatorVacacionesFactory->getVacacionesCalculator();
-        if(!empty($calculatorVacaciones))
-        {
-            $diasHabiles = $calculatorVacaciones->calcularVacaciones();
-            $this->setAttribute('dias_habiles',$diasHabiles);
-        }
+        $generalVacacionesCalculator = new GeneralVacacionesCalculator();
+        $generalVacacionesCalculator->setMovimientoVacaciones($this);
+        $this->setAttributes($generalVacacionesCalculator->calcularVacaciones());
+        $this->getDiasHabilesExtras();
+
+    }
+
+
+    protected function getDiasHabilesExtras()
+    {
+        $cincoMasUnoCalc = new CincoMasUnoVacacionesCalculator();
+        $cincoMasUnoCalc->setMovimientoVacaciones($this);
+        $this->setAttributes($cincoMasUnoCalc->calcularVacaciones());
     }
 
     public function guardarDesgloseVacaciones()
@@ -168,6 +171,33 @@ class MovimientoVacaciones extends  ActiveRecord
         return $this->hasOne(Empleado::className(),['compania'=>'compania',
                                                     'codigo_empleado'=>'codigo_empleado']);
     }
+
+
+
+
+
+    public function setDefaultValueFromEmpleado()
+    {
+
+        $empleado = Empleado::find()->where($this->getAttributes(Empleado::primaryKey()))->one();
+        if(!empty($empleado))
+        {
+            $this->codigo_nodo_organigrama = $empleado->codigo_nodo_organigrama;
+            $this->codigo_puesto = $empleado->codigo_puesto;
+            $this->usuario = $empleado->username;
+        }
+
+    }
+    public function setDefaultValues()
+    {
+        $this->setDefaultValueFromEmpleado();
+        $this->estado = 'T';
+        $this->enterWorkflow();
+    }
+
+
+
+
 
 
 

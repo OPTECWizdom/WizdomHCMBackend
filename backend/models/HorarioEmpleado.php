@@ -50,15 +50,7 @@ class HorarioEmpleado extends ActiveRecord
         return $this->hasOne(Horario::className(),['compania'=>'compania','codigo_horario'=>'codigo_horario']);
     }
 
-    /**
-     * @return HorarioEmpleado|array|null|ActiveRecord
-     */
-    public function getHorarioActualEmpleado()
-    {
-        $compania = $this->getAttribute("compania");
-        $codigoEmpleado = $this->getAttribute("codigo_empleado");
-        return HorarioEmpleado::find()->where(["compania"=>$compania,"codigo_empleado"=>$codigoEmpleado])->one();
-    }
+
 
 
 }

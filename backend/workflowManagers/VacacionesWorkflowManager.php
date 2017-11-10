@@ -154,7 +154,6 @@ class VacacionesWorkflowManager extends AbstractWorkflowManager
 
             $movimientoVacaciones= new MovimientoVacaciones(['scenario' => $this->scenario]);
             $movimientoVacaciones->load($this->params, '');
-            $movimientoVacaciones->enterWorkflow();
             if ($movimientoVacaciones->save()) {
                 $this->movimientoVacaciones = $movimientoVacaciones;
 

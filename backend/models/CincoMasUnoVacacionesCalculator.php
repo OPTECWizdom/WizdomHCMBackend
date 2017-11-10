@@ -31,10 +31,8 @@ class CincoMasUnoVacacionesCalculator implements IDiasVacacionesCalculator
      */
     private $controlAjusteVacacionesMovimiento;
 
-    /**
-     * @return int
-     */
-    public function calcularVacaciones():int
+
+    public function calcularVacaciones()
     {
         try
         {
@@ -43,7 +41,7 @@ class CincoMasUnoVacacionesCalculator implements IDiasVacacionesCalculator
             $diasAjuste = $diasCalculados[1];
             $this->getAcumuladoRelacionadoAVacaciones($diasAjuste);
             $this->adjuntarEventoGuardarCalculo();
-            return $diasHabiles;
+            return ['dias_habiles',$diasHabiles];
         }
         catch (\Exception $e)
         {

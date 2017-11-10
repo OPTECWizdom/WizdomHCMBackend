@@ -33,10 +33,36 @@ class Horario extends ActiveRecord
             ];
     }
 
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+
 
     public function getDetalleHorario()
     {
         return $this->hasMany(DetalleHorario::className(),['compania'=>'compania','codigo_horario'=>'codigo_horario']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getDiasTrabajo()
+    {
+        return $this->getDetalleHorario()->where(['!=','descanso','S'])->select(['dia_semana']);
+
+    }
+
+    public function extraFields()
+    {
+        return ["diasTrabajo"];
+    }
+
+
+    public function fields()
+    {
+        $fields = parent::fields();
+        return $fields;
+
     }
 
 }

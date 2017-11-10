@@ -112,7 +112,7 @@ class VacacionesCalculatorFactory
         $pksEmpleado = Empleado::primaryKey();
         $empleado = new Empleado();
         $empleado->setAttributes($this->movimientoVacaciones->getAttributes($pksEmpleado));
-        $horarioActual = $empleado->getHorarioActual();
+        $horarioActual = $empleado->getHorarioActual()->one();
         return $horarioActual;
 
     }
