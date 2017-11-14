@@ -1,7 +1,7 @@
 <?php
 use yii\helpers\Html;
-use app\models\ProcesoMovimientoVacacion;
-use app\models\Proceso;
+use backend\models\ProcesoMovimientoVacacion;
+use backend\models\Proceso;
 
 
 

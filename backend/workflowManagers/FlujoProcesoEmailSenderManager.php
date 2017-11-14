@@ -30,9 +30,9 @@ class FlujoProcesoEmailSenderManager extends AbstractWorkflowManager
     }
     public function run()
     {
+        $transaction = Yii::$app->getDb()->beginTransaction();
         try {
 
-            $transaction = Yii::$app->getDb()->beginTransaction();
             $flujoProcesos = \backend\models\FlujoProceso::find()->where(['estado'=>'FlujoProcesoWorkflow/PE'])->all();
             foreach ($flujoProcesos as $flujoProceso)
             {
@@ -46,8 +46,8 @@ class FlujoProcesoEmailSenderManager extends AbstractWorkflowManager
         }
         catch(\Exception $e)
         {
-            throw $e;
             $transaction->rollBack();
+            throw $e;
         }
         return false;
 
