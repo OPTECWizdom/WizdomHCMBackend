@@ -41,7 +41,7 @@ abstract class EventoCalendarioAbstract extends ActiveRecord
     {
         return
         [
-            'compania','idEvento','modulo','fechaInicial','fechaFinal','titulo',
+            'compania','idEvento','modulo','fechaInicial','titulo','fechaFinal',
             'tipoDeEvento','horaInicial','horaFinal','tstamp'
         ];
     }
