@@ -32,7 +32,7 @@ class UpdateAction extends Action
             call_user_func($this->checkAccess, $this->id, $model);
         }
 
-        $model->scenario = $this->scenario;
+        //$model->scenario = $this->scenario;
         $workflowManagerFactory = new workflowManagers\WorkflowManagerFactory();
         $paramsVacaciones = Yii::$app->getRequest()->getBodyParams()["movimiento_vacaciones"];
         $model->load($paramsVacaciones,'');
