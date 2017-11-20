@@ -13,7 +13,7 @@ class EventoCalendarioDiaFeriado extends EventoCalendarioAbstract
 {
     public static function tableName()
     {
-        return "dias_feriados";
+        return "DIAS_FERIADOS";
     }
 
     public static function primaryKey()

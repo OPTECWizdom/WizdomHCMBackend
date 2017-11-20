@@ -17,7 +17,7 @@ class EventoCalendarioEmpleado extends  ActiveRecord
 
     public static function tableName()
     {
-        return 'empleado';
+        return 'EMPLEADO';
     }
 
 

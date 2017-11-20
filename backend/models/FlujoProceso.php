@@ -14,7 +14,7 @@ class FlujoProceso extends ActiveRecord
 {
     public static function tableName()
     {
-        return 'flujo_proceso';
+        return 'FLUJO_PROCESO';
     }
 
     public static function primaryKey()

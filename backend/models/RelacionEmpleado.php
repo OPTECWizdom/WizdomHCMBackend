@@ -17,7 +17,7 @@ class RelacionEmpleado extends ActiveRecord
 
     public static  function tableName()
     {
-        return 'relaciones_empleado';
+        return 'RELACIONES_EMPLEADO';
     }
 
 

@@ -16,7 +16,7 @@ class Group extends ActiveRecord
 
     public static function tableName()
     {
-        return "sec_groups";
+        return "SEC_GROUPS";
     }
 
     public static function primaryKey()

@@ -15,7 +15,7 @@ class SecurityUserGroup extends ActiveRecord
 {
     public static function tableName()
     {
-        return "sec_users_groups";
+        return "SEC_USERS_GROUP";
     }
 
     public static function primaryKey()

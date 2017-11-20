@@ -16,7 +16,7 @@ class DetalleHorario extends ActiveRecord
 
     public static function tableName()
     {
-        return "detalle_horario";
+        return "DETALLE_HORARIO";
     }
 
 

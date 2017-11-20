@@ -15,7 +15,7 @@ class HorarioEmpleado extends ActiveRecord
 {
     public static function tableName()
     {
-        return "horario_empleado";
+        return "HORARIO_EMPLEADO";
     }
     public static function primaryKey()
     {

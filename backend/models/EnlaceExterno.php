@@ -17,7 +17,7 @@ class EnlaceExterno extends ActiveRecord
 
     public static function tableName()
     {
-        return "enlaces_externos";
+        return "ENLACES_EXTERNOS";
     }
 
     public static function primaryKey()

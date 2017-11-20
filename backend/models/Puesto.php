@@ -15,7 +15,7 @@ class Puesto extends ActiveRecord
 {
     public static function tableName()
     {
-        return "puesto_compania";
+        return "PUESTO_COMPANIA";
     }
 
     public static function primaryKey()

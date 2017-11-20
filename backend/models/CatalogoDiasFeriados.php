@@ -15,7 +15,7 @@ class CatalogoDiasFeriados extends ActiveRecord
 {
     public static function tableName()
     {
-        return "catalogo_dias_feriados";
+        return "CATALOGO_DIAS_FERIADOS";
     }
 
     public static function primaryKey()

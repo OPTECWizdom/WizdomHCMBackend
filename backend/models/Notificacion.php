@@ -16,7 +16,7 @@ class Notificacion extends ActiveRecord
 
     public static function tableName()
     {
-        return "notificaciones";
+        return "NOTIFICACIONES";
     }
 
     public static function primaryKey()

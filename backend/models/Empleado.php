@@ -18,7 +18,7 @@ class Empleado extends  ActiveRecord
 
     public static function tableName()
     {
-        return "empleado";
+        return "EMPLEADO";
     }
 
     public static function primaryKey()

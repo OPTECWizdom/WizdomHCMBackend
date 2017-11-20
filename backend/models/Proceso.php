@@ -17,7 +17,7 @@ class Proceso extends ActiveRecord
 
     public static function tableName()
     {
-        return 'proceso';
+        return 'PROCESO';
     }
 
     public static function primaryKey()

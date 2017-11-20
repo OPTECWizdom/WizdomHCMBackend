@@ -16,7 +16,7 @@ class VacacionesEmpleado extends ActiveRecord
 
     public static function tableName()
     {
-        return "vacaciones_empleado";
+        return "VACACIONES_EMPLEADO";
     }
 
     public static function primaryKey()

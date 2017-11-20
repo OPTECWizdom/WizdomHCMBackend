@@ -16,7 +16,7 @@ class VacacionEmpleadoMovimiento extends ActiveRecord
 
     public static function tableName()
     {
-        return "vacaciones_empleado_movimiento ";
+        return "VACACIONES_EMPLEADO_MOVIMIENTO ";
     }
 
     public static function primaryKey()

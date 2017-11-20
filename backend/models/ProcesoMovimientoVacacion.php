@@ -16,7 +16,7 @@ class ProcesoMovimientoVacacion extends ActiveRecord
 
     public static function tableName()
     {
-        return "proceso_movimientos_vacaciones";
+        return "PROCESO_MOVIMIENTOS_VACACIONES";
     }
 
     public static function primaryKey()

@@ -16,7 +16,7 @@ class Organigrama extends ActiveRecord
 
     public static function tableName()
     {
-        return 'Organigrama';
+        return 'ORGANIGRAMA';
     }
 
     public static function primaryKey()
