@@ -18,7 +18,7 @@ class Empleado extends  ActiveRecord
 
     public static function tableName()
     {
-        return "EMPLEADO";
+        return "empleado";
     }
 
     public static function primaryKey()
@@ -66,10 +66,10 @@ class Empleado extends  ActiveRecord
     {
         $fechaActual = date('Y-m-d');
         return $this->getHorariosEmpleado()
-            ->alias('he')
+            ->alias('HE')
             ->where([">=","fecha_final",$fechaActual])
             ->andWhere(['NOT EXISTS',HorarioEmpleado::find()
-                                    ->alias('he_temp')
+                                    ->alias('HE_TEMP')
                                     ->where("he_temp.compania = he.compania and 
                                                         he_temp.codigo_empleado = he.codigo_empleado and 
                                                         he_temp.consecutivo != he.consecutivo and

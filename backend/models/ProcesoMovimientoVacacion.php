@@ -59,5 +59,20 @@ class ProcesoMovimientoVacacion extends ActiveRecord
 
     }
 
+    public function behaviors()
+    {
+        return [
+
+            'timestamp' => [
+                'class' => 'backend\behaviors\TimestampStringBehavior',
+                'attributes' => [
+                    ActiveRecord::EVENT_BEFORE_INSERT => ['tstamp'],
+                ]
+            ]
+
+        ];
+
+    }
+
 
 }
