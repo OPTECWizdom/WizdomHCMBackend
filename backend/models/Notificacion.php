@@ -21,7 +21,7 @@ class Notificacion extends ActiveRecord
 
     public static function primaryKey()
     {
-        return ["compania","consecutivo","codigo_empleado"];
+        return ["compania","consecutivo"];
     }
     public function behaviors()
     {
@@ -54,12 +54,13 @@ class Notificacion extends ActiveRecord
         return [
             [
                 [
-                    "compania","codigo_empleado"
+                    "compania"
                 ],"required"
 
             ],
             [
                 [
+                    "empleado_envia",
                     "empleado_destino","sistema_procedencia","fecha","asunto",
                     "tstamp","mensaje","naturaleza_notificacion"
                 ],"string"

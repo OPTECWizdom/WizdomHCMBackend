@@ -116,7 +116,7 @@ class FlujoProcesoNotificacionesHelper
     private function buildNotificacion($attributes,Empleado $empleado){
         $notificacion = new Notificacion();
         $notificacion->setAttributes($attributes);
-        $notificacion->setAttribute("codigo_empleado",$empleado->getAttribute("codigo_empleado"));
+        $notificacion->setAttribute("empleado_envia",$empleado->getAttribute("codigo_empleado"));
         $notificacion->setAttribute("empleado_destino",$empleado->getAttribute("codigo_empleado"));
         $notificacion->setAttribute("naturaleza_notificacion",'N');
         $notificacion->setAttribute("leido",0);
