@@ -15,7 +15,7 @@ class FlujoTipoProcesoCorreoExterno extends ActiveRecord
 {
     public static function tableName()
     {
-        return "FLUJO_TIPO_PROCESO_CORREO_EXTERNO";
+        return "FLUJO_TIPO_PROCESO_CORREO_EXTE";
     }
 
 

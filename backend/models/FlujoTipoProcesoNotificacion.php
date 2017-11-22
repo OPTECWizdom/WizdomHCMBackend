@@ -16,7 +16,7 @@ class FlujoTipoProcesoNotificacion extends ActiveRecord
 
     public static function tableName()
     {
-        return "FLUJO_TIPO_PROCESO_NOTIFICACIONES";
+        return "FLUJO_TIPO_PROCESO_NOTIFICACIO";
     }
 
     public static function primaryKey()
