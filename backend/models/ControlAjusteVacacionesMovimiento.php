@@ -15,7 +15,7 @@ class ControlAjusteVacacionesMovimiento extends ActiveRecord
 {
     public static function tableName()
     {
-        return "CONTROL_AJUSTE_VACACIONS_MOV";
+        return "CONTROL_AJUSTE_VACACION_MOV";
     }
     public static function primaryKey()
     {

@@ -15,7 +15,7 @@ class ControlAjusteVacacionAcumulado extends ActiveRecord
 {
     public static function tableName()
     {
-        return "CONTROL_AJUSTE_VACACION_MOV";
+        return "CONTROL_AJUSTE_VACACION_ACUM";
 
     }
 
