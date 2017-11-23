@@ -1,6 +1,6 @@
 <?php
 
-namespace common\components\mdm\autonumber;;
+namespace common\components\mdmsoft\autonumber;
 
 use yii\base\BootstrapInterface;
 use yii\validators\Validator;

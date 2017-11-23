@@ -1,6 +1,6 @@
 <?php
 
-namespace common\components\mdm\autonumber;
+namespace common\components\mdmsoft\autonumber;
 
 /**
  * This is the model class for table "auto_number".

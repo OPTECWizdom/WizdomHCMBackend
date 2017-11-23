@@ -1,6 +1,6 @@
 <?php
 
-namespace common\components\mdm\autonumber;;
+namespace common\components\mdmsoft\autonumber;
 
 use yii\db\ActiveRecord;
 use yii\db\StaleObjectException;

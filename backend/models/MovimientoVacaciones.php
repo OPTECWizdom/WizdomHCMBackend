@@ -51,7 +51,7 @@ class MovimientoVacaciones extends  ActiveRecord
 
             [
 
-                'class' => 'common\components\mdm\autonumber\Behavior',
+                'class' => 'common\components\mdmsoft\autonumber\Behavior',
                 'attribute' => 'consecutivo_movimiento', // required
 
             ],
