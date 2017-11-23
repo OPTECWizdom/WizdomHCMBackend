@@ -60,7 +60,7 @@ class Proceso extends ActiveRecord
                 ],
                 [
 
-                    'class' => 'mdm\autonumber\Behavior',
+                    'class' => 'common\components\mdm\autonumber\Behavior',
                     'attribute' => 'id_proceso', // required
 
                 ]
