@@ -41,7 +41,9 @@ class DeleteAction extends Action
         $workflowManager = $workflowManagerFactory->createWorkflowManager($this->workflowManager,['scenario'=>'delete', 'params'=>$params]);
         $result = $workflowManager->run();
         if ($result === false) {
+            Yii::$app->getResponse()->setStatusCode(500);
             throw new ServerErrorHttpException('Failed to delete the object for unknown reason.');
+
         }
         Yii::$app->getResponse()->setStatusCode(204);
     }

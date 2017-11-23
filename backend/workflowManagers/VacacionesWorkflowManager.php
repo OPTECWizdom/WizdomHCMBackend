@@ -278,11 +278,16 @@ class VacacionesWorkflowManager extends AbstractWorkflowManager
 
     private function deleteMovimientoVacaciones()
     {
-        if($this->movimientoVacaciones->getAttribute("estado_flujo_proceso")=='MovimientoVacacionesWorkflow/RV')
+
+        if($this->movimientoVacaciones->getAttribute("estado_flujo_proceso")=="MovimientoVacacionesWorkflow/RV")
         {
             $this->movimientoVacaciones->setAttribute('estado','B');
-            $this->movimientoVacaciones->save();
-           return 1;
+            $result = $this->movimientoVacaciones->save();
+            if(!$result)
+            {
+                throw new \Exception();
+            }
+            return 1;
         }
         else{
             throw new \Exception();
