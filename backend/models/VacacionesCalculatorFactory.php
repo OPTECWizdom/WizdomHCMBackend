@@ -99,7 +99,7 @@ class VacacionesCalculatorFactory
             $horarioPk = Horario::primaryKey();
             $horario = new Horario();
             $horario->setAttributes($horarioActual->getAttributes($horarioPk));
-            $diasTrabajo = $horario->getDetalleHorario()->where(['trabaja'=>'S'])->count();
+            $diasTrabajo = $horario->getDetalleHorario()->where(['trabaja'=>'T'])->count();
             return $diasTrabajo;
 
 
