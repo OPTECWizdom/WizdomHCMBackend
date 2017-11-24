@@ -121,7 +121,11 @@ class MovimientoVacaciones extends  ActiveRecord
     {
         $vacacionesCalcFactory = new VacacionesCalculatorFactory($this);
         $calculator = $vacacionesCalcFactory->getVacacionesCalculator();
-        $this->setAttributes($calculator->calcularVacaciones());
+        if(!empty($calculator))
+        {
+            $this->setAttributes($calculator->calcularVacaciones());
+
+        }
     }
 
     public function guardarDesgloseVacaciones()
