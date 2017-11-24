@@ -40,7 +40,7 @@ class FlujoTipoProcesoCorreoExternoHelper
         if (!empty($flujoProcesoAgentes) && !empty($correosFlujoProceso)) {
             foreach ($flujoProcesoAgentes as $flujoProcesoAgente) {
                 foreach ($correosFlujoProceso as $correo) {
-                    $mensaje = $correo->getAttribute('texto');
+                    $mensaje = $correo->getAttribute('mensaje');
                     $asunto = $correo->getAttribute('asunto');
                     $this->sendEmailAgente($flujoProcesoAgente, $mensaje, $asunto);
                     $flujoProcesoAgente->setAttribute('correo_enviado','S');
