@@ -47,13 +47,13 @@ $fechaFinal =  $dateTimeFechaFinal->format(\Yii::$app->params['displayDateFormat
         <h3>Datos de la solicitud</h3>
         <table>
             <tr>
-                <th>
+                <th align = "left" width = "33%">
                     Nombre del Empleado
-                </th>
-                <th>
+                </th >
+                <th align = "left" width = "33%">
                     Fecha Inicial
                 </th>
-                <th>
+                <th align = "left" width = "33%">
                     Fecha Final
                 </th>
             </tr>
