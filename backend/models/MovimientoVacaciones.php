@@ -119,9 +119,9 @@ class MovimientoVacaciones extends  ActiveRecord
 
     protected function getDiasHabilesExtras()
     {
-        $cincoMasUnoCalc = new CincoMasUnoVacacionesCalculator();
-        $cincoMasUnoCalc->setMovimientoVacaciones($this);
-        $this->setAttributes($cincoMasUnoCalc->calcularVacaciones());
+        $vacacionesCalcFactory = new VacacionesCalculatorFactory($this);
+        $calculator = $vacacionesCalcFactory->getVacacionesCalculator();
+        $this->setAttributes($calculator->calcularVacaciones());
     }
 
     public function guardarDesgloseVacaciones()
