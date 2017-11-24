@@ -74,7 +74,8 @@ class VacacionesCalculatorFactory
     {
         try {
             $diasTrabajo = $this->getDiasDeTrabajo();
-            if (array_key_exists($diasTrabajo, $this->vacacionesCalculators)) {
+
+            if (!empty($diasTrabajo)&& array_key_exists($diasTrabajo, $this->vacacionesCalculators)) {
                 $this->vacacionesCalculators[$diasTrabajo]->setMovimientoVacaciones($this->movimientoVacaciones);
                 return $this->vacacionesCalculators[$diasTrabajo];
             }
@@ -104,7 +105,7 @@ class VacacionesCalculatorFactory
 
 
         }
-        return 0;
+        return null;
 
     }
     public function getHorarioEmpleado()
