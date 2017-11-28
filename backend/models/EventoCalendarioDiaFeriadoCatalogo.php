@@ -39,15 +39,15 @@ class EventoCalendarioDiaFeriadoCatalogo extends EventoCalendarioAbstract
 
     public  function getFechaInicial()
     {
-        $fechaInicial =  new \DateTime(date('Y').'-'.$this->mes.'-'.$this->dia.' '.$this->getHoraInicial());
-        return $fechaInicial->format('Y-m-d');
+        $fechaInicial =  new \DateTime(date('Y').'-'.$this->mes.'-'.$this->dia);
+        return $fechaInicial->format('Y-m-d H:i:s');
 
     }
 
     public  function getFechaFinal()
     {
-        $fechaFinal =  new \DateTime(date('Y').'-'.$this->mes.'-'.$this->dia.' '.$this->getHoraFinal());
-        return $fechaFinal->format('Y-m-d');
+        $fechaFinal =  new \DateTime(date('Y').'-'.$this->mes.'-'.$this->dia);
+        return $fechaFinal->format('Y-m-d H:i:s');
 
     }
 

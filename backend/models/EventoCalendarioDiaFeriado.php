@@ -38,15 +38,15 @@ class EventoCalendarioDiaFeriado extends EventoCalendarioAbstract
 
     public  function getFechaInicial()
     {
-        $fechaInicial = new \DateTime(date('Y').'-'.$this->numero_mes_feriado.'-'.$this->numero_dia_feriado.' '.$this->getHoraInicial());
-        return $fechaInicial->format('Y-m-d');
+        $fechaInicial = new \DateTime(date('Y').'-'.$this->numero_mes_feriado.'-'.$this->numero_dia_feriado);
+        return $fechaInicial->format('Y-m-d H:i:s');
 
     }
 
     public  function getFechaFinal()
     {
-        $fechaFinal= new \DateTime(date('Y').'-'.$this->numero_mes_feriado.'-'.$this->numero_dia_feriado.' '.$this->getFechaFinal());
-        return $fechaFinal->format('Y-m-d');
+        $fechaFinal= new \DateTime(date('Y').'-'.$this->numero_mes_feriado.'-'.$this->numero_dia_feriado);
+        return $fechaFinal->format('Y-m-d H:i:s');
 
     }
 
