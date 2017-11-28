@@ -64,7 +64,7 @@ class EventoCalendarioDiaFeriadoCatalogo extends EventoCalendarioAbstract
 
     public  function getHoraInicial()
     {
-        return "00:00:00";
+        return "10:00:00";
     }
 
     public  function getHoraFinal()
