@@ -80,7 +80,7 @@ return [
                                     'relaciones-empleados','puestos','horarios','eventos-calendario-empleado',
                                     'security-users'],
                    'tokens' => [
-                       '{id}'=>'<id:(\\w|-|_)+(,(\\w|-|_)+)*>'
+                       '{id}'=>'<id:(\\w|-|_|\.)+(,(\\w|-|_|\.)+)*>'
                    ],
                     'pluralize' => false
 
