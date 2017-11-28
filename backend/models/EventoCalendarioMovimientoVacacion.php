@@ -50,6 +50,9 @@ class EventoCalendarioMovimientoVacacion extends EventoCalendarioAbstract
 
     public function getTipoDeEvento()
     {
+        if($this->estado=='P'){
+            $this->estado ='T';
+        }
         return 'VAC-'.$this->estado;
     }
     public function getHoraInicial()
