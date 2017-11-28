@@ -34,3 +34,4 @@ phpunit.phar
 # vagrant runtime
 /.vagrant
 backend/web/web.config
+WizdomHCMEmailSender.bat
