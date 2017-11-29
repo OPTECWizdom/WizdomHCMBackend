@@ -46,7 +46,7 @@ class VacacionesEmpleadoMovimientoHelper
     {
         $maximoPeriodo = $this->getUltimoPeriodoVacacionesEmpleado();
         $this->vacacionesEmpleado = $this->empleado->getVacacionesEmpleado()
-                                    ->where(['>','dias_disponibles',0])
+                                    ->where(['!=','dias_disponibles',0])
                                     ->orWhere(["periodo"=>$maximoPeriodo])
                                     ->orderBy("periodo asc")->all();
     }
@@ -162,6 +162,10 @@ class VacacionesEmpleadoMovimientoHelper
 
     private function hacerCalculoVacaciones(float $diasHabiles,float $diasDisponibles,bool $ultimo = false):array
     {
+        if($diasDisponibles<=0)
+        {
+            return [0,$diasDisponibles];
+        }
         if($diasHabiles<=0)
         {
             return [0,$diasDisponibles];
