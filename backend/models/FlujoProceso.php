@@ -53,6 +53,7 @@ class FlujoProceso extends ActiveRecord
             ],
             [
                 [
+                    "compania",'id_proceso','tipo_flujo_proceso','codigo_tarea',
                     "fecha_creacion","tstamp","parametros_aplicacion","estado","codigo_empleado_ejecutante",
                     "fecha_ejecucion"
                 ],

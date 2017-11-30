@@ -12,6 +12,9 @@ namespace backend\models;
 interface IAgenteFlujoProcesoSearcher
 {
 
+    /**
+     * @return Empleado[]|null
+     */
     public function search();
 
 }

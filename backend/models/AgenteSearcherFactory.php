@@ -35,6 +35,11 @@ class AgenteSearcherFactory
 
     }
 
+    /**
+     * @param string $type
+     * @return IAgenteFlujoProcesoSearcher|null
+     */
+
     public function createAgenteSearcher(string $type){
         if(array_key_exists($type,$this->agenteClasses)){
             return new $this->agenteClasses[$type]($this->flujoProceso,$this->proceso,$this->parametroAgente);

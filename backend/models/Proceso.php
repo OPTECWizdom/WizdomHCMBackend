@@ -39,6 +39,12 @@ class Proceso extends ActiveRecord
                         "required","on"=>['register']
                     ],
                     [
+                      [
+                          "compania","tipo_flujo_proceso",
+                          "codigo_empleado","sistema_procedencia"
+                      ],"string"
+                    ],
+                    [
                         ["id_proceso"],"integer"
                     ],
                     [

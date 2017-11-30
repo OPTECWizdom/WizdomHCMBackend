@@ -49,6 +49,12 @@ class ProcesoMovimientoVacacion extends ActiveRecord
                                                     "id_proceso"=>"id_proceso"]);
     }
 
+    public function getProcesoDetalle()
+    {
+        return $this->hasOne(ProcesoDetalle::className(),["compania"=>"compania","tipo_flujo_proceso"=>"tipo_flujo_proceso",
+                                                         "id_proceso"=>"id_proceso"]);
+    }
+
     /**
      *
      */
@@ -58,6 +64,7 @@ class ProcesoMovimientoVacacion extends ActiveRecord
                                                                 "consecutivo_movimiento"=>'consecutivo_movimiento']);
 
     }
+
 
     public function behaviors()
     {
@@ -72,6 +79,13 @@ class ProcesoMovimientoVacacion extends ActiveRecord
 
         ];
 
+    }
+
+    public function extraFields()
+    {
+        return [
+            'procesoDetalle'
+        ];
     }
 
 
