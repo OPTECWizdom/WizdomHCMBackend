@@ -38,10 +38,45 @@ class ProcesoDetalle extends ActiveRecord
     }
 
 
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+
+    public function getTipoFlujoProceso()
+    {
+        return $this->hasMany(FlujoTipoProcesoDetalle::className(),
+                ["compania"=>"compania",
+                "tipo_flujo_proceso"=>"tipo_flujo_proceso"])
+                ->alias('FTP')
+                ->where(['NOT EXISTS',FlujoProceso::find()
+                                        ->alias('FP')
+                                        ->where("ftp.compania = fp.compania and 
+                                                 ftp.tipo_flujo_proceso = fp.tipo_flujo_proceso and 
+                                                 ftp.codigo_tarea = fp.codigo_tarea")
+                                        ->andWhere(["id_proceso"=>$this->id_proceso])])
+                ->orderBy('orden');
+    }
+
+
+    public function getTipoFlujoProcesoDetalle()
+    {
+        /**
+         * @var FlujoTipoProcesoDetalle[] $flujos
+         */
+        $flujos = $this->getTipoFlujoProceso()->all();
+        foreach ($flujos as &$flujo)
+        {
+            $flujo->setProceso($this);
+        }
+        return $flujos;
+    }
+
+
     public function fields()
     {
         $parentFields =  parent::fields();
-        $customFields = ["flujoProcesoDetalle"];
+        $customFields = ["flujoProcesoDetalle","tipoFlujoProcesoDetalle"];
         return array_merge($parentFields,$customFields);
     }
 
