@@ -103,7 +103,7 @@ class FlujoProcesoAgenteDetalle extends ActiveRecord
        $codigoEmpleadoEjecutante = $flujoProceso->codigo_empleado_ejecutante;
        if(!empty($codigoEmpleadoEjecutante))
        {
-           $empleados =  $flujoProceso->getEmpleadoEjecutante()->all();
+           $empleados =  $flujoProceso->getEmpleadoEjecutante()->with('puesto')->all();
            $empleados = array_map( function (Empleado $empleado){
                                        $empleado = $empleado->toArray($empleado->fields(),['puesto']);
                                        return $empleado;
