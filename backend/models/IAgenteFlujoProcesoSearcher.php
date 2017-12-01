@@ -9,12 +9,17 @@
 namespace backend\models;
 
 
+
 interface IAgenteFlujoProcesoSearcher
 {
 
     /**
+     * @param array $config
+     * Parámetro con configuraciones extra para buscar.
+     *  En la llave $config['relations'] se puede indicar las relaciones extras que se deseen buscar.
+     *
      * @return Empleado[]|null
      */
-    public function search();
+    public function search($config = []);
 
 }

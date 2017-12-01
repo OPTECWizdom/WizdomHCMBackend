@@ -24,24 +24,19 @@ class RelacionEmpleadoFlujoProcesoSearcher implements IAgenteFlujoProcesoSearche
         $this->parametroAgente = $parametroAgente;
     }
 
-    public function search()
+    public function search($config = [])
     {
-        $empleados = [];
         $tipoRelacion = $this->parametroAgente;
         $codigoEmpleadoSolicitante = $this->proceso->getAttribute("codigo_empleado");
         $compania = $this->proceso->getAttribute("compania");
-        $relacionesEmpleados = RelacionEmpleado::find()->where(["compania"=>$compania,"codigo_empleado"=>$codigoEmpleadoSolicitante,
-                                                            "tipo_relacion"=>$tipoRelacion])->all();
-        foreach ($relacionesEmpleados as $relacionEmpleado){
-            $codigoEmpleadoRelacion = $relacionEmpleado->getAttribute("codigo_empleado_relacion");
-            $empleado = Empleado::find()->where(["compania"=>$compania,
-                                                "codigo_empleado"=>$codigoEmpleadoRelacion])->one();
-            if(!empty($empleado))
-            {
-                $empleados[] = $empleado;
-            }
-
-        }
+        $extraFields = array_key_exists('relations',$config)?$config['relations']:[];
+        $empleados = Empleado::find()
+                        ->with($extraFields)
+                        ->joinWith('relacionesEmpleadosInvolucradas',false,'RIGHT JOIN')
+                        ->where ([  '{{relaciones_empleado}}.compania'=>$compania,
+                                    '{{relaciones_empleado}}.tipo_relacion'=>$tipoRelacion,
+                                    '{{relaciones_empleado}}.codigo_empleado'=>$codigoEmpleadoSolicitante,
+                                    '{{empleado}}.compania'=>$compania])->all();
         return $empleados;
     }
 

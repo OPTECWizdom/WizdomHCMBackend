@@ -131,6 +131,14 @@ class FlujoProceso extends ActiveRecord
         return $this->getAttributes(["compania","tipo_flujo_proceso","codigo_tarea","id_proceso","parametros_aplicacion"]);
     }
 
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+
+    public function getEmpleadoEjecutante()
+    {
+        return $this->hasOne(Empleado::className(),["compania"=>"compania","codigo_empleado"=>"codigo_empleado_ejecutante"]);
+    }
 
 
 

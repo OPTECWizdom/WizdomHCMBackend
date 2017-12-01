@@ -21,7 +21,7 @@ class JefeSuperiorFlujoProcesoSearcher implements IAgenteFlujoProcesoSearcher
     }
 
 
-    public function search()
+    public function search($config = [])
     {
         $jefeInmediatoSearcher = new JefeInmediatoFlujoProcesoSearcher($this->flujoProceso,$this->proceso);
         $jefeInmediato = $jefeInmediatoSearcher->search();

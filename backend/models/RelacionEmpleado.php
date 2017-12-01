@@ -53,4 +53,13 @@ class RelacionEmpleado extends ActiveRecord
 
     }
 
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+
+    public function getEmpleado()
+    {
+        return $this->hasOne(Empleado::className(),["compania"=>"compania","codigo_empleado"=>"codigo_empleado_relacion"]);
+    }
+
 }

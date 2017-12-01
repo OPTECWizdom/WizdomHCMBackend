@@ -16,6 +16,9 @@ use yii\db\Exception;
 class Empleado extends  ActiveRecord
 {
 
+
+
+
     public static function tableName()
     {
         return "EMPLEADO";
@@ -146,6 +149,24 @@ class Empleado extends  ActiveRecord
             'diasFeriados'
 
         ];
+    }
+
+    /**
+     * @return ActiveQuery
+     */
+
+    public function getRelacionesEmpleadosInvolucradas()
+    {
+        return $this->hasMany(RelacionEmpleado::className(),["compania"=>"compania","codigo_empleado_relacion"=>"codigo_empleado"]);
+    }
+
+    /**
+     * @return ActiveQuery
+     */
+
+    public function getRelacionesEmpleados()
+    {
+        return $this->hasMany(RelacionEmpleado::className(),["compania"=>"compania","codigo_empleado"=>"codigo_empleado"]);
     }
 
 

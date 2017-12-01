@@ -61,7 +61,11 @@ class FlujoTipoProcesoAgenteDetalle extends ActiveRecord
         $agenteSearcher = $agenteSearcherFactory->createAgenteSearcher($this->agente);
         if(!empty($agenteSearcher))
         {
-            return $agenteSearcher->search();
+            $empleados =  $agenteSearcher->search(['relations'=>['organigrama']]);
+            $empleados = array_map( function (Empleado $empleado){
+                                        $empleado = $empleado->toArray($empleado->fields(),['organigrama']);
+                                        return $empleado;},$empleados);
+            return $empleados;
         }
         return [];
 

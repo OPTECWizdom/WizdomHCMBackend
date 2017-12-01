@@ -26,7 +26,7 @@ class GrupoFlujoProcesoSearcher implements IAgenteFlujoProcesoSearcher
 
 
 
-    public function search()
+    public function search($config = [])
     {
         $empleados = array();
         $grupo = $this->parametroAgente;

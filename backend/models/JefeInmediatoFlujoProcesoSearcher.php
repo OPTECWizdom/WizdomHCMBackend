@@ -21,7 +21,7 @@ class JefeInmediatoFlujoProcesoSearcher implements IAgenteFlujoProcesoSearcher
     }
 
 
-    public function search()
+    public function search($config = [])
     {
         $empleadoPks = $this->proceso->getAttributes(Empleado::primaryKey());
 

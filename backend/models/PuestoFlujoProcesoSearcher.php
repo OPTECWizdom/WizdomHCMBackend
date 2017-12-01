@@ -23,7 +23,7 @@ class PuestoFlujoProcesoSearcher implements IAgenteFlujoProcesoSearcher
     }
 
 
-    public function search()
+    public function search($config = [])
     {
         $arrayParmsAgente = explode("-",$this->parametroAgente);
         if(count($arrayParmsAgente)==3)

@@ -82,7 +82,12 @@ class FlujoProcesoAgenteDetalle extends ActiveRecord
         $agenteSearcher = $agenteSearcherFactory->createAgenteSearcher($this->agente);
         if(!empty($agenteSearcher))
         {
-            return $agenteSearcher->search();
+            $empleados =  $agenteSearcher->search(['relations'=>['organigrama']]);
+            $empleados = array_map( function (Empleado $empleado){
+                                        $empleado = $empleado->toArray($empleado->fields(),['organigrama']);
+                                        return $empleado;
+                                    },$empleados);
+            return $empleados;
         }
         return [];
 
@@ -98,7 +103,12 @@ class FlujoProcesoAgenteDetalle extends ActiveRecord
        $codigoEmpleadoEjecutante = $flujoProceso->codigo_empleado_ejecutante;
        if(!empty($codigoEmpleadoEjecutante))
        {
-           return Empleado::find()->where(["compania"=>$flujoProceso->compania,"codigo_empleado"=>$codigoEmpleadoEjecutante])->all();
+           $empleados =  $flujoProceso->getEmpleadoEjecutante()->all();
+           $empleados = array_map( function (Empleado $empleado){
+                                       $empleado = $empleado->toArray($empleado->fields(),['organigrama']);
+                                       return $empleado;
+                                   },$empleados);
+           return $empleados;
        }
        else{
            return $this->getPosiblesEjecutante();
