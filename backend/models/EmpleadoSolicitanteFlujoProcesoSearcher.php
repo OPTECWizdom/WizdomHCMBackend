@@ -22,7 +22,7 @@ class EmpleadoSolicitanteFlujoProcesoSearcher implements IAgenteFlujoProcesoSear
     }
 
 
-    public function search()
+    public function search($config = [])
     {
         $empleadoPks = $this->proceso->getAttributes(Empleado::primaryKey());
 
