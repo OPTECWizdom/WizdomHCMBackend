@@ -34,7 +34,7 @@ class ProcesoDetalle extends ActiveRecord
     public function getFlujoProcesoDetalle()
     {
        return $this->hasMany(FlujoProcesoDetalle::className(),["compania"=>"compania","tipo_flujo_proceso"=>"tipo_flujo_proceso",
-                                                                "id_proceso"=>"id_proceso"]);
+                                                                "id_proceso"=>"id_proceso"])->orderBy('codigo_tarea asc');
     }
 
 

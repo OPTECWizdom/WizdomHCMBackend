@@ -82,9 +82,9 @@ class FlujoProcesoAgenteDetalle extends ActiveRecord
         $agenteSearcher = $agenteSearcherFactory->createAgenteSearcher($this->agente);
         if(!empty($agenteSearcher))
         {
-            $empleados =  $agenteSearcher->search(['relations'=>['organigrama']]);
+            $empleados =  $agenteSearcher->search(['relations'=>['puesto']]);
             $empleados = array_map( function (Empleado $empleado){
-                                        $empleado = $empleado->toArray($empleado->fields(),['organigrama']);
+                                        $empleado = $empleado->toArray($empleado->fields(),['puesto']);
                                         return $empleado;
                                     },$empleados);
             return $empleados;
@@ -105,7 +105,7 @@ class FlujoProcesoAgenteDetalle extends ActiveRecord
        {
            $empleados =  $flujoProceso->getEmpleadoEjecutante()->all();
            $empleados = array_map( function (Empleado $empleado){
-                                       $empleado = $empleado->toArray($empleado->fields(),['organigrama']);
+                                       $empleado = $empleado->toArray($empleado->fields(),['puesto']);
                                        return $empleado;
                                    },$empleados);
            return $empleados;

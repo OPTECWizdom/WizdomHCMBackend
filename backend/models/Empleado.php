@@ -119,6 +119,15 @@ class Empleado extends  ActiveRecord
     }
 
     /**
+     * @return ActiveQuery
+     */
+
+    public function getPuesto()
+    {
+        return $this->hasOne(Puesto::className(),["compania"=>"compania","codigo_puesto"=>"codigo_puesto"]);
+    }
+
+    /**
      * @return ActiveRecord
      */
 
@@ -146,7 +155,8 @@ class Empleado extends  ActiveRecord
             'vacacionesEmpleado',
             'horarioActual',
             'organigrama',
-            'diasFeriados'
+            'diasFeriados',
+            'puesto'
 
         ];
     }
