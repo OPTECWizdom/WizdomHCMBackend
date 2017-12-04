@@ -204,7 +204,7 @@ class VacacionesWorkflowManager extends AbstractWorkflowManager
             }
             else
             {
-                throw new \Exception();
+                throw new \Exception(json_encode($flujoProceso->getErrors()));
             }
 
         }
