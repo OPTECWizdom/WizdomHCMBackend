@@ -110,7 +110,7 @@ class DiasHabilesCalculator implements IDiasVacacionesCalculator
         {
             $diasFeriados = $empleado->getDiasFeriados();
             $countFeriados = array_map([$this,'getFeriadoInDiaHabil'],$diasFeriados);
-            return array_key_exists(1,$countFeriados)?array_count_values($countFeriados)[1]:0;
+            return (!empty($countFeriados[1]))?array_count_values($countFeriados)[1]:0;
         }
         return 0;
     }
