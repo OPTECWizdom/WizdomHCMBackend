@@ -76,25 +76,24 @@ class MovimientoVacacionesEjecutorManager extends AbstractWorkflowManager
     private function ejecutarMovimiento(MovimientoVacaciones $movimientoVacacion)
     {
         try{
-
-            $movimientosVacacionesWebService = new MovimientosVacacionesWebService($movimientoVacacion);
-            $result = $movimientosVacacionesWebService->of_procesarmovimiento();
-            if($result->of_procesarmovimientoResult=='1'){
-                $controlAjuste = $movimientoVacacion->getControlAjusteVacacionesMov()->one();
-                if(!empty($controlAjuste))
-                {
-                    $this->guardarControlAjuste($controlAjuste);
-
-                }
-                return true;
-            }
-            else
+            /**
+             * @var ControlAjusteVacacionesMovimiento $controlAjuste
+             */
+            $controlAjuste = $movimientoVacacion->getControlAjusteVacacionesMov()->one();
+            if(!empty($controlAjuste))
             {
-                throw new \Exception('Ha habido un error al procesar el web service');
+                $save = $this->guardarControlAjuste($controlAjuste);
+                if($save)
+                {
+                    $movimientosVacacionesWebService = new MovimientosVacacionesWebService($movimientoVacacion);
+                    $result = $movimientosVacacionesWebService->of_procesarmovimiento();
+                    if($result->of_procesarmovimientoResult=='1'){
+                        return true;
+                    }
+                    
+                }
             }
-
-
-
+            throw new \Exception('Ha habido un error');
         }
         catch (\Exception $e)
         {
@@ -104,6 +103,7 @@ class MovimientoVacacionesEjecutorManager extends AbstractWorkflowManager
 
     /**
      * @param ControlAjusteVacacionesMovimiento $controlAjuste
+     * @return bool
      * @throws \Exception
      */
 
@@ -115,7 +115,7 @@ class MovimientoVacacionesEjecutorManager extends AbstractWorkflowManager
             {
                 $controlAjusteEmpleado->setAttribute('dias_ajuste',$controlAjuste->getAttribute('dias_ajuste'));
 
-                $controlAjusteEmpleado->save();
+                return $controlAjusteEmpleado->save();
             }
 
         }
