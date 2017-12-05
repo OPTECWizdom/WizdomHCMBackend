@@ -156,7 +156,8 @@ class Empleado extends  ActiveRecord
             'horarioActual',
             'organigrama',
             'diasFeriados',
-            'puesto'
+            'puesto',
+            'solicitudesPendientes'
 
         ];
     }
@@ -179,6 +180,14 @@ class Empleado extends  ActiveRecord
         return $this->hasMany(RelacionEmpleado::className(),["compania"=>"compania","codigo_empleado"=>"codigo_empleado"]);
     }
 
+    /**
+     * @return ActiveQuery
+     */
+    public function getSolicitudesPendientes()
+    {
+        return $this->hasMany(MovimientoVacaciones::className(),['compania'=>'compania','codigo_empleado'=>'codigo_empleado'])
+                ->where(['tipo_mov'=>'DVA','estado'=>['T','P']]);
+    }
 
 
 
