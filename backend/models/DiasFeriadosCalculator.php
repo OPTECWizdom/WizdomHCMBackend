@@ -29,7 +29,6 @@ class DiasFeriadosCalculator implements IDiasVacacionesCalculator
     {
         $fechaInicial = new \DateTime($this->movimientoVacaciones->getAttribute('fecha_inicial'));
         $fechaFinal = new \DateTime($this->movimientoVacaciones->getAttribute('fecha_final'));
-
         $diasFeriados = $this->getDiasFeriados();
         $diasFeriadosCount = 0;
         if(!empty($diasFeriados))
@@ -47,10 +46,7 @@ class DiasFeriadosCalculator implements IDiasVacacionesCalculator
                         $diasFeriadosCount++;
                     }
                 }
-
-
             }
-
         }
         return $diasFeriadosCount;
 

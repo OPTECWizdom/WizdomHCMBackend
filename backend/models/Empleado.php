@@ -128,7 +128,7 @@ class Empleado extends  ActiveRecord
     }
 
     /**
-     * @return ActiveRecord
+     * @return IDiaFeriado[]
      */
 
     public function getDiasFeriados()

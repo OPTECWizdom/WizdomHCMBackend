@@ -15,6 +15,16 @@ class DiasHabilesCalculator implements IDiasVacacionesCalculator
      * @var MovimientoVacaciones $movimientoVacacion
      */
     private $movimientoVacacion;
+    /**
+     * @var array
+     */
+    private $fechas = [];
+
+    /**
+     * @var Empleado $empleado
+     */
+
+    private $empleado;
 
 
     public function calcularVacaciones()
@@ -74,21 +84,67 @@ class DiasHabilesCalculator implements IDiasVacacionesCalculator
             $diaFormat = $dia->format('D');
             if(in_array($diaFormat,$diasTrabajo))
             {
+                $this->addFecha($dia->format('n'),$dia->format('j'));
                 $diasHabiles++;
             }
-
         }
 
+        return $diasHabiles-$this->getCountFeriados();
+    }
 
+    /**
+     * @param $mes
+     * @param $dia
+     */
+    private function addFecha($mes,$dia)
+    {
+        $this->fechas[]="$mes-$dia";
 
-        return $diasHabiles;
     }
 
 
+    private function getCountFeriados()
+    {
+        $empleado = $this->getEmpleado();
+        if(!empty($empleado))
+        {
+            $diasFeriados = $empleado->getDiasFeriados();
+            $countFeriados = array_map([$this,'getFeriadoInDiaHabil'],$diasFeriados);
+            return array_count_values($countFeriados)[1];
+        }
+        return 0;
+    }
 
+    /**
+     * @param IDiaFeriado $diaFeriado
+     *
+     * @return int;
+     */
 
+    public function getFeriadoInDiaHabil($diaFeriado)
+    {
+        $fechasVacaciones = $this->fechas;
+        $fechaDia = $diaFeriado->getMesFeriado()."-".$diaFeriado->getDiaFeriado();;
+        if(in_array($fechaDia,$fechasVacaciones))
+        {
+            return 1;
+        }
+        return 0;
 
+    }
 
+    /**
+     * @return Empleado
+     */
+
+    public function getEmpleado(){
+        if(empty($this->empleado))
+        {
+            return $this->empleado;
+        }
+        $this->empleado = $this->movimientoVacacion->getEmpleado()->one();
+        return $this->empleado;
+    }
 
 
     /**

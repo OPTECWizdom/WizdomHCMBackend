@@ -11,8 +11,9 @@ namespace backend\models;
 
 use yii\db\ActiveRecord;
 
-class DiaFeriadoCatalogo extends ActiveRecord
+class DiaFeriadoCatalogo extends ActiveRecord implements IDiaFeriado
 {
+
 
 
     public static function tableName()
@@ -33,5 +34,15 @@ class DiaFeriadoCatalogo extends ActiveRecord
         $fields['numero_mes_feriado']='mes';
         return $fields;
     }
+    public function getDiaFeriado()
+    {
+        return $this->dia;
+    }
+
+    public function getMesFeriado()
+    {
+        return $this->mes;
+    }
+
 
 }
