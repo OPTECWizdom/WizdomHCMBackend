@@ -124,7 +124,7 @@ class DiasHabilesCalculator implements IDiasVacacionesCalculator
     public function getFeriadoInDiaHabil($diaFeriado)
     {
         $fechasVacaciones = $this->fechas;
-        $fechaDia = $diaFeriado->getMesFeriado()."-".$diaFeriado->getDiaFeriado();;
+        $fechaDia = $diaFeriado->getMesFeriado()."-".$diaFeriado->getDiaFeriado();
         if(in_array($fechaDia,$fechasVacaciones))
         {
             return 1;
@@ -138,7 +138,7 @@ class DiasHabilesCalculator implements IDiasVacacionesCalculator
      */
 
     public function getEmpleado(){
-        if(empty($this->empleado))
+        if(!empty($this->empleado))
         {
             return $this->empleado;
         }
