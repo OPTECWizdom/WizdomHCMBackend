@@ -66,4 +66,6 @@ class VacacionEmpleadoMovimiento extends ActiveRecord
 
     }
 
+
+
 }

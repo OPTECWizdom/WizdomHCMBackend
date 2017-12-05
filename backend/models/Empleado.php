@@ -193,6 +193,7 @@ class Empleado extends  ActiveRecord
 
 
 
+
     public function fields()
     {
         $fields =  parent::fields();

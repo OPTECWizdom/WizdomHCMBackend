@@ -201,20 +201,18 @@ class MovimientoVacaciones extends  ActiveRecord
         $this->enterWorkflow();
     }
 
+    /**
+     * @return mixed
+     */
+    public function getDiasDisponiblesVacaciones()
+    {
+        return $this->getVacacionesEmpleadoMovimiento()->sum('dias_disponibles');
+    }
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+    public function extraFields()
+    {
+        return ['diasDisponiblesVacaciones'];
+    }
 }
