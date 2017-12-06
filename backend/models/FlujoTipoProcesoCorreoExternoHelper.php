@@ -59,6 +59,7 @@ class FlujoTipoProcesoCorreoExternoHelper
         {
             foreach($empleados as $empleado)
             {
+                $asunto = $asunto." - ".ucwords(strtolower($empleado->nombre." ".$empleado->primer_apellido." ".$empleado->segundo_apellido));
                 $correo = $empleado->getAttribute('correo_electronico_principal');
                 if(!empty($correo))
                 {
