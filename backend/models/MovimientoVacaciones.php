@@ -224,7 +224,7 @@ class MovimientoVacaciones extends  ActiveRecord implements IProcesoSubject
             $fechaInicial =  $dateTimeFechaInicial->format(\Yii::$app->params['displayDateFormat']);
             $dateTimeFechaFinal = new \DateTime($this->fecha_final);
             $fechaFinal =  $dateTimeFechaFinal->format(\Yii::$app->params['displayDateFormat']);
-            return "Solicitud de Vacaciones del ".$fechaInicial."hasta ".$fechaFinal;
+            return "Solicitud de Vacaciones del ".$fechaInicial." hasta ".$fechaFinal;
 
         }
 
