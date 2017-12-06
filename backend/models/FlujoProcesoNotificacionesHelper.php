@@ -166,7 +166,7 @@ class FlujoProcesoNotificacionesHelper
         $subject = $this->getProcesoSubject();
         if(!empty($subject))
         {
-            $description =  $subject->getSubjectProcesoDescription();
+            $description .=" : " .$subject->getSubjectProcesoDescription();
         }
         return $description;
     }
