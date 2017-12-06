@@ -19,4 +19,10 @@ interface IProcesoSubject
      */
     public function getSubjectProcesoDescription();
 
+    /**
+     * @return string
+     */
+
+    public function getNotificationSubject();
+
 }

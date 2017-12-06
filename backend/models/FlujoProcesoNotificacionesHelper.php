@@ -16,6 +16,7 @@ class FlujoProcesoNotificacionesHelper
     public $notificacionesTipoProceso;
     private $proceso;
     private $agentes;
+    private $procesoSubject;
 
     public function __construct(FlujoProceso $flujoProceso)
     {
@@ -75,6 +76,7 @@ class FlujoProcesoNotificacionesHelper
         $attributes = array();
         $attributes["compania"] = $notificacionTipoProceso->getAttribute("compania");
         $attributes["sistema_procedencia"] = "RHU";
+        $attributes["asunto"] = $this->getAsuntoNotificacion();
         $attributes["mensaje"] = $this->getDescripcionProcesoSubject().$notificacionTipoProceso->getAttribute("mensaje");
         $agenteType = $notificacionTipoProceso->getAttribute("agente");
         if(!array_key_exists($agenteType,$this->agentes)){
@@ -125,22 +127,48 @@ class FlujoProcesoNotificacionesHelper
 
     }
 
+    /**
+     * @return IProcesoSubject
+     */
+
+    private function getProcesoSubject()
+    {
+        if (!empty($this->procesoSubject))
+            $factory = new FactoryProcesoSubjectConnector();
+        $connector = $factory->getSubjectProceso($this->proceso);
+        if (!empty($connector)) {
+            $subject = $connector->getProcesoSubject();
+            if (!empty($subject)) {
+                $subject = $this->procesoSubject;
+            }
+
+        }
+        return $this->procesoSubject;
+    }
+
+
+    private function getAsuntoNotificacion()
+    {
+        $subjectText = "Wizdom HCM - Notificación";
+        $subject = $this->getProcesoSubject();
+        if(!empty($subject))
+        {
+            $subjectText.=" - ".$subject->getNotificationSubject();
+        }
+        return $subjectText;
+    }
 
     private function getDescripcionProcesoSubject()
     {
-        $factory = new FactoryProcesoSubjectConnector();
-        $connector = $factory->getSubjectProceso($this->proceso);
-        if(!empty($connector))
+        $description = "";
+        $subject = $this->getProcesoSubject();
+        if(!empty($subject))
         {
-           $subject = $connector->getProcesoSubject();
-           if(!empty($subject))
-           {
-               return $subject->getSubjectProcesoDescription()." : ";
-           }
-
+            $description =  $subject->getSubjectProcesoDescription();
         }
-        return '';
+        return $description;
     }
+
 
 
 

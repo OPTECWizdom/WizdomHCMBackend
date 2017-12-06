@@ -231,5 +231,10 @@ class MovimientoVacaciones extends  ActiveRecord implements IProcesoSubject
         return "";
     }
 
+    public function getNotificationSubject()
+    {
+        return $this->getSubjectProcesoDescription();
+    }
+
 
 }
