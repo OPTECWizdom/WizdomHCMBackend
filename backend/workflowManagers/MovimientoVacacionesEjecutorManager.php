@@ -90,7 +90,7 @@ class MovimientoVacacionesEjecutorManager extends AbstractWorkflowManager
                     if($result->of_procesarmovimientoResult=='1'){
                         return true;
                     }
-                    
+
                 }
             }
             throw new \Exception('Ha habido un error');

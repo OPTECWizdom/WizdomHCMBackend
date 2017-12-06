@@ -51,7 +51,8 @@ class EventoCalendarioEmpleado extends  ActiveRecord
     {
         return $this->hasMany(EventoCalendarioMovimientoVacacion::className(),['compania'=>'compania',
                                                                                 'codigo_empleado'=>'codigo_empleado'])
-                                                                                ->where("estado not in ('B','R')");
+                                                                                ->where("estado not in ('B','R')")
+                                                                                ->andWhere(['tipo_mov'=>'DVA']);
     }
     /**
      * @return ActiveRecord
