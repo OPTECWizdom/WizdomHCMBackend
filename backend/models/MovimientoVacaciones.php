@@ -15,7 +15,7 @@ use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
 use yii\db\Exception;
 
-class MovimientoVacaciones extends  ActiveRecord
+class MovimientoVacaciones extends  ActiveRecord implements IProcesoSubject
 {
 
 
@@ -215,4 +215,21 @@ class MovimientoVacaciones extends  ActiveRecord
     {
         return ['diasDisponiblesVacaciones'];
     }
+
+    public function getSubjectProcesoDescription()
+    {
+        if(!empty($this->fecha_inicial) && !empty($this->fecha_final))
+        {
+            $dateTimeFechaInicial = new \DateTime($this->fecha_inicial);
+            $fechaInicial =  $dateTimeFechaInicial->format(\Yii::$app->params['displayDateFormat']);
+            $dateTimeFechaFinal = new \DateTime($this->fecha_final);
+            $fechaFinal =  $dateTimeFechaFinal->format(\Yii::$app->params['displayDateFormat']);
+            return "Solicitud de Vacaciones del ".$fechaInicial."hasta ".$fechaFinal;
+
+        }
+
+        return "";
+    }
+
+
 }

@@ -11,7 +11,7 @@ namespace backend\models;
 
 use yii\db\ActiveRecord;
 
-class ProcesoMovimientoVacacion extends ActiveRecord
+class ProcesoMovimientoVacacion extends ActiveRecord implements IProcesoSubjectConnector
 {
 
     public static function tableName()
@@ -86,6 +86,11 @@ class ProcesoMovimientoVacacion extends ActiveRecord
         return [
             'procesoDetalle'
         ];
+    }
+
+    public function getProcesoSubject()
+    {
+        return $this->getMovimientoVacaciones()->one();
     }
 
 
