@@ -13,6 +13,14 @@ use yii\db\ActiveRecord;
 
 class Proceso extends ActiveRecord
 {
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+
+    public function getEmpleadoSolicitante()
+    {
+        return $this->hasOne(Empleado::className(),["compania"=>"compania","codigo_empleado"=>"codigo_empleado"]);
+    }
 
 
     public static function tableName()

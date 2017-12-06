@@ -15,8 +15,17 @@ use Yii;
 class FlujoTipoProcesoCorreoExternoHelper
 {
 
+    /**
+     * @var FlujoProceso $flujoProceso
+     */
     private $flujoProceso;
+    /**
+     * @var Proceso $proceso
+     */
     private $proceso;
+    /**
+     * @var FlujoTipoProceso $flujoTipoProceso
+     */
     private $flujoTipoProceso;
 
 
@@ -53,13 +62,13 @@ class FlujoTipoProcesoCorreoExternoHelper
 
     public function sendEmailAgente(FlujoProcesoAgente $flujoProcesoAgente,string $mensaje, string $asunto)
     {
+        $empleadoSolicitante = $this->proceso->getEmpleadoSolicitante()->one();
         $empleados = $this->getEmpleadosFromAgente($flujoProcesoAgente);
-
         if(!empty($empleados))
         {
             foreach($empleados as $empleado)
             {
-                $asunto = $asunto." - ".ucwords(strtolower($empleado->nombre." ".$empleado->primer_apellido." ".$empleado->segundo_apellido));
+                $asunto = $asunto." - ".ucwords(strtolower($empleadoSolicitante->nombre." ".$empleadoSolicitante->primer_apellido." ".$empleadoSolicitante->segundo_apellido));
                 $correo = $empleado->getAttribute('correo_electronico_principal');
                 if(!empty($correo))
                 {
