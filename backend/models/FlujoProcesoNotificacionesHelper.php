@@ -133,7 +133,7 @@ class FlujoProcesoNotificacionesHelper
 
     private function getProcesoSubject()
     {
-        if(!empty($this->procesoSubject)) {
+        if(empty($this->procesoSubject)) {
             $factory = new FactoryProcesoSubjectConnector();
             $connector = $factory->getSubjectProceso($this->proceso);
             if (!empty($connector)) {
