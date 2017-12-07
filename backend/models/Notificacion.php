@@ -108,14 +108,14 @@ class Notificacion extends ActiveRecord implements IEmailable
 
     public function getHTMLBody()
     {
-        return null;
+        return 'notificacionGenerica-html';
 
     }
 
 
     public function getEmailBody()
     {
-        return $this->mensaje;
+        return '';
     }
 
 
@@ -129,7 +129,7 @@ class Notificacion extends ActiveRecord implements IEmailable
 
     public function getHTMLBodyParms()
     {
-        return [];
+        return ['notificacion'=>$this];
 
     }
 
