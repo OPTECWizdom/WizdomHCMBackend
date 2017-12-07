@@ -89,6 +89,7 @@ class Notificacion extends ActiveRecord implements IEmailable
 
     public static function findPendingEmails()
     {
+        return self::find()->where(['correo_enviado'=>'N'])->all();
     }
 
 
@@ -121,13 +122,14 @@ class Notificacion extends ActiveRecord implements IEmailable
     public  function getDestinations()
     {
 
-       return $this->getEmpleadoDestino()->one();
+       return $this->getEmpleadoDestino()->one()->correo_electronico_principal;
 
     }
 
 
     public function getHTMLBodyParms()
     {
+        return [];
 
     }
 
