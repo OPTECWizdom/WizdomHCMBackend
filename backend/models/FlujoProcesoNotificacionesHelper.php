@@ -77,7 +77,7 @@ class FlujoProcesoNotificacionesHelper
         $attributes["compania"] = $notificacionTipoProceso->getAttribute("compania");
         $attributes["sistema_procedencia"] = "RHU";
         $attributes["asunto"] = $this->getAsuntoNotificacion();
-        $attributes["mensaje"] = $this->getDescripcionProcesoSubject().$notificacionTipoProceso->getAttribute("mensaje");
+        $attributes["mensaje"] = $this->getDescripcionProcesoSubject()." : ".$notificacionTipoProceso->getAttribute("mensaje");
         $agenteType = $notificacionTipoProceso->getAttribute("agente");
         if(!array_key_exists($agenteType,$this->agentes)){
             $this->getAgenteOfNotificacion($agenteType,$notificacionTipoProceso);
@@ -166,7 +166,7 @@ class FlujoProcesoNotificacionesHelper
         $subject = $this->getProcesoSubject();
         if(!empty($subject))
         {
-            $description .=" : " .$subject->getSubjectProcesoDescription();
+            $description .=$subject->getSubjectProcesoDescription();
         }
         return $description;
     }
