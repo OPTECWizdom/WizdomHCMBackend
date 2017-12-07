@@ -29,4 +29,6 @@ class FlujoTipoProcesoCorreoExterno extends ActiveRecord
 
 
 
+
+
 }

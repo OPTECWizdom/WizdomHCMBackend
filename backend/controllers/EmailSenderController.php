@@ -11,9 +11,9 @@ namespace backend\controllers;
 
 use yii\rest\ActiveController;
 
-class FlujoProcesoEmailSenderController extends ActiveController
+class EmailSenderController extends ActiveController
 {
-    private $workflowManager =  "FlujoProcesoEmailSenderManager";
+    private $workflowManager =  "EmailSenderManager";
     public $modelClass = 'backend\models\FlujoTipoProcesoCorreoExterno';
 
 

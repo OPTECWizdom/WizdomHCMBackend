@@ -201,4 +201,9 @@ class Empleado extends  ActiveRecord
 
     }
 
+    public function getNombreCompleto()
+    {
+        return $this->nombre." ".$this->primer_apellido." ".$this->segundo_apellido;
+    }
+
 }

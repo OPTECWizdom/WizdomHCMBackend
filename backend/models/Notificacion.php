@@ -11,7 +11,7 @@ namespace backend\models;
 
 use yii\db\ActiveRecord;
 
-class Notificacion extends ActiveRecord
+class Notificacion extends ActiveRecord implements IEmailable
 {
 
     public static function tableName()
@@ -62,7 +62,7 @@ class Notificacion extends ActiveRecord
                 [
                     "empleado_envia",
                     "empleado_destino","sistema_procedencia","fecha","asunto",
-                    "tstamp","mensaje","naturaleza_notificacion"
+                    "tstamp","mensaje","naturaleza_notificacion","correo_enviado"
                 ],"string"
             ],
             [
@@ -71,6 +71,69 @@ class Notificacion extends ActiveRecord
                 ],"integer"
             ]
         ];
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+
+    public  function getEmpleadoDestino()
+    {
+        return $this->hasOne(Empleado::className(),["compania"=>"compania","codigo_empleado"=>"empleado_destino"]);
+    }
+
+
+    /**
+     * IEmailable Methods
+     */
+
+    public static function findPendingEmails()
+    {
+    }
+
+
+    public function setSentStatus()
+    {
+        $this->setAttribute('correo_enviado','S');
+
+    }
+
+
+    public function getSubjectEmail()
+    {
+      return $this->asunto;
+    }
+
+
+    public function getHTMLBody()
+    {
+        return null;
+
+    }
+
+
+    public function getEmailBody()
+    {
+        return $this->mensaje;
+    }
+
+
+    public  function getDestinations()
+    {
+
+       return $this->getEmpleadoDestino()->one();
+
+    }
+
+
+    public function getHTMLBodyParms()
+    {
+
+    }
+
+    public function isEmail()
+    {
+        return true;
     }
 
 }
