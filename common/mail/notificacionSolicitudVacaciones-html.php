@@ -1,30 +1,30 @@
 <?php
 use yii\helpers\Html;
-use backend\models\ProcesoMovimientoVacacion;
-use backend\models\Proceso;
-
-
+use backend\models\procesoModelConnector\procesoMovimientoVacacion\ProcesoMovimientoVacacion;
+use backend\models\proceso\Proceso;
+use backend\models\movimientosVacaciones\MovimientoVacaciones;
+use backend\models\empleado\Empleado;
 
 /**
- * @var backend\models\Proceso $proceso
+ * @var Proceso $proceso
  */
 $proceso;
 
 $procesoPK = $proceso->getAttributes(Proceso::primaryKey());
 /**
- * @var backend\models\ProcesoMovimientoVacacion $procesoMovimientoVacaciones
+ * @var ProcesoMovimientoVacacion $procesoMovimientoVacaciones
  */
 
-$procesoMovimientoVacaciones = \backend\models\ProcesoMovimientoVacacion::find()->where($procesoPK)->one();
+$procesoMovimientoVacaciones = ProcesoMovimientoVacacion::find()->where($procesoPK)->one();
 
 /**
- * @var \backend\models\MovimientoVacaciones $movimientoVacaciones
+ * @var MovimientoVacaciones $movimientoVacaciones
  */
 $movimientoVacaciones = $procesoMovimientoVacaciones->getMovimientoVacaciones()->one();
 
 
 /**
- * @var \backend\models\Empleado $empleado
+ * @var Empleado $empleado
  */
 
 $empleado = $movimientoVacaciones->getEmpleado()->one();

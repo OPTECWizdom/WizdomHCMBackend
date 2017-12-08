@@ -1,7 +1,6 @@
 <?php
 use yii\helpers\Html;
-use backend\Models\Notificacion;
-
+use backend\models\notificacion\Notificacion;
 /**
  * @var Notificacion $notificacion
  */
