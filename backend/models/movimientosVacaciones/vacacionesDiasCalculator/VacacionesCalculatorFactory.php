@@ -41,7 +41,7 @@ class VacacionesCalculatorFactory
     public function __construct(MovimientoVacaciones $movimientoVacaciones)
     {
         $this->movimientoVacaciones = $movimientoVacaciones;
-        $this->vacacionesCalculatorsNames = [5=>'backend\models\CincoMasUnoVacacionesCalculator'];
+        $this->vacacionesCalculatorsNames = [5=>'backend\models\movimientosVacaciones\vacacionesDiasCalculator\CincoMasUnoVacacionesCalculator'];
         foreach ($this->vacacionesCalculatorsNames as $key=>$value)
         {
             $this->vacacionesCalculators[$key] = new $value();
