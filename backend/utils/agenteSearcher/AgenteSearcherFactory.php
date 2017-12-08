@@ -30,7 +30,7 @@ class AgenteSearcherFactory
     {
 
         $this->searchableObject = $searchableObject;
-        $this->extraParms;
+        $this->extraParms = $extraParms;
     }
 
     /**

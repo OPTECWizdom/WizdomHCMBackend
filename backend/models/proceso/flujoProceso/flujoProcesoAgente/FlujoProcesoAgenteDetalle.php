@@ -82,7 +82,6 @@ class FlujoProcesoAgenteDetalle extends ActiveRecord
      */
     public function getPosiblesEjecutante()
     {
-        $flujoProceso = $this->getFlujoProceso();
         $proceso = $this->getProceso();
         $agenteSearcherFactory = new AgenteSearcherFactory($proceso,$this->parametro_agente);
         $agenteSearcher = $agenteSearcherFactory->createAgenteSearcher($this->agente);
