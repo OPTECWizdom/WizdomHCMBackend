@@ -13,6 +13,6 @@ use yii\rest\ActiveController;
 
 class HorariosController extends ActiveController
 {
-    public $modelClass = '\backend\models\Horario';
+    public $modelClass = '\backend\models\horario\Horario';
 
 }

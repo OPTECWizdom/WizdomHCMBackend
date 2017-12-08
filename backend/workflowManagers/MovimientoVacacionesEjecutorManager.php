@@ -9,8 +9,8 @@
 namespace backend\workflowManagers;
 
 
-use \backend\models\ControlAjusteVacacionesMovimiento;
-use \backend\models\MovimientoVacaciones;
+use backend\models\movimientosVacaciones\controlAjusteVacacionesMovimiento\ControlAjusteVacacionesMovimiento;
+use backend\models\movimientosVacaciones\MovimientoVacaciones;
 use backend\wizdomWebServices\MovimientosVacacionesWebService\MovimientosVacacionesWebService;
 use yii\db\ActiveRecord;
 use yii\db\Transaction;

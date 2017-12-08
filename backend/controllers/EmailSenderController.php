@@ -14,7 +14,7 @@ use yii\rest\ActiveController;
 class EmailSenderController extends ActiveController
 {
     private $workflowManager =  "EmailSenderManager";
-    public $modelClass = 'backend\models\FlujoTipoProcesoCorreoExterno';
+    public $modelClass = 'backend\models\proceso\flujoTipoProceso\flujoTipoProcesoCorreoExterno\FlujoTipoProcesoCorreoExterno';
 
 
     public function actions()

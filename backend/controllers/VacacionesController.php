@@ -13,7 +13,7 @@ use yii\rest\ActiveController;
 class VacacionesController extends ActiveController
 {
     private $workflowManager =  "VacacionesWorkflowManager";
-    public $modelClass = 'backend\models\MovimientoVacaciones';
+    public $modelClass = 'backend\models\movimientosVacaciones\MovimientoVacaciones';
 
 
 

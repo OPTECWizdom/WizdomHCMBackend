@@ -7,11 +7,10 @@
  */
 
 namespace backend\workflowManagers;
-
-use backend\models\FlujoProceso;
-use backend\models\MovimientoVacaciones;
-use backend\models\Proceso;
-use backend\models\ProcesoMovimientoVacacion;
+use backend\models\proceso\Proceso;
+use backend\models\movimientosVacaciones\MovimientoVacaciones;
+use backend\models\proceso\flujoProceso\FlujoProceso;
+use backend\models\procesoModelConnector\procesoMovimientoVacacion\ProcesoMovimientoVacacion;
 use backend\models\VacacionesFlujoProcesoHelper;
 use Yii;
 use yii\db\Exception;

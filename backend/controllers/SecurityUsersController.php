@@ -13,6 +13,6 @@ use yii\rest\ActiveController;
 
 class SecurityUsersController extends ActiveController
 {
-    public $modelClass =  'backend\models\SecurityUser';
+    public $modelClass =  'backend\models\security\securityUser\SecurityUser';
 
 }

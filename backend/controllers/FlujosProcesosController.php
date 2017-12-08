@@ -12,7 +12,7 @@ use yii\rest\ActiveController;
 
 class FlujosProcesosController extends  ActiveController
 {
-    public $modelClass = 'backend\models\FlujoProceso';
+    public $modelClass = 'backend\models\proceso\flujoProceso\FlujoProceso';
 
 
     public function actions()

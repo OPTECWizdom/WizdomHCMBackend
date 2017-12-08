@@ -13,6 +13,6 @@ use yii\rest\ActiveController;
 
 class EventosCalendarioEmpleadoController extends ActiveController
 {
-    public $modelClass = 'backend\models\EventoCalendarioEmpleado';
+    public $modelClass = 'backend\models\eventoCalendario\EventoCalendarioEmpleado';
 
 }

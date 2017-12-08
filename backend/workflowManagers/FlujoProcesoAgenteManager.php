@@ -9,9 +9,8 @@
 namespace backend\workflowManagers;
 
 
-use backend\models\FlujoProceso;
-use backend\models\FlujoProcesoAgenteHelper;
-
+use backend\models\proceso\flujoProceso\FlujoProceso;
+use backend\models\proceso\flujoProceso\flujoProcesoAgente\FlujoProcesoAgenteHelper;
 class FlujoProcesoAgenteManager extends AbstractWorkflowManager
 
 {
@@ -43,8 +42,8 @@ class FlujoProcesoAgenteManager extends AbstractWorkflowManager
 
     public  function run()
     {
+        $transaction =\Yii::$app->getDb()->beginTransaction();
         try{
-            $transaction =\Yii::$app->getDb()->beginTransaction();
 
             $flujoProcesos = FlujoProceso::find()->where(["estado"=>'FlujoProcesoWorkflow/PE'])->all();
             foreach ($flujoProcesos as $flujoProceso){

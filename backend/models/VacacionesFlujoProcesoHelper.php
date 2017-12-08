@@ -7,16 +7,32 @@
  */
 
 namespace backend\models;
+use backend\models\movimientosVacaciones\MovimientoVacaciones;
+use backend\models\proceso\Proceso;
+use backend\models\proceso\flujoProceso\FlujoProceso;
+use backend\models\proceso\flujoTipoProceso\FlujoTipoProceso;
 
-
-
+/**
+ * Class VacacionesFlujoProcesoHelper
+ * @package backend\models
+*/
 class VacacionesFlujoProcesoHelper implements IFlujoProcesoHelper
 {
 
-
-
+    /**
+    * @var MovimientoVacaciones $movimientosVacaciones
+     *
+     */
     private $movimientoVacaciones;
+
+    /**
+     * @var FlujoProceso $flujoProceso
+     */
+
     private $flujoProceso;
+    /**
+     * @var FlujoTipoProceso $flujoTipoProceso
+     */
     private $flujoTipoProceso;
     private $proceso;
     private $operation;

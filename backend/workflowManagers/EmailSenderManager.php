@@ -8,15 +8,15 @@
 
 namespace backend\workflowManagers;
 
-use backend\models\GenericEmailSender;
-use backend\models\IEmailable;
+use backend\utils\email\GenericEmailSender;
+use backend\utils\email\IEmailable;
 use Yii;
 
 class EmailSenderManager extends AbstractWorkflowManager
 {
     private $emailables = [
-        'backend\Models\Notificacion',
-        'backend\Models\FlujoProcesoAgente'
+        'backend\Models\notificacion\Notificacion',
+        'backend\Models\proceso\flujoProceso\flujoProcesoAgente\FlujoProcesoAgente'
     ];
 
     public function __construct(array $config = [])

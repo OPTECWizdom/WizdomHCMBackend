@@ -13,7 +13,7 @@ use yii\rest\ActiveController;
 
 class ProcesosMovimientosVacacionesController extends ActiveController
 {
-    public $modelClass = 'backend\models\ProcesoMovimientoVacacion';
+    public $modelClass = 'backend\models\procesoModelConnector\procesoMovimientoVacacion\ProcesoMovimientoVacacion';
 
 
 

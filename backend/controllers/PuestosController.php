@@ -13,7 +13,7 @@ use yii\rest\ActiveController;
 
 class PuestosController extends ActiveController
 {
-    public $modelClass = 'backend\models\Puesto';
+    public $modelClass = 'backend\models\puesto\Puesto';
 
 
 }
