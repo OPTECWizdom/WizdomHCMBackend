@@ -92,8 +92,8 @@ class DiasHabilesCalculator implements IDiasVacacionesCalculator
                 $diasHabiles++;
             }
         }
-
-        return $diasHabiles-$this->getCountFeriados();
+        $countFeriados = $this->getCountFeriados();
+        return $diasHabiles - $countFeriados;
     }
 
     /**
@@ -114,7 +114,7 @@ class DiasHabilesCalculator implements IDiasVacacionesCalculator
         {
             $diasFeriados = $empleado->getDiasFeriados();
             $countFeriados = array_map([$this,'getFeriadoInDiaHabil'],$diasFeriados);
-            return (!empty($countFeriados[1]))?array_count_values($countFeriados)[1]:0;
+            return (!empty($countFeriados))?array_count_values($countFeriados)['feriado']:0;
         }
         return 0;
     }
@@ -131,9 +131,9 @@ class DiasHabilesCalculator implements IDiasVacacionesCalculator
         $fechaDia = $diaFeriado->getMesFeriado()."-".$diaFeriado->getDiaFeriado();
         if(in_array($fechaDia,$fechasVacaciones))
         {
-            return 1;
+            return 'feriado';
         }
-        return 0;
+        return 'no-feriado';
 
     }
 
