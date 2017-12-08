@@ -7,12 +7,13 @@
  */
 
 namespace backend\models\procesoModelConnector;
+use yii\db\ActiveRecordInterface;
 
 /**
  * Interface IProcesoSubject
  * @package backend\models
  */
-interface IProcesoSubject
+interface IProcesoSubject  extends ActiveRecordInterface
 {
     /**
      * @return string
@@ -24,5 +25,8 @@ interface IProcesoSubject
      */
 
     public function getNotificationSubject();
+
+
+
 
 }

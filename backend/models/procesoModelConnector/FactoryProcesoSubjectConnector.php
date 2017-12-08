@@ -53,6 +53,11 @@ class FactoryProcesoSubjectConnector
 
     }
 
+    public function getConnectors()
+    {
+        return $this->connectors;
+    }
+
 
 
 
