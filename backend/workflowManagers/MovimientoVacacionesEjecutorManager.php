@@ -124,6 +124,7 @@ class MovimientoVacacionesEjecutorManager extends AbstractWorkflowManager
             throw $e;
 
         }
+        return true;
 
     }
 
