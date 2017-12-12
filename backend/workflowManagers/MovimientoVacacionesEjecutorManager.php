@@ -80,19 +80,20 @@ class MovimientoVacacionesEjecutorManager extends AbstractWorkflowManager
              * @var ControlAjusteVacacionesMovimiento $controlAjuste
              */
             $controlAjuste = $movimientoVacacion->getControlAjusteVacacionesMov()->one();
-            if(!empty($controlAjuste))
-            {
+            $save = true;
+            if(!empty($controlAjuste)) {
                 $save = $this->guardarControlAjuste($controlAjuste);
-                if($save)
-                {
-                    $movimientosVacacionesWebService = new MovimientosVacacionesWebService($movimientoVacacion);
-                    $result = $movimientosVacacionesWebService->of_procesarmovimiento();
-                    if($result->of_procesarmovimientoResult=='1'){
-                        return true;
-                    }
-
-                }
             }
+            if($save)
+            {
+                $movimientosVacacionesWebService = new MovimientosVacacionesWebService($movimientoVacacion);
+                $result = $movimientosVacacionesWebService->of_procesarmovimiento();
+                if($result->of_procesarmovimientoResult=='1'){
+                    return true;
+                }
+
+            }
+
             throw new \Exception('Ha habido un error');
         }
         catch (\Exception $e)
