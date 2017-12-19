@@ -13,6 +13,7 @@ use backend\models\proceso\flujoProceso\FlujoProceso;
 use backend\models\procesoModelConnector\procesoMovimientoVacacion\ProcesoMovimientoVacacion;
 use backend\models\VacacionesFlujoProcesoHelper;
 use Yii;
+use yii\db\ActiveRecord;
 use yii\db\Exception;
 
 
@@ -151,7 +152,7 @@ class VacacionesWorkflowManager extends AbstractWorkflowManager
     private function insertMovimientoVacaciones(){
         try {
 
-            $movimientoVacaciones= new MovimientoVacaciones();
+            $movimientoVacaciones= new MovimientoVacaciones(ActiveRecord::OP_INSERT);
             $movimientoVacaciones->load($this->params, '');
             if ($movimientoVacaciones->save()) {
                 $this->movimientoVacaciones = $movimientoVacaciones;
