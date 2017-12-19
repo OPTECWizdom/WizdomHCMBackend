@@ -97,7 +97,8 @@ class MovimientoVacaciones extends ActiveRecord implements IProcesoSubject
                     ["dias_obsequiados","dias_pagados"],"double"
                 ],
                 [
-                    ['dias_habiles'],'double','min' => 1,'on' => self::SCENARIO_INSERT
+                    ['dias_habiles'],'double','min' => 1,'on' => self::SCENARIO_INSERT,
+
                 ]
 
 
@@ -113,7 +114,7 @@ class MovimientoVacaciones extends ActiveRecord implements IProcesoSubject
         $this->getDiasHabilesExtras();
         if (!$this->validate(['dias_habiles']))
         {
-            throw new \Exception('hola');
+            throw new \Exception(\Yii::t('error','diasHabilesInvalidos'));
         }
 
     }
