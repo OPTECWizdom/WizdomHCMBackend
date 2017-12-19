@@ -14,11 +14,13 @@ use yii\db\ActiveRecord;
 use backend\models\{
     procesoModelConnector\IProcesoSubject, empleado\Empleado, movimientosVacaciones\vacacionesEmpleadoMovimiento\VacacionEmpleadoMovimiento, movimientosVacaciones\vacacionesDiasCalculator\GeneralVacacionesCalculator, movimientosVacaciones\vacacionesEmpleadoMovimiento\VacacionesEmpleadoMovimientoHelper, movimientosVacaciones\vacacionesDiasCalculator\VacacionesCalculatorFactory, procesoModelConnector\procesoMovimientoVacacion\ProcesoMovimientoVacacion, movimientosVacaciones\controlAjusteVacacionesMovimiento\ControlAjusteVacacionesMovimiento
 };
+use yii\db\Exception;
 
 class MovimientoVacaciones extends ActiveRecord implements IProcesoSubject
 {
 
     const SCENARIO_INSERT = 'insert';
+
     public function init()
     {
         parent::init();
@@ -109,6 +111,10 @@ class MovimientoVacaciones extends ActiveRecord implements IProcesoSubject
         $generalVacacionesCalculator->setMovimientoVacaciones($this);
         $this->setAttributes($generalVacacionesCalculator->calcularVacaciones());
         $this->getDiasHabilesExtras();
+        if (!$this->validate())
+        {
+            throw new \Exception(); 
+        }
 
     }
 
