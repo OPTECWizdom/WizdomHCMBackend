@@ -66,6 +66,7 @@ class EmailSenderManager extends AbstractWorkflowManager
         $result =  $emailSender->sendEmail($emailable);
         if($result===true)
         {
+
             $transaction = Yii::$app->getDb()->beginTransaction();
             $emailable->setSentStatus();
             $emailable->save();

@@ -11,19 +11,12 @@ namespace backend\models\movimientosVacaciones;
 
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
-use backend\models\empleado\Empleado;
-use backend\models\procesoModelConnector\IProcesoSubject;
-use backend\models\movimientosVacaciones\vacacionesEmpleadoMovimiento\VacacionEmpleadoMovimiento;
-use backend\models\movimientosVacaciones\vacacionesDiasCalculator\GeneralVacacionesCalculator;
-use backend\models\movimientosVacaciones\vacacionesEmpleadoMovimiento\VacacionesEmpleadoMovimientoHelper;
-use backend\models\movimientosVacaciones\vacacionesDiasCalculator\VacacionesCalculatorFactory;
-use backend\models\procesoModelConnector\procesoMovimientoVacacion\ProcesoMovimientoVacacion;
-use backend\models\movimientosVacaciones\controlAjusteVacacionesMovimiento\ControlAjusteVacacionesMovimiento;
-class MovimientoVacaciones extends  ActiveRecord implements IProcesoSubject
+use backend\models\{
+    procesoModelConnector\IProcesoSubject, empleado\Empleado, movimientosVacaciones\vacacionesEmpleadoMovimiento\VacacionEmpleadoMovimiento, movimientosVacaciones\vacacionesDiasCalculator\GeneralVacacionesCalculator, movimientosVacaciones\vacacionesEmpleadoMovimiento\VacacionesEmpleadoMovimientoHelper, movimientosVacaciones\vacacionesDiasCalculator\VacacionesCalculatorFactory, procesoModelConnector\procesoMovimientoVacacion\ProcesoMovimientoVacacion, movimientosVacaciones\controlAjusteVacacionesMovimiento\ControlAjusteVacacionesMovimiento
+};
+
+class MovimientoVacaciones extends ActiveRecord implements IProcesoSubject
 {
-
-
-
 
     public function init()
     {
@@ -99,7 +92,11 @@ class MovimientoVacaciones extends  ActiveRecord implements IProcesoSubject
 
                 ],
                 [
+                    ["dias_obsequiados","dias_pagados"],"double"
                 ],
+                [
+                    ['dias_habiles'],'double','min' => 1
+                ]
 
 
 
@@ -221,6 +218,8 @@ class MovimientoVacaciones extends  ActiveRecord implements IProcesoSubject
     {
         return $this->getSubjectProcesoDescription();
     }
+
+
 
 
 }
