@@ -111,9 +111,9 @@ class MovimientoVacaciones extends ActiveRecord implements IProcesoSubject
         $generalVacacionesCalculator->setMovimientoVacaciones($this);
         $this->setAttributes($generalVacacionesCalculator->calcularVacaciones());
         $this->getDiasHabilesExtras();
-        if (!$this->validate())
+        if (!$this->validate(['dias_habiles']))
         {
-            throw new \Exception(); 
+            throw new \Exception('hola');
         }
 
     }
