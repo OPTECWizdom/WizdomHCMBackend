@@ -95,7 +95,7 @@ class MovimientoVacaciones extends ActiveRecord implements IProcesoSubject
                     ["dias_obsequiados","dias_pagados"],"double"
                 ],
                 [
-                    ['dias_habiles'],'double','min' => 1
+                    ['dias_habiles'],'double','min' => 1,'on' => self::OP_INSERT
                 ]
 
 
