@@ -98,7 +98,7 @@ class MovimientoVacaciones extends ActiveRecord implements IProcesoSubject
                 ],
                 [
                     ['dias_habiles'],'double','min' => 1,'on' => self::SCENARIO_INSERT,
-
+                    'message' => \Yii::t('app/error','diasHabilesInvalidos'),
                 ]
 
 
@@ -112,9 +112,14 @@ class MovimientoVacaciones extends ActiveRecord implements IProcesoSubject
         $generalVacacionesCalculator->setMovimientoVacaciones($this);
         $this->setAttributes($generalVacacionesCalculator->calcularVacaciones());
         $this->getDiasHabilesExtras();
-        if (!$this->validate(['dias_habiles']))
+        if (!$this->validate())
         {
-            throw new Exception(\Yii::t('app/error','diasHabilesInvalidos'),[],1000);
+            $errorString = '';
+            foreach ($this->getErrors() as $error)
+            {
+               $errorString.=$error->message;
+            }
+            throw new Exception($errorString,[],1000);
         }
 
     }
