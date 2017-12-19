@@ -115,9 +115,12 @@ class MovimientoVacaciones extends ActiveRecord implements IProcesoSubject
         if (!$this->validate())
         {
             $errorString = '';
-            foreach ($this->getErrors() as $error)
+            foreach ($this->getErrors() as $field=>$error)
             {
-               $errorString.=$error->message;
+                foreach ($error as $errorString)
+                {
+                    $errorString.=$error->message;
+                }
             }
             throw new Exception($errorString,[],1000);
         }
