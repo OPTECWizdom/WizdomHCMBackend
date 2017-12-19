@@ -72,6 +72,9 @@ class MovimientoVacaciones extends ActiveRecord implements IProcesoSubject
                 [
                     ['compania','tipo_mov'],'required'
                 ],
+                [
+                    ['dias_habiles'],'required','on' => self::SCENARIO_INSERT
+                ],
 
                 [
                     [
@@ -96,7 +99,7 @@ class MovimientoVacaciones extends ActiveRecord implements IProcesoSubject
                     ["dias_obsequiados","dias_pagados"],"double"
                 ],
                 [
-                    ['dias_habiles'],'double','min' => 1,'on' => $this::SCENARIO_INSERT
+                    ['dias_habiles'],'double','min' => 1,'on' => self::SCENARIO_INSERT
                 ]
 
 
