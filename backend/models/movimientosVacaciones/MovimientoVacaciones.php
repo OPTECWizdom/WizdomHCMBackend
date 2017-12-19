@@ -119,7 +119,7 @@ class MovimientoVacaciones extends ActiveRecord implements IProcesoSubject
             {
                 foreach ($error as $errorString)
                 {
-                    $errorString.=$error->message;
+                    $errorString.=$errorString;
                 }
             }
             throw new Exception($errorString,[],1000);
