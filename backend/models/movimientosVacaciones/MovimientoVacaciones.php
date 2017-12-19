@@ -114,7 +114,7 @@ class MovimientoVacaciones extends ActiveRecord implements IProcesoSubject
         $this->getDiasHabilesExtras();
         if (!$this->validate(['dias_habiles']))
         {
-            throw new \Exception(\Yii::t('app/error','diasHabilesInvalidos'));
+            throw new Exception(\Yii::t('app/error','diasHabilesInvalidos'),[],1000);
         }
 
     }
