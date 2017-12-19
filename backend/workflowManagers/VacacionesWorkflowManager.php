@@ -153,7 +153,7 @@ class VacacionesWorkflowManager extends AbstractWorkflowManager
         try {
 
             $movimientoVacaciones= new MovimientoVacaciones();
-            $movimientoVacaciones->setScenario(ActiveRecord::OP_INSERT);
+            $movimientoVacaciones->setScenario(MovimientoVacaciones::SCENARIO_INSERT);
             $movimientoVacaciones->load($this->params, '');
             if ($movimientoVacaciones->save()) {
                 $this->movimientoVacaciones = $movimientoVacaciones;

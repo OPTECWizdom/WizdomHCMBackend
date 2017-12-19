@@ -18,6 +18,7 @@ use backend\models\{
 class MovimientoVacaciones extends ActiveRecord implements IProcesoSubject
 {
 
+    const SCENARIO_INSERT = 'insert';
     public function init()
     {
         parent::init();
@@ -95,7 +96,7 @@ class MovimientoVacaciones extends ActiveRecord implements IProcesoSubject
                     ["dias_obsequiados","dias_pagados"],"double"
                 ],
                 [
-                    ['dias_habiles'],'double','min' => 1,'on' => self::OP_INSERT
+                    ['dias_habiles'],'double','min' => 1,'on' => $this::SCENARIO_INSERT
                 ]
 
 
