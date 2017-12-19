@@ -38,7 +38,6 @@ class EmailSenderManager extends AbstractWorkflowManager
     }
     public function run()
     {
-        $transaction = Yii::$app->getDb()->beginTransaction();
         try {
 
             foreach ($this->emailables as $emailable)
@@ -50,13 +49,11 @@ class EmailSenderManager extends AbstractWorkflowManager
                 array_map([$this,'sendEmail'],$pendingEmails);
 
             }
-            $transaction->commit();
 
             return true;
         }
         catch(\Exception $e)
         {
-            $transaction->rollBack();
             throw $e;
         }
 
@@ -69,8 +66,10 @@ class EmailSenderManager extends AbstractWorkflowManager
         $result =  $emailSender->sendEmail($emailable);
         if($result===true)
         {
+            $transaction = Yii::$app->getDb()->beginTransaction();
             $emailable->setSentStatus();
             $emailable->save();
+            $transaction->commit();
         }
         return $result;
 

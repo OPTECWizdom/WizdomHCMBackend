@@ -70,8 +70,6 @@ class MovimientoVacaciones extends  ActiveRecord implements IProcesoSubject
 
     }
 
-
-
     public function rules()
     {
         return
@@ -101,15 +99,12 @@ class MovimientoVacaciones extends  ActiveRecord implements IProcesoSubject
 
                 ],
                 [
-                    ["dias_habiles", "dias_obsequiados","dias_pagados"],"double"
                 ],
 
 
 
         ];
     }
-
-
 
     public function calcularDesgloseVacaciones()
     {
@@ -119,7 +114,6 @@ class MovimientoVacaciones extends  ActiveRecord implements IProcesoSubject
         $this->getDiasHabilesExtras();
 
     }
-
 
     protected function getDiasHabilesExtras()
     {
@@ -138,11 +132,9 @@ class MovimientoVacaciones extends  ActiveRecord implements IProcesoSubject
         $vacacionesEmpleadoMovimientoHelper->guardarVacacionesEmpleado();
     }
 
-
     /**
      * @return \yii\db\ActiveQuery
      */
-
     public function getControlAjusteVacacionesMov()
     {
         return $this->hasOne(ControlAjusteVacacionesMovimiento::className(),["compania"=>"compania",
@@ -153,7 +145,6 @@ class MovimientoVacaciones extends  ActiveRecord implements IProcesoSubject
     /**
      * @return \yii\db\ActiveQuery
      */
-
     public function getVacacionesEmpleadoMovimiento()
     {
         return $this->hasMany(VacacionEmpleadoMovimiento::className(),["compania"=>"compania",
@@ -163,27 +154,20 @@ class MovimientoVacaciones extends  ActiveRecord implements IProcesoSubject
     /**
      * @return ActiveQuery
      */
-
     public function getProcesoMovimientoVacaciones()
     {
         return $this->hasOne(ProcesoMovimientoVacacion::className(),["compania"=>"compania",
                                                                     "tipo_mov"=>"tipo_mov",
                                                                     "consecutivo_movimiento"=>"consecutivo_movimiento"]);
     }
-
     /**
      * @return ActiveQuery
      */
-
     public function getEmpleado()
     {
         return $this->hasOne(Empleado::className(),['compania'=>'compania',
                                                     'codigo_empleado'=>'codigo_empleado']);
     }
-
-
-
-
 
     public function setDefaultValueFromEmpleado()
     {
@@ -212,8 +196,6 @@ class MovimientoVacaciones extends  ActiveRecord implements IProcesoSubject
     {
         return $this->getVacacionesEmpleadoMovimiento()->sum('dias_disponibles');
     }
-
-
 
     public function extraFields()
     {

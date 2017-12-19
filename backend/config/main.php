@@ -21,7 +21,7 @@ return [
             'transport' => [
                 'class' => 'Swift_SmtpTransport',
                 'host' => $params['smtpServer'],
-                'username' => $params['adminEmail'],
+                'username' => $params['loginSMTPServer'],
                 'password' => $params['passwordEmail'],
                 'port' => $params['smtpServerPort'],
                 'encryption' => $params['mailEncryption'],
@@ -30,13 +30,7 @@ return [
             ],
 
         ],
-        'workflowSource' => [
-            'class' => 'raoul2000\workflow\source\file\WorkflowFileSource',
-            'definitionLoader' => [
-                'class' => 'raoul2000\workflow\source\file\PhpClassLoader',
-                'namespace'  => 'backend\workflows'
-            ]
-        ],
+
         'formatter' => [
             'dateFormat' => 'php:Y-m-d',
             'datetimeFormat' =>  'php:Y-m-d H:i:s',
@@ -84,6 +78,15 @@ return [
 
                 ]
             ],
+        ],
+        'workflowSource' => [
+            'class' => 'raoul2000\workflow\source\file\WorkflowFileSource',
+            'definitionLoader' => [
+                'class' => 'raoul2000\workflow\source\file\PhpClassLoader',
+                'namespace'  => 'backend\workflows',
+
+            ],
+
         ],
 
 
