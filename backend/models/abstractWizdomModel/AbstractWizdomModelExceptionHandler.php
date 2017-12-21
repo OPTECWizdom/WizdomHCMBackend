@@ -70,7 +70,7 @@ abstract class AbstractWizdomModelExceptionHandler
 
     public function getErrorsStringHTML()
     {
-        $errorsHTML = ''.
+        $errorsHTML = '';
         $errors = $this->wizdomModel->getErrors();
         foreach ($errors as $attribute=>$error){
             foreach ($error as $message)
