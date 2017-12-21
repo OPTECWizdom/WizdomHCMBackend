@@ -33,8 +33,6 @@ class MovimientoVacaciones extends AbstractWizdomModel implements IProcesoSubjec
     }
 
 
-    const SCENARIO_INSERT = 'insert';
-
     public function init()
     {
         parent::init();
