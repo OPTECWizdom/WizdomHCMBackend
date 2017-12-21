@@ -12,12 +12,26 @@ namespace backend\models\movimientosVacaciones;
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
 use backend\models\{
-    procesoModelConnector\IProcesoSubject, empleado\Empleado, movimientosVacaciones\vacacionesEmpleadoMovimiento\VacacionEmpleadoMovimiento, movimientosVacaciones\vacacionesDiasCalculator\GeneralVacacionesCalculator, movimientosVacaciones\vacacionesEmpleadoMovimiento\VacacionesEmpleadoMovimientoHelper, movimientosVacaciones\vacacionesDiasCalculator\VacacionesCalculatorFactory, procesoModelConnector\procesoMovimientoVacacion\ProcesoMovimientoVacacion, movimientosVacaciones\controlAjusteVacacionesMovimiento\ControlAjusteVacacionesMovimiento
+    abstractWizdomModel\AbstractWizdomModel,
+    movimientosVacaciones\exceptions\MovimientosVacacionesExceptionHandler,
+    procesoModelConnector\IProcesoSubject, empleado\Empleado,
+    movimientosVacaciones\vacacionesEmpleadoMovimiento\VacacionEmpleadoMovimiento,
+    movimientosVacaciones\vacacionesDiasCalculator\GeneralVacacionesCalculator,
+    movimientosVacaciones\vacacionesEmpleadoMovimiento\VacacionesEmpleadoMovimientoHelper,
+    movimientosVacaciones\vacacionesDiasCalculator\VacacionesCalculatorFactory,
+    procesoModelConnector\procesoMovimientoVacacion\ProcesoMovimientoVacacion,
+    movimientosVacaciones\controlAjusteVacacionesMovimiento\ControlAjusteVacacionesMovimiento
 };
 use yii\db\Exception;
 
-class MovimientoVacaciones extends ActiveRecord implements IProcesoSubject
+class MovimientoVacaciones extends AbstractWizdomModel implements IProcesoSubject
 {
+
+    protected function getExceptionHandler()
+    {
+        return new MovimientosVacacionesExceptionHandler($this);
+    }
+
 
     const SCENARIO_INSERT = 'insert';
 
@@ -98,7 +112,9 @@ class MovimientoVacaciones extends ActiveRecord implements IProcesoSubject
                 ],
                 [
                     ['dias_habiles'],'double','min' => 1,'on' => self::SCENARIO_INSERT,
-                    'message' => \Yii::t('app/error','diasHabilesInvalidos'),
+
+                    'tooSmall' => \Yii::t('app/error','diasHabilesInvalidos'),
+
                 ]
 
 
@@ -112,18 +128,7 @@ class MovimientoVacaciones extends ActiveRecord implements IProcesoSubject
         $generalVacacionesCalculator->setMovimientoVacaciones($this);
         $this->setAttributes($generalVacacionesCalculator->calcularVacaciones());
         $this->getDiasHabilesExtras();
-        if (!$this->validate())
-        {
-            $errorString = '';
-            foreach ($this->getErrors() as $field=>$error)
-            {
-                foreach ($error as $errorString)
-                {
-                    $errorString.=$errorString->message;
-                }
-            }
-            throw new Exception($errorString,[],1000);
-        }
+        $this->validate();
 
     }
 
