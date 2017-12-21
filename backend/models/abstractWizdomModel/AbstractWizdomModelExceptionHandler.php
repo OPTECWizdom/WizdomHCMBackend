@@ -54,7 +54,7 @@ abstract class AbstractWizdomModelExceptionHandler
 
     public  function handleException()
     {
-        $function = $this->getScenariosFunctions();
+        $function = $this->getScenariosFunctions()[$this->wizdomModel->getScenario()];
         $this->$function();
 
     }
