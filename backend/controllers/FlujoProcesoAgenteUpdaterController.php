@@ -9,9 +9,9 @@
 namespace backend\controllers;
 
 
-use backend\rest\controllers\WizdomActiveController;
+use backend\rest\controllers\AbstractWizdomActiveController;
 
-class FlujoProcesoAgenteUpdaterController extends WizdomActiveController
+class FlujoProcesoAgenteUpdaterController extends AbstractWizdomActiveController
 {
     private $workflowManager =  "FlujoProcesoAgenteManager";
     public $modelClass = 'backend\models\proceso\flujoProceso\flujoProcesoAgente\FlujoProcesoAgente';

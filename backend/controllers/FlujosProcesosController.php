@@ -8,9 +8,9 @@
 
 namespace backend\controllers;
 
-use backend\rest\controllers\WizdomActiveController;
+use backend\rest\controllers\AbstractWizdomActiveController;
 
-class FlujosProcesosController extends  WizdomActiveController
+class FlujosProcesosController extends  AbstractWizdomActiveController
 {
     public $modelClass = 'backend\models\proceso\flujoProceso\FlujoProceso';
 

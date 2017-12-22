@@ -6,7 +6,7 @@
  * Time: 10:34
  */
 namespace backend\rest\controllers;
-class WizdomActiveController extends \yii\rest\ActiveController
+abstract class AbstractWizdomActiveController extends \yii\rest\ActiveController
 {
 
     public function actions()

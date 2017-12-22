@@ -9,9 +9,9 @@
 namespace backend\controllers;
 
 
-use backend\rest\controllers\WizdomActiveController;
+use backend\rest\controllers\AbstractWizdomActiveController;
 
-class EmailSenderController extends WizdomActiveController
+class EmailSenderController extends AbstractWizdomActiveController
 {
     private $workflowManager =  "EmailSenderManager";
     public $modelClass = 'backend\models\proceso\flujoTipoProceso\flujoTipoProcesoCorreoExterno\FlujoTipoProcesoCorreoExterno';

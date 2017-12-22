@@ -9,9 +9,9 @@
 namespace backend\controllers;
 
 
-use backend\rest\controllers\WizdomActiveController;
+use backend\rest\controllers\AbstractWizdomActiveController;
 
-class EventosCalendarioEmpleadoController extends WizdomActiveController
+class EventosCalendarioEmpleadoController extends AbstractWizdomActiveController
 {
     public $modelClass = 'backend\models\eventoCalendario\EventoCalendarioEmpleado';
 

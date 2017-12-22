@@ -9,9 +9,9 @@
 namespace backend\controllers;
 
 
-use backend\rest\controllers\WizdomActiveController;
+use backend\rest\controllers\AbstractWizdomActiveController;
 
-class RelacionesEmpleadosController extends  WizdomActiveController
+class RelacionesEmpleadosController extends  AbstractWizdomActiveController
 {
     public $modelClass = 'backend\models\empleado\relacionEmpleado\RelacionEmpleado';
 

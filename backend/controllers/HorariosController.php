@@ -9,9 +9,9 @@
 namespace backend\controllers;
 
 
-use backend\rest\controllers\WizdomActiveController;
+use backend\rest\controllers\AbstractWizdomActiveController;
 
-class HorariosController extends WizdomActiveController
+class HorariosController extends AbstractWizdomActiveController
 {
     public $modelClass = '\backend\models\horario\Horario';
 

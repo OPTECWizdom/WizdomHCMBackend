@@ -9,9 +9,9 @@
 namespace backend\controllers;
 
 
-use backend\rest\controllers\WizdomActiveController;
+use backend\rest\controllers\AbstractWizdomActiveController;
 
-class SecurityUsersController extends WizdomActiveController
+class SecurityUsersController extends AbstractWizdomActiveController
 {
     public $modelClass =  'backend\models\security\securityUser\SecurityUser';
 

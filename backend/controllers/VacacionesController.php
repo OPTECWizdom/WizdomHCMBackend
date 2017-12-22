@@ -8,9 +8,9 @@
 
 namespace backend\controllers;
 
-use backend\rest\controllers\WizdomActiveController;
+use backend\rest\controllers\AbstractWizdomActiveController;
 
-class VacacionesController extends WizdomActiveController
+class VacacionesController extends AbstractWizdomActiveController
 {
     private $workflowManager =  "VacacionesWorkflowManager";
     public $modelClass = 'backend\models\movimientosVacaciones\MovimientoVacaciones';

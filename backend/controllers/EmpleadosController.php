@@ -8,8 +8,8 @@
 
 namespace backend\controllers;
 
-use backend\rest\controllers\WizdomActiveController;
-class EmpleadosController extends  WizdomActiveController
+use backend\rest\controllers\AbstractWizdomActiveController;
+class EmpleadosController extends  AbstractWizdomActiveController
 {
     public $modelClass = 'backend\models\empleado\Empleado';
 

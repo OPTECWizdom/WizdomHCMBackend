@@ -9,9 +9,9 @@
 namespace backend\controllers;
 
 
-use backend\rest\controllers\WizdomActiveController;
+use backend\rest\controllers\AbstractWizdomActiveController;
 
-class PuestosController extends WizdomActiveController
+class PuestosController extends AbstractWizdomActiveController
 {
     public $modelClass = 'backend\models\puesto\Puesto';
 
