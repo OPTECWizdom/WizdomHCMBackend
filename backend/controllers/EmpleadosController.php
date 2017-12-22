@@ -8,8 +8,8 @@
 
 namespace backend\controllers;
 
-use yii\rest\ActiveController;
-class EmpleadosController extends  ActiveController
+use backend\rest\controllers\WizdomActiveController;
+class EmpleadosController extends  WizdomActiveController
 {
     public $modelClass = 'backend\models\empleado\Empleado';
 

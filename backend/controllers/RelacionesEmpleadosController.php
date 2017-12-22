@@ -9,9 +9,9 @@
 namespace backend\controllers;
 
 
-use yii\rest\ActiveController;
+use backend\rest\controllers\WizdomActiveController;
 
-class RelacionesEmpleadosController extends  ActiveController
+class RelacionesEmpleadosController extends  WizdomActiveController
 {
     public $modelClass = 'backend\models\empleado\relacionEmpleado\RelacionEmpleado';
 

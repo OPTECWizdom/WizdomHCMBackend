@@ -8,9 +8,9 @@
 
 namespace backend\controllers;
 
-use yii\rest\ActiveController;
+use backend\rest\controllers\WizdomActiveController;
 
-class FlujosProcesosController extends  ActiveController
+class FlujosProcesosController extends  WizdomActiveController
 {
     public $modelClass = 'backend\models\proceso\flujoProceso\FlujoProceso';
 

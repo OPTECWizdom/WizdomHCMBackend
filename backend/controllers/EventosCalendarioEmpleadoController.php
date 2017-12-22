@@ -9,9 +9,9 @@
 namespace backend\controllers;
 
 
-use yii\rest\ActiveController;
+use backend\rest\controllers\WizdomActiveController;
 
-class EventosCalendarioEmpleadoController extends ActiveController
+class EventosCalendarioEmpleadoController extends WizdomActiveController
 {
     public $modelClass = 'backend\models\eventoCalendario\EventoCalendarioEmpleado';
 

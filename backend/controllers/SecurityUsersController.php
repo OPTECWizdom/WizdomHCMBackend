@@ -9,9 +9,9 @@
 namespace backend\controllers;
 
 
-use yii\rest\ActiveController;
+use backend\rest\controllers\WizdomActiveController;
 
-class SecurityUsersController extends ActiveController
+class SecurityUsersController extends WizdomActiveController
 {
     public $modelClass =  'backend\models\security\securityUser\SecurityUser';
 

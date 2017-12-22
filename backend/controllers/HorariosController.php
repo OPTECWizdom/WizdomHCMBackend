@@ -9,9 +9,9 @@
 namespace backend\controllers;
 
 
-use yii\rest\ActiveController;
+use backend\rest\controllers\WizdomActiveController;
 
-class HorariosController extends ActiveController
+class HorariosController extends WizdomActiveController
 {
     public $modelClass = '\backend\models\horario\Horario';
 

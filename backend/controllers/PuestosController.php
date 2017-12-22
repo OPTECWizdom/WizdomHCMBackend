@@ -9,9 +9,9 @@
 namespace backend\controllers;
 
 
-use yii\rest\ActiveController;
+use backend\rest\controllers\WizdomActiveController;
 
-class PuestosController extends ActiveController
+class PuestosController extends WizdomActiveController
 {
     public $modelClass = 'backend\models\puesto\Puesto';
 

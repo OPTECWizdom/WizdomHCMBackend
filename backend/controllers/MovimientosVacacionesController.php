@@ -9,9 +9,9 @@
 namespace backend\controllers;
 
 
-use yii\rest\ActiveController;
+use backend\rest\controllers\WizdomActiveController;
 
-class MovimientosVacacionesController extends ActiveController
+class MovimientosVacacionesController extends WizdomActiveController
 {
     public $modelClass = 'backend\models\movimientosVacaciones\MovimientoVacaciones';
 

@@ -22,7 +22,6 @@ use backend\models\{
     procesoModelConnector\procesoMovimientoVacacion\ProcesoMovimientoVacacion,
     movimientosVacaciones\controlAjusteVacacionesMovimiento\ControlAjusteVacacionesMovimiento
 };
-use yii\db\Exception;
 
 class MovimientoVacaciones extends AbstractWizdomModel implements IProcesoSubject
 {
@@ -60,9 +59,7 @@ class MovimientoVacaciones extends AbstractWizdomModel implements IProcesoSubjec
                 'statusAttribute' => 'estado_flujo_proceso'
 
             ],
-
             [
-
                 'class' => 'common\components\mdmsoft\autonumber\Behavior',
                 'attribute' => 'consecutivo_movimiento', // required
 
@@ -110,13 +107,8 @@ class MovimientoVacaciones extends AbstractWizdomModel implements IProcesoSubjec
                 ],
                 [
                     ['dias_habiles'],'double','min' => 1,'on' => self::SCENARIO_INSERT,
-
                     'tooSmall' => \Yii::t('app/error','diasHabilesInvalidos'),
-
                 ]
-
-
-
         ];
     }
 

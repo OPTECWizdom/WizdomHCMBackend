@@ -9,9 +9,9 @@
 namespace backend\controllers;
 
 
-use yii\rest\ActiveController;
+use backend\rest\controllers\WizdomActiveController;
 
-class FlujoProcesoAgenteUpdaterController extends ActiveController
+class FlujoProcesoAgenteUpdaterController extends WizdomActiveController
 {
     private $workflowManager =  "FlujoProcesoAgenteManager";
     public $modelClass = 'backend\models\proceso\flujoProceso\flujoProcesoAgente\FlujoProcesoAgente';

@@ -9,9 +9,9 @@
 namespace backend\controllers;
 
 
-use yii\rest\ActiveController;
+use backend\rest\controllers\WizdomActiveController;
 
-class ProcesosMovimientosVacacionesController extends ActiveController
+class ProcesosMovimientosVacacionesController extends WizdomActiveController
 {
     public $modelClass = 'backend\models\procesoModelConnector\procesoMovimientoVacacion\ProcesoMovimientoVacacion';
 

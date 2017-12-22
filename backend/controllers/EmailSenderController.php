@@ -9,9 +9,9 @@
 namespace backend\controllers;
 
 
-use yii\rest\ActiveController;
+use backend\rest\controllers\WizdomActiveController;
 
-class EmailSenderController extends ActiveController
+class EmailSenderController extends WizdomActiveController
 {
     private $workflowManager =  "EmailSenderManager";
     public $modelClass = 'backend\models\proceso\flujoTipoProceso\flujoTipoProcesoCorreoExterno\FlujoTipoProcesoCorreoExterno';
