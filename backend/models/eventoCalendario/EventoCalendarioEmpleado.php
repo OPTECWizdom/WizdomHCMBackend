@@ -30,7 +30,7 @@ class EventoCalendarioEmpleado extends  Empleado
                                                                                 ->andWhere(['tipo_mov'=>'DVA']);
     }
     /**
-     * @return ActiveRecord[]
+     * @return EventoCalendarioAbstract[]
      */
 
     public function getDiasFeriados()
