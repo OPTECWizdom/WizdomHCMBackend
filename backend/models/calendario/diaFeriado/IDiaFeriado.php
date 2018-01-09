@@ -11,8 +11,19 @@ namespace backend\models\calendario\diaFeriado;
 
 interface IDiaFeriado
 {
+    /**
+     * @return int
+     */
     public function getDiaFeriado();
 
+    /**
+     * @return int
+     */
     public function getMesFeriado();
+
+    /**
+     * @return string
+     */
+    public function getNombreDiaFeriado();
 
 }

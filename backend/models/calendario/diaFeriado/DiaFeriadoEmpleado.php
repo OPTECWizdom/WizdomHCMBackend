@@ -2,31 +2,27 @@
 /**
  * Created by PhpStorm.
  * User: LuisDiego
- * Date: 09/11/2017
- * Time: 14:48
+ * Date: 09/01/2018
+ * Time: 9:27
  */
 
 namespace backend\models\calendario\diaFeriado;
 
 
-use yii\db\ActiveRecord;
 
-class DiaFeriadoCatalogo extends AbstractDiaFeriado
+class DiaFeriadoEmpleado extends AbstractDiaFeriado
 {
-
-
 
     public static function tableName()
     {
-        return "DIAS_FERIADOS_X_CATALOGO";
+        return "DIAS_FERIADOS_X_EMPLEADO";
     }
 
     public static function primaryKey()
     {
-        return ["compania","catalogo_dias_feriados","dia","mes"];
+        return ["compania","nomina_permanente","codigo_empleado","dia","mes","ano_natural"];
+
     }
-
-
 
     public function getDiaFeriado()
     {
@@ -41,6 +37,5 @@ class DiaFeriadoCatalogo extends AbstractDiaFeriado
     {
         return $this->nombre_dia_feriado;
     }
-
 
 }
