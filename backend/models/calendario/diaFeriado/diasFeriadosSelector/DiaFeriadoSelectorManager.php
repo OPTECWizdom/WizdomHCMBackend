@@ -15,9 +15,9 @@ class DiaFeriadoSelectorManager extends AbstractDiaFeriadoSelectorManager
     public function setFeriadosClasses()
     {
          $this->feriadosClass = [
-            "DiaFeriadoEmpleadoSelector",
-            "DiaFeriadoCatalogoSelector",
-            "DiaFeriadoSelector"
+            'backend\models\calendario\diaFeriado\diasFeriadosSelector\DiaFeriadoEmpleadoSelector',
+            'backend\models\calendario\diaFeriado\diasFeriadosSelector\DiaFeriadoCatalogoSelector',
+            'backend\models\calendario\diaFeriado\diasFeriadosSelector\DiaFeriadoSelector'
          ];
     }
 
