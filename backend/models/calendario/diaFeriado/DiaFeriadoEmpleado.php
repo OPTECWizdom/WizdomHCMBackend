@@ -10,6 +10,8 @@ namespace backend\models\calendario\diaFeriado;
 
 
 
+use backend\models\empleado\Empleado;
+
 class DiaFeriadoEmpleado extends AbstractDiaFeriado
 {
 
@@ -36,6 +38,12 @@ class DiaFeriadoEmpleado extends AbstractDiaFeriado
     public function getNombreDiaFeriado()
     {
         return $this->nombre_dia_feriado;
+    }
+
+    public function getEmpleado()
+    {
+        return $this->hasMany(Empleado::className(),["compania"=>"compania","codigo_empleado"=>"codigo_empleado",
+                                                     "nomina_permanente"=>"nomina_primaria"]);
     }
 
 }

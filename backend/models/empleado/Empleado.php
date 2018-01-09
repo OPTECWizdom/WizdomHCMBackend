@@ -9,6 +9,7 @@
 namespace backend\models\empleado;
 
 
+use backend\models\calendario\diaFeriado\diasFeriadosSelector\DiaFeriadoSelectorManager;
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
 use backend\models\empleado\horarioEmpleado\HorarioEmpleado;
@@ -17,10 +18,8 @@ use backend\models\organigrama\Organigrama;
 use backend\models\puesto\Puesto;
 use backend\models\empleado\vacacionesEmpleado\VacacionesEmpleado;
 use backend\models\movimientosVacaciones\MovimientoVacaciones;
-use backend\models\calendario\diaFeriado\DiaFeriadoCatalogo;
 use backend\models\empleado\vacacionesEmpleado\ControlAjusteVacacionAcumulado;
 use backend\models\calendario\diaFeriado\IDiaFeriado;
-USE backend\models\calendario\diaFeriado\DiaFeriado;
 
 class Empleado extends  ActiveRecord
 {
@@ -142,19 +141,8 @@ class Empleado extends  ActiveRecord
 
     public function getDiasFeriados()
     {
-        /**
-         * @var Organigrama $organigrama
-         */
-        $organigrama = $this->getOrganigrama()->one();
-        if(!empty($organigrama))
-        {
-            $catalogoDiasFeriados = $organigrama->getAttribute('catalogo_dias_feriados');
-            if(!empty($catalogoDiasFeriados))
-            {
-                return DiaFeriadoCatalogo::find()->where(['compania'=>$this->compania,'catalogo_dias_feriados'=>$catalogoDiasFeriados])->all();
-            }
-        }
-        return DiaFeriado::find()->where(["compania"=>$this->getAttribute('compania')])->all();
+        $diaFeriadoSelector = new DiaFeriadoSelectorManager();
+        return $diaFeriadoSelector->getDiasFeriado($this);
     }
 
 
@@ -214,5 +202,8 @@ class Empleado extends  ActiveRecord
     {
         return $this->nombre." ".$this->primer_apellido." ".$this->segundo_apellido;
     }
+
+
+
 
 }
