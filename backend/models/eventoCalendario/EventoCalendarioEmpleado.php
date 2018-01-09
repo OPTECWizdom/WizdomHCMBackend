@@ -9,40 +9,14 @@
 namespace backend\models\eventoCalendario;
 
 
+use backend\models\calendario\diaFeriado\diasFeriadosSelector\DiaFeriadoSelectorManager;
+use backend\models\empleado\Empleado;
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
-use backend\models\organigrama\Organigrama;
 
-class EventoCalendarioEmpleado extends  ActiveRecord
+class EventoCalendarioEmpleado extends  Empleado
 {
 
-    public static function tableName()
-    {
-        return 'EMPLEADO';
-    }
-
-
-    public static  function primaryKey()
-    {
-        return ['compania','codigo_empleado'];
-    }
-
-    public function rules()
-    {
-        return [
-            [
-                ['compania','codigo_empleado'],'required'
-            ]
-        ];
-    }
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-
-    public function getOrganigrama()
-    {
-        return $this->hasOne(Organigrama::className(),['compania'=>'compania','codigo_nodo_organigrama'=>'codigo_nodo_organigrama']);
-    }
 
     /**
      * @return ActiveQuery
@@ -56,25 +30,16 @@ class EventoCalendarioEmpleado extends  ActiveRecord
                                                                                 ->andWhere(['tipo_mov'=>'DVA']);
     }
     /**
-     * @return ActiveRecord
+     * @return ActiveRecord[]
      */
 
     public function getDiasFeriados()
     {
+        $diaSelectorManager =  new DiaFeriadoSelectorManager();
+        return $diaSelectorManager->getDiasFeriado($this);
 
-        /**
-         * @var Organigrama $organigrama
-         **/
-        $organigrama = $this->getOrganigrama()->one();
-        if(!empty($organigrama))
-        {
-            $catalogoDiasFeriados = $organigrama->getAttribute('catalogo_dias_feriados');
-            if(!empty($catalogoDiasFeriados))
-            {
-                return EventoCalendarioDiaFeriadoCatalogo::find()->where(['compania'=>$this->compania,'catalogo_dias_feriados'=>$catalogoDiasFeriados])->all();
-            }
-        }
-        return EventoCalendarioDiaFeriado::find()->where(["compania"=>$this->getAttribute('compania')])->all();
+
+
     }
 
 

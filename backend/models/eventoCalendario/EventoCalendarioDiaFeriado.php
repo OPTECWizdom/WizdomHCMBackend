@@ -11,15 +11,8 @@ namespace backend\models\eventoCalendario;
 
 class EventoCalendarioDiaFeriado extends EventoCalendarioAbstract
 {
-    public static function tableName()
-    {
-        return "DIAS_FERIADOS";
-    }
 
-    public static function primaryKey()
-    {
-        ['compania','numero_mes_feriado','numero_dia_feriado'];
-    }
+
 
     public  function getCompania()
     {
