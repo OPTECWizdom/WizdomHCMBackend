@@ -9,7 +9,9 @@
 namespace backend\models\calendario\diaFeriado;
 
 
-interface IDiaFeriado
+use yii\db\ActiveRecordInterface;
+
+interface IDiaFeriado extends ActiveRecordInterface
 {
     /**
      * @return int

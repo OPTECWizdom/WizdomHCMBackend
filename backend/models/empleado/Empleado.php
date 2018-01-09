@@ -9,6 +9,7 @@
 namespace backend\models\empleado;
 
 
+use backend\models\calendario\diaFeriado\AbstractDiaFeriado;
 use backend\models\calendario\diaFeriado\diasFeriadosSelector\DiaFeriadoSelectorManager;
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
@@ -136,7 +137,7 @@ class Empleado extends  ActiveRecord
     }
 
     /**
-     * @return IDiaFeriado[]
+     * @return AbstractDiaFeriado[]
      */
 
     public function getDiasFeriados()

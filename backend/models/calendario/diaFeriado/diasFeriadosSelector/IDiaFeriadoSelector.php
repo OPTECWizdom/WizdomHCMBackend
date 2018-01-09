@@ -8,6 +8,7 @@
 
 namespace backend\models\calendario\diaFeriado\diasFeriadosSelector;
 
+use backend\models\calendario\diaFeriado\AbstractDiaFeriado;
 use backend\models\empleado\Empleado;
 use backend\models\calendario\diaFeriado\IDiaFeriado;
 
@@ -16,7 +17,7 @@ interface IDiaFeriadoSelector
     /**
      *
      * @param Empleado $empleado
-     * @return IDiaFeriado[]
+     * @return AbstractDiaFeriado[]
      */
     public function getDiasFeriados($empleado);
 

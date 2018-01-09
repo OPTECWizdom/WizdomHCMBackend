@@ -7,6 +7,7 @@
  */
 
 namespace backend\models\movimientosVacaciones\vacacionesDiasCalculator;
+use backend\models\calendario\diaFeriado\AbstractDiaFeriado;
 use backend\models\movimientosVacaciones\MovimientoVacaciones;
 use backend\models\empleado\Empleado;
 
@@ -55,7 +56,7 @@ class DiasFeriadosCalculator implements IDiasVacacionesCalculator
 
 
     /**
-     * @return \yii\db\ActiveRecord
+     * @return AbstractDiaFeriado[]
      */
 
     private function getDiasFeriados()
