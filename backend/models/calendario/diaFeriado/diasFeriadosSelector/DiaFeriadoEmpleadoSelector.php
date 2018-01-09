@@ -19,7 +19,7 @@ class DiaFeriadoEmpleadoSelector implements IDiaFeriadoSelector
     {
         try {
             $diasFeriadoEmpleadoPks = $empleado->getAttributes(["compania", "codigo_empleado"]);
-            $diasFeriadoEmpleadoPks["nomina_permanente"] = $empleado->getAttribute('nomina_primaria');
+            $diasFeriadoEmpleadoPks["nomina_pemanente"] = $empleado->getAttribute('nomina_primaria');
             $diasFeriadoEmpleadoPks["ano_natural"] = date('Y');
             return DiaFeriadoEmpleado::find()->where($diasFeriadoEmpleadoPks)->all();
 
