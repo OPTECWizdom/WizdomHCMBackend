@@ -49,7 +49,11 @@ abstract class AbstractWizdomModel extends ActiveRecord
         if($this->hasErrors() && in_array($this->getScenario(),$this->getWizdomScenarios()))
         {
             $exceptionHandler = $this->getExceptionHandler();
-            $exceptionHandler->handleException();
+            if(!empty($exceptionHandler))
+            {
+                $exceptionHandler->handleException();
+
+            }
         }
 
     }

@@ -8,6 +8,7 @@
 
 namespace backend\models\movimientosVacaciones\vacacionesDiasCalculator;
 
+use backend\models\empleado\horarioEmpleado\HorarioEmpleado;
 use backend\models\movimientosVacaciones\MovimientoVacaciones;
 use backend\models\empleado\Empleado;
 use backend\models\horario\Horario;
@@ -102,14 +103,19 @@ class VacacionesCalculatorFactory
             $horarioPk = Horario::primaryKey();
             $horario = new Horario();
             $horario->setAttributes($horarioActual->getAttributes($horarioPk));
-            $diasTrabajo = $horario->getDetalleHorario()->where(['trabaja'=>'T'])->count();
-            return $diasTrabajo;
-
-
+            if(!$horario->isExcepcion())
+            {
+                $diasTrabajo = $horario->getDetalleHorario()->where(['trabaja'=>'T'])->count();
+                return $diasTrabajo;
+            }
         }
         return null;
 
     }
+
+    /**
+     * @return array|null|HorarioEmpleado
+     */
     public function getHorarioEmpleado()
     {
         $pksEmpleado = Empleado::primaryKey();

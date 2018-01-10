@@ -66,4 +66,11 @@ class Horario extends ActiveRecord
 
     }
 
+    public function isExcepcion()
+    {
+        $excepcion = $this->hasOne(ExcepcionHorario::className(),["compania"=>"compania","codigo_horario"=>"codigo_horario"])->all();
+        return !empty($excepcion);
+    }
+
+
 }
