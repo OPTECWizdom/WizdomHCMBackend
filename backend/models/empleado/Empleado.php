@@ -147,6 +147,20 @@ class Empleado extends  ActiveRecord
     }
 
 
+    public function getNominaPrimaria()
+    {
+        if(empty($this->nomina_primaria))
+        {
+            $this->loadAllAttributes();
+        }
+        return $this->nomina_primaria;
+    }
+
+    private function loadAllAttributes()
+    {
+        $this->setAttributes(Empleado::find()->where($this->getPrimaryKey(true))->one()->getAttributes());
+    }
+
     public function extraFields()
     {
         return [
