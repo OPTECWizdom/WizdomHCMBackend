@@ -36,8 +36,8 @@ class DiasFeriadosCalculator implements IDiasVacacionesCalculator
         if(!empty($diasFeriados))
         {
             foreach ($diasFeriados as $diaFeriado){
-                $mes = $diaFeriado->getAttribute('numero_mes_feriado');
-                $dia = $diaFeriado->getAttribute('numero_dia_feriado');
+                $mes = $diaFeriado->getMesFeriado();
+                $dia = $diaFeriado->getDiaFeriado();
                 $anoInicial =  intval($fechaInicial->format('Y'));
                 $anoFinal = intval($fechaFinal->format('Y'));
                 for($ano = $anoInicial;$ano<=$anoFinal;$ano++)
