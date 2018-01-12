@@ -52,7 +52,7 @@ class Empleado extends  ActiveRecord
                 [
                     "nombre","primer_apellido","segundo_apellido",
                     "codigo_nodo_organigrama","codigo_puesto",
-                    "codigo_jefe"
+                    "codigo_jefe","nomina_primaria"
                 ],"string"
             ]
 
