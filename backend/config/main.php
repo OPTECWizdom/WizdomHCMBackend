@@ -12,7 +12,27 @@ return [
     'basePath' => dirname(__DIR__),
     'controllerNamespace' => 'backend\controllers',
     'bootstrap' => ['log'],
-    'modules' => [],
+    'modules' => [
+        'oauth2' => [
+            'class' => 'filsh\yii2\oauth2server\Module',
+            'tokenParamName' => 'accessToken',
+            'tokenAccessLifetime' => 3600 * 24,
+            'storageMap' => [
+                'user_credentials' => 'common\models\User',
+            ],
+            'grantTypes' => [
+                'user_credentials' => [
+                    'class' => 'OAuth2\GrantType\UserCredentials',
+                ],
+                'refresh_token' => [
+                    'class' => 'OAuth2\GrantType\RefreshToken',
+                    'always_issue_new_refresh_token' => true
+
+
+                ]
+            ]
+        ]
+    ],
     'language'=>'es-CR',
 
     'components' => [
@@ -69,6 +89,7 @@ return [
             'showScriptName' => true,
 
             'rules' => [
+                'POST oauth2/<action:\w+>' => 'oauth2/rest/<action>',
                 [
                    'class'=>'yii\rest\UrlRule',
                    'controller' => $controllers,
@@ -77,7 +98,8 @@ return [
                    ],
                     'pluralize' => false
 
-                ]
+                ],
+
             ],
         ],
         'workflowSource' => [
