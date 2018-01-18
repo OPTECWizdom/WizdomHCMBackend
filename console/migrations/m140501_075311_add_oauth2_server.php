@@ -113,9 +113,17 @@ class m140501_075311_add_oauth2_server extends \yii\db\Migration
                 'encryption_algorithm' => Schema::TYPE_STRING . '(100) DEFAULT \'RS256\'',
             ], $tableOptions);
             // insert client data
+            $randomKey = Yii::$app->getSecurity()->generateRandomString(32);
             $this->batchInsert('{{%oauth_clients}}', ['client_id', 'client_secret', 'redirect_uri', 'grant_types'], [
-                ['testclient', 'testpass', 'http://fake/', 'client_credentials authorization_code password implicit'],
+                ['wizdom_hcm',$randomKey, Yii::$app->params['siteUrl'],
+                    'client_credentials authorization_code password implicit'],
+
             ]);
+            echo "Credenciales del api: \n 
+                  client_id: wizdom_hcm \n
+                  clave = $randomKey
+                  Favor apuntar estos datos, ya que con esto se obtiene la clave con la cual se tiene acceso al api
+                  ";
             $transaction->commit();
         } catch (Exception $e) {
             echo 'Exception: ' . $e->getMessage() . '\n';

@@ -9,10 +9,9 @@
 namespace backend\models\security\securityUser;
 
 
-use yii\db\ActiveRecord;
 use backend\models\empleado\Empleado;
 
-class SecurityUser extends ActiveRecord
+class SecurityUser extends AbstractWizdomUser
 {
 
     public static function tableName()
@@ -41,7 +40,11 @@ class SecurityUser extends ActiveRecord
         return ["login","email"];
     }
 
-
+    public static function getEmpleadoByUsername($username)
+    {
+        $empleado = Empleado::findOne(["username"=>$username]);
+        return $empleado;
+    }
 
 
 }

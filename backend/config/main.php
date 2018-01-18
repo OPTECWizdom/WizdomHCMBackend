@@ -18,7 +18,7 @@ return [
             'tokenParamName' => 'accessToken',
             'tokenAccessLifetime' => 3600 * 24,
             'storageMap' => [
-                'user_credentials' => 'common\models\User',
+                'user_credentials' => 'backend\models\security\securityUser\SecurityUser',
             ],
             'grantTypes' => [
                 'user_credentials' => [
@@ -62,7 +62,7 @@ return [
             'parsers' => ['application/json'=>'yii\web\JsonParser']
         ],
         'user' => [
-            'identityClass' => 'common\models\User',
+            'identityClass' => 'backend\models\security\securityUser\SecurityUser',
             'enableAutoLogin' => true,
             'identityCookie' => ['name' => '_identity-backend', 'httpOnly' => true],
         ],
