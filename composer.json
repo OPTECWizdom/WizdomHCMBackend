@@ -15,9 +15,10 @@
     "repositories": [
         {
             "type": "vcs",
-            "url": "https://github.com/cheeseq/yii2-oauth2-server.git"
+            "url": "https://github.com/OPTECWizdom/yii2-oauth2-server.git"
         }
     ],
+
     "minimum-stability": "stable",
     "require": {
         "php": ">=5.4.0",
@@ -28,7 +29,8 @@
         "mongosoft/yii2-soap-client": "*",
         "trntv/yii2-command-bus": "^3.0",
         "symfony/process": "3.3.10",
-        "filsh/yii2-oauth2-server": "dev-yii-2.0.13-fix"
+        "filsh/yii2-oauth2-server":"dev-master"
+
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.0.0",
@@ -37,6 +39,7 @@
 
         "codeception/base": "^2.2.3",
         "codeception/verify": "~0.3.1"
+
     },
     "config": {
         "process-timeout": 1800
