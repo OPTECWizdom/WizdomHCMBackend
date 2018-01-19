@@ -88,6 +88,7 @@ class MovimientoVacacionesEjecutorManager extends AbstractWorkflowManager
             {
                 $movimientosVacacionesWebService = new MovimientosVacacionesWebService($movimientoVacacion);
                 $result = $movimientosVacacionesWebService->of_procesarmovimiento();
+                \Yii::info($result,'Web Service Movimientos Vacaciones');
                 if($result->of_procesarmovimientoResult=='1'){
                     return true;
                 }
