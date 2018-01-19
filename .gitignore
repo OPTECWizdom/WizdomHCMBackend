@@ -35,3 +35,4 @@ phpunit.phar
 /.vagrant
 backend/web/web.config
 WizdomHCMEmailSender.bat
+prueba.php
