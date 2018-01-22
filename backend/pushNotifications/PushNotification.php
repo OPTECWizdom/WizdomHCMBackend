@@ -35,16 +35,19 @@ class PushNotification extends Component
 
     public function sendPushNotification()
     {
+        \Yii::info("Enviando Notificacion","Push");
         $json = json_encode($this);
         $context = new \ZMQContext();
         $socket = $context->getSocket(\ZMQ::SOCKET_PUSH, 'wizdom_hcm_pusher');
-        try {
+        $socket->connect("tcp://localhost:5555");
+        $socket->send($json);
+       /* try {
             $socket->connect("tcp://localhost:5555");
             $socket->send($json);
-        }catch (\Exception $e)
+      *//*  }catch (\Exception $e)
         {
 
-        }
+        }*/
 
     }
 

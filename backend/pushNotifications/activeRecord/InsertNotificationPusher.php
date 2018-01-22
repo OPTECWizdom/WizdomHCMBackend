@@ -18,6 +18,7 @@ class InsertNotificationPusher extends ActiveRecordNotificationPusher
     {
         $model = $this->model;
         $model->on($model::EVENT_AFTER_INSERT,[$this,"sendNotificationPush"]);
+        \Yii::info("pruebaaa","app");
     }
 
     public function sendNotificationPush()
