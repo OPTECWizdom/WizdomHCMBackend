@@ -9,47 +9,46 @@
 namespace backend\webSocketServer;
 
 
-use Ratchet\MessageComponentInterface;
 use Ratchet\ConnectionInterface;
+use Ratchet\Wamp\WampServerInterface;
 
-class Pusher implements MessageComponentInterface {
+class Pusher implements WampServerInterface {
     protected $clients;
 
-    public function __construct()
-    {
-        $this->clients = new \SplObjectStorage;
+    public function onSubscribe(ConnectionInterface $conn, $userId) {
+        $this->clients[$userId->getId()] = $userId;
+        echo "$userId";
     }
-
+    public function onUnSubscribe(ConnectionInterface $conn, $userId) {
+    }
     public function onOpen(ConnectionInterface $conn) {
-        // Store the new connection to send messages to later
-        $this->clients->attach($conn);
-
-        echo "New connection! ({$conn->resourceId})\n";
     }
-
-    public function onMessage(ConnectionInterface $from, $msg) {
-        $numRecv = count($this->clients) - 1;
-        echo sprintf('Connection %d sending message "%s" to %d other connection%s' . "\n"
-            , $from->resourceId, $msg, $numRecv, $numRecv == 1 ? '' : 's');
-
-        foreach ($this->clients as $client) {
-            if ($from !== $client) {
-                $client->send($msg);
-            }
-        }
-    }
-
     public function onClose(ConnectionInterface $conn) {
-        // The connection is closed, remove it, as we can no longer send it messages
-        $this->clients->detach($conn);
-
-        echo "Connection {$conn->resourceId} has disconnected\n";
     }
-
-    public function onError(ConnectionInterface $conn, \Exception $e) {
-        echo "An error has occurred: {$e->getMessage()}\n";
-
+    public function onCall(ConnectionInterface $conn, $id, $userId, array $params) {
+        // In this application if clients send data it's because the user hacked around in console
         $conn->close();
+    }
+    public function onPublish(ConnectionInterface $conn, $userId, $event, array $exclude, array $eligible) {
+        // In this application if clients send data it's because the user hacked around in console
+        $conn->close();
+    }
+    public function onNotificationEntry($notification)
+    {
+        echo "$notification";
+        $notification = json_decode($notification,true);
+        // If the lookup topic object isn't set there is no one to publish to
+        if (!array_key_exists($notification['destiny'], $this->clients)) {
+            return;
+        }
+
+        $users = $this->clients[$notification['destiny']];
+
+        // re-send the data to all the clients subscribed to that category
+        $users->broadcast($notification);
+
+    }
+    public function onError(ConnectionInterface $conn, \Exception $e) {
     }
 
 }
