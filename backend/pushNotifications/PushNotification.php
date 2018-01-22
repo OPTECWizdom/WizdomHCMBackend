@@ -99,7 +99,7 @@ class PushNotification extends Component
     /**
      * @return string
      */
-    public function getDestiny(): array
+    public function getDestiny(): string
     {
         return $this->destiny;
     }
