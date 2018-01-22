@@ -13,13 +13,13 @@ $config = yii\helpers\ArrayHelper::merge(
 use Ratchet\Server\IoServer;
 use Ratchet\Http\HttpServer;
 use Ratchet\WebSocket\WsServer;
-use backend\webSocketServer\Chat;
+use backend\webSocketServer\Pusher;
 
 
 $server = IoServer::factory(
     new HttpServer(
         new WsServer(
-            new Chat()
+            new Pusher()
         )
     ),
     8080

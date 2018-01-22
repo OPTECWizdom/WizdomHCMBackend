@@ -12,7 +12,7 @@ namespace backend\webSocketServer;
 use Ratchet\MessageComponentInterface;
 use Ratchet\ConnectionInterface;
 
-class Chat implements MessageComponentInterface {
+class Pusher implements MessageComponentInterface {
     protected $clients;
 
     public function __construct()
