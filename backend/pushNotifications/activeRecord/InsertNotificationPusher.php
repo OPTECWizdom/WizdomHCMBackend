@@ -14,6 +14,11 @@ use backend\pushNotifications\BasePushNotification;
 class InsertNotificationPusher extends ActiveRecordNotificationPusher
 {
 
+    public function __construct(array $config = [], AbstractNotificationPusherObject $model)
+    {
+        parent::__construct($config, $model);
+    }
+
     public function attachEvents()
     {
         $model = $this->model;
