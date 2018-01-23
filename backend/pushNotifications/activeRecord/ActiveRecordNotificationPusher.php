@@ -19,12 +19,12 @@ abstract class ActiveRecordNotificationPusher extends NotificationPusher
     /**
      * @var AbstractNotificationPusherObject
      */
-    protected $model;
+    public $model;
 
     public function __construct(array $config = [],AbstractNotificationPusherObject $model)
     {
-        parent::__construct($config);
         $this->model = $model;
+        parent::__construct($config);
     }
 
     public  function init()

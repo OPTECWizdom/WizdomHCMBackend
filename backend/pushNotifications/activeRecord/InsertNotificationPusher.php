@@ -23,7 +23,6 @@ class InsertNotificationPusher extends ActiveRecordNotificationPusher
     {
         $model = $this->model;
         $model->on($model::EVENT_AFTER_INSERT,[$this,"sendNotificationPush"]);
-        \Yii::info("pruebaaa","app");
     }
 
     public function sendNotificationPush()
@@ -36,9 +35,10 @@ class InsertNotificationPusher extends ActiveRecordNotificationPusher
     {
         $model = $this->model;
         $notification = new BasePushNotification();
-        $notification->setTask($model->getPushNotificationTask());
-        $notification->setAction('add');
-        $notification->setMessage($model->getCreatedPushNotificationMessage());
+        $notification->setAttributes(["task"=>$model->getPushNotificationTask(),
+                                    "action"=>'add',
+                                    "message"=>$model->getCreatedPushNotificationMessage(),
+                                    "destiny"=>$model->getPushNotificationDestiny()]);
         return $notification;
     }
 

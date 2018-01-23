@@ -9,34 +9,34 @@
 namespace backend\pushNotifications;
 
 
-use yii\base\Component;
+use yii\base\Model;
 
-class PushNotification extends Component
+class PushNotification extends Model
 {
     /**
      * @var string $task
      */
-    private $task;
+    public $task;
     /**
      * @var string $action
      */
-    private $action;
+    public $action;
     /**
      * @var string $message
      */
 
-    private $message;
+    public $message;
     /**
      * @var string $destiny;
      */
-    private $destiny;
+    public $destiny;
 
 
 
     public function sendPushNotification()
     {
         \Yii::info("Enviando Notificacion","Push");
-        $json = json_encode($this);
+        $json = json_encode($this->getAttributes());
         $context = new \ZMQContext();
         $socket = $context->getSocket(\ZMQ::SOCKET_PUSH, 'wizdom_hcm_pusher');
         $socket->connect("tcp://localhost:5555");
@@ -51,68 +51,21 @@ class PushNotification extends Component
 
     }
 
-    /**
-     * @return string
-     */
-    public function getTask(): string
-    {
-        return $this->task;
-    }
 
-    /**
-     * @param string $task
-     */
-    public function setTask(string $task)
-    {
-        $this->task = $task;
-    }
 
-    /**
-     * @return string
-     */
-    public function getAction(): string
+    public function rules()
     {
-        return $this->action;
-    }
+        return
+            [
+                [
+                    [
+                        "action","task",
+                        "destiny","message"
+                    ],
+                    "string"
+                ]
+            ];
 
-    /**
-     * @param string $action
-     */
-    public function setAction(string $action)
-    {
-        $this->action = $action;
-    }
-
-    /**
-     * @return string
-     */
-    public function getMessage(): string
-    {
-        return $this->message;
-    }
-
-    /**
-     * @param string $message
-     */
-    public function setMessage(string $message)
-    {
-        $this->message = $message;
-    }
-
-    /**
-     * @return string
-     */
-    public function getDestiny(): string
-    {
-        return $this->destiny;
-    }
-
-    /**
-     * @param string $destiny
-     */
-    public function setDestiny(string $destiny)
-    {
-        $this->destiny = $destiny;
     }
 
 

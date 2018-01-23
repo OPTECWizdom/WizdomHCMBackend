@@ -17,7 +17,7 @@ class Pusher implements WampServerInterface {
 
     public function onSubscribe(ConnectionInterface $conn, $userId) {
         $this->clients[$userId->getId()] = $userId;
-        echo "$userId";
+
     }
     public function onUnSubscribe(ConnectionInterface $conn, $userId) {
     }
@@ -35,7 +35,6 @@ class Pusher implements WampServerInterface {
     }
     public function onNotificationEntry($notification)
     {
-        echo "$notification";
         $notification = json_decode($notification,true);
         // If the lookup topic object isn't set there is no one to publish to
         if (!array_key_exists($notification['destiny'], $this->clients)) {
@@ -43,9 +42,9 @@ class Pusher implements WampServerInterface {
         }
 
         $users = $this->clients[$notification['destiny']];
-
+        \Yii::info('Enviando Notificacion',json_encode($notification));
         // re-send the data to all the clients subscribed to that category
-        $users->broadcast($notification);
+        $users->broadcast(json_encode($notification));
 
     }
     public function onError(ConnectionInterface $conn, \Exception $e) {

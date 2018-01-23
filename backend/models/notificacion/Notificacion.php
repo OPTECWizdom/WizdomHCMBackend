@@ -142,7 +142,7 @@ class Notificacion extends AbstractNotificationPusherObject implements IEmailabl
     }
     public  function getPushNotificationDestiny()
     {
-        return $this->getEmpleadoDestino();
+        return $this->empleado_destino;
     }
 
     public  function getCreatedPushNotificationMessage()
