@@ -35,7 +35,7 @@ abstract class AbstractNotificationPusherObject extends ActiveRecord
 
     public  function attachNotificationsPusher()
     {
-         new InsertNotificationPusher($this);
+         new InsertNotificationPusher([],$this);
 
     }
 }
