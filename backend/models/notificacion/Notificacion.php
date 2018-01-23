@@ -14,7 +14,7 @@ use backend\pushNotifications\activeRecord\InsertNotificationPusher;
 use yii\db\ActiveRecord;
 use backend\utils\email\IEmailable;
 use backend\models\empleado\Empleado;
-class Notificacion extends AbstractNotificationPusherObject implements IEmailable
+class Notificacion extends ActiveRecord implements IEmailable
 {
 
     public static function tableName()
