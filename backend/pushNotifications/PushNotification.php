@@ -39,6 +39,7 @@ class PushNotification extends Model
         $context = new \ZMQContext();
         $socket = $context->getSocket(\ZMQ::SOCKET_PUSH, 'wizdom_hcm_pusher');
         $socket->connect("tcp://localhost:5555");
+        \Yii::info(json_encode($this->destinies));
         foreach ($this->destinies as $destiny)
         {
             $json = $this->getAttributes([],["destinies"]);
