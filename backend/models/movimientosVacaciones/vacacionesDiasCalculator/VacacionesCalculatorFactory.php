@@ -96,7 +96,7 @@ class VacacionesCalculatorFactory
      * @return int
      */
 
-    public function getDiasDeTrabajo() : int
+    public function getDiasDeTrabajo()
     {
         $horarioActual = $this->getHorarioEmpleado();
         if(!empty($horarioActual))
