@@ -15,7 +15,7 @@ abstract class AbstractNotificationPusherObject extends ActiveRecord
 {
 
 
-    public abstract function getPushNotificationDestiny();
+    public abstract function getPushNotificationDestinies();
 
     public abstract function getCreatedPushNotificationMessage();
 
