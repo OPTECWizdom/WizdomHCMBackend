@@ -9,6 +9,7 @@
 namespace backend\models\proceso\flujoProceso\flujoProcesoAgente;
 
 
+use backend\pushNotifications\activeRecord\AbstractNotificationPusherObject;
 use yii\db\ActiveRecord;
 use backend\models\proceso\flujoProceso\FlujoProceso;
 use backend\models\proceso\Proceso;
@@ -16,22 +17,19 @@ use backend\models\empleado\Empleado;
 use backend\models\proceso\flujoTipoProceso\flujoTipoProcesoCorreoExterno\FlujoTipoProcesoCorreoExterno;
 use backend\utils\agenteSearcher\AgenteSearcherFactory;
 use backend\utils\email\IEmailable;
-class FlujoProcesoAgente extends ActiveRecord implements IEmailable
+class FlujoProcesoAgente extends AbstractNotificationPusherObject implements IEmailable
 {
-
-
-
-
 
 
     public static function tableName()
     {
         return "FLUJO_PROCESO_AGENTE";
     }
+
     public static function primaryKey()
     {
         return [
-            "compania","id_proceso","tipo_flujo_proceso","codigo_tarea","consecutivo"
+            "compania", "id_proceso", "tipo_flujo_proceso", "codigo_tarea", "consecutivo"
         ];
     }
 
@@ -40,11 +38,11 @@ class FlujoProcesoAgente extends ActiveRecord implements IEmailable
     {
         return [
             [
-                ["compania","id_proceso","tipo_flujo_proceso","codigo_tarea","consecutivo"],"required"
+                ["compania", "id_proceso", "tipo_flujo_proceso", "codigo_tarea", "consecutivo"], "required"
 
             ],
             [
-                ["agente","parametro_agente","tstamp","correo_enviado","fecha_creacion"],
+                ["agente", "parametro_agente", "tstamp", "correo_enviado", "fecha_creacion"],
                 "string"
             ],
             [
@@ -76,20 +74,21 @@ class FlujoProcesoAgente extends ActiveRecord implements IEmailable
      */
     public function getFlujoProceso()
     {
-        return $this->hasOne(FlujoProceso::className(),["compania"=>"compania","id_proceso"=>"id_proceso",
-                                                        "tipo_flujo_proceso"=>"tipo_flujo_proceso",
-                                                        "codigo_tarea"=>"codigo_tarea"]);
+        return $this->hasOne(FlujoProceso::className(), ["compania" => "compania", "id_proceso" => "id_proceso",
+            "tipo_flujo_proceso" => "tipo_flujo_proceso",
+            "codigo_tarea" => "codigo_tarea"]);
     }
+
     public function getProceso()
     {
-        return $this->hasOne(Proceso::className(),  ["compania"=>"compania","tipo_flujo_proceso"=>"tipo_flujo_proceso",
-                                                    "id_proceso"=>"id_proceso"]);
+        return $this->hasOne(Proceso::className(), ["compania" => "compania", "tipo_flujo_proceso" => "tipo_flujo_proceso",
+            "id_proceso" => "id_proceso"]);
     }
 
     public function getFlujoTipoProcesoCorreoExterno()
     {
-        return $this->hasOne(FlujoTipoProcesoCorreoExterno::className(),["compania"=>"compania","tipo_flujo_proceso"=>"tipo_flujo_proceso",
-                                                                        "codigo_tarea"=>"codigo_tarea"]);
+        return $this->hasOne(FlujoTipoProcesoCorreoExterno::className(), ["compania" => "compania", "tipo_flujo_proceso" => "tipo_flujo_proceso",
+            "codigo_tarea" => "codigo_tarea"]);
     }
 
     /**
@@ -99,8 +98,8 @@ class FlujoProcesoAgente extends ActiveRecord implements IEmailable
     public static function findPendingEmails()
     {
         return self::find()
-            ->joinWith('flujoProceso')->where(['{{flujo_proceso_agente}}.correo_enviado'=>'N',
-                                                    '{{flujo_proceso}}.estado'=>'FlujoProcesoWorkflow/PE'])
+            ->joinWith('flujoProceso')->where(['{{flujo_proceso_agente}}.correo_enviado' => 'N',
+                '{{flujo_proceso}}.estado' => 'FlujoProcesoWorkflow/PE'])
             ->with('proceso')
             ->with('flujoTipoProcesoCorreoExterno')
             ->all();
@@ -109,7 +108,7 @@ class FlujoProcesoAgente extends ActiveRecord implements IEmailable
 
     public function setSentStatus()
     {
-        $this->setAttribute('correo_enviado','S');
+        $this->setAttribute('correo_enviado', 'S');
 
     }
 
@@ -121,9 +120,8 @@ class FlujoProcesoAgente extends ActiveRecord implements IEmailable
          */
         $empleado = $this->proceso->getEmpleadoSolicitante()->one();
         $asunto = $this->flujoTipoProcesoCorreoExterno->getAttribute('asunto');
-        if(!empty($empleado))
-        {
-            $asunto .= " - ".ucwords(strtolower($empleado->getNombreCompleto()));
+        if (!empty($empleado)) {
+            $asunto .= " - " . ucwords(strtolower($empleado->getNombreCompleto()));
         }
         return $asunto;
     }
@@ -142,17 +140,27 @@ class FlujoProcesoAgente extends ActiveRecord implements IEmailable
     }
 
 
-    public  function getDestinations()
+    public function getDestinations()
     {
 
-        $agenteSearcherFactory = new AgenteSearcherFactory($this->proceso,$this->parametro_agente);
+        $agenteSearcherFactory = new AgenteSearcherFactory($this->proceso, $this->parametro_agente);
         $agenteSearcher = $agenteSearcherFactory->createAgenteSearcher($this->agente);
         $empleados = $agenteSearcher->search();
-        if(!empty($empleados))
-        {
-            $empleados = array_map(function($empleado){return $empleado->getAttribute('correo_electronico_principal');},
-                                    $empleados);
+        if (!empty($empleados)) {
+            $empleados = array_map(function ($empleado) {
+                return $empleado->getAttribute('correo_electronico_principal');
+            },
+                $empleados);
         }
+        return $empleados;
+
+    }
+
+    public function getEmpleadosEjecutantes()
+    {
+        $agenteSearcherFactory = new AgenteSearcherFactory($this->proceso, $this->parametro_agente);
+        $agenteSearcher = $agenteSearcherFactory->createAgenteSearcher($this->agente);
+        $empleados = $agenteSearcher->search();
         return $empleados;
 
     }
@@ -160,7 +168,7 @@ class FlujoProcesoAgente extends ActiveRecord implements IEmailable
 
     public function getHTMLBodyParms()
     {
-        return ['proceso'=>$this->proceso];
+        return ['proceso' => $this->proceso];
 
     }
 
@@ -168,4 +176,50 @@ class FlujoProcesoAgente extends ActiveRecord implements IEmailable
     {
         return !empty($this->flujoTipoProcesoCorreoExterno);
     }
+
+    public function getPushNotificationDestinies()
+    {
+        $empleados = $this->getEmpleadosEjecutantes();
+        $codigosEmpleados = [];
+        foreach ($empleados as $empleado)
+        {
+            $codigoEmpleado = $empleado->getAttribute('codigo_empleado');
+            if(!in_array($codigoEmpleado,$codigosEmpleados))
+            {
+                $codigosEmpleados[] = $codigoEmpleado;
+            }
+        }
+        return $codigosEmpleados;
+    }
+
+    public  function getCreatedPushNotificationMessage()
+    {
+        return "creado";
+
+    }
+
+    public  function getUpdatedPushNotificationMessage()
+    {
+        return "actualizado";
+
+    }
+
+    public  function getDeletedPushNotificationMessage()
+    {
+        return "borrado";
+    }
+
+    public  function getPushNotificationDefaultMessage()
+    {
+        return "default";
+    }
+
+    public  function getPushNotificationTask()
+    {
+
+        return "flujoProceso";
+    }
+
+
+
 }
