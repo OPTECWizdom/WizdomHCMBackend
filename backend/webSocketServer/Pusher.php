@@ -44,6 +44,7 @@ class Pusher implements WampServerInterface {
         $users = $this->clients[$notification['destiny']];
         \Yii::info('Enviando Notificacion',json_encode($notification));
         // re-send the data to all the clients subscribed to that category
+        echo json_encode($notification);
         $users->broadcast(json_encode($notification));
 
     }
