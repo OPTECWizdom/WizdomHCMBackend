@@ -11,7 +11,8 @@ return [
     'tareas'=>'Tareas',
     'nuevaTarea'=>'Tiene una nueva tarea',
     'tareaEliminada'=>'La tarea {tarea} fue eliminada',
-    'notificacion'=>'Notificación'
+    'notificacion'=>'Notificación',
+    'nuevoMensaje'=>'Nuevo Mensaje'
 
 
 ];
