@@ -36,6 +36,7 @@ class InsertNotificationPusher extends ActiveRecordNotificationPusher
         $notification = new BasePushNotification();
         $notification->setAttributes(["task"=>$model->getPushNotificationTask(),
                                     "action"=>'add',
+                                    "title"=>$model->getPushNotificationTitle(),
                                     "message"=>$model->getCreatedPushNotificationMessage(),
                                     "destinies"=>$model->getPushNotificationDestinies()]);
         return $notification;

@@ -182,7 +182,7 @@ class Notificacion extends AbstractNotificationPusherObject implements IEmailabl
 
     public function getPushNotificationTitle()
     {
-        return $this->asunto;
+        return \Yii::t('app/main','notificacion');
     }
 
 

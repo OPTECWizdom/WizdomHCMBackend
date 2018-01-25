@@ -37,6 +37,7 @@ class DeleteNotificationPusher extends ActiveRecordNotificationPusher
         $notification = new BasePushNotification();
         $notification->setAttributes(["task" => $model->getPushNotificationTask(),
             "action" => 'remove',
+            "title"=>$model->getPushNotificationTitle(),
             "message" => $model->getDeletedPushNotificationMessage(),
             "destinies" => $model->getPushNotificationDestinies()]);
         return $notification;
