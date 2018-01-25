@@ -22,7 +22,7 @@ class DeleteNotificationPusher extends ActiveRecordNotificationPusher
     {
         $this->model = $model;
         $model = $this->model;
-        $model->on($model::EVENT_AFTER_INSERT, [$this, "sendNotificationPush"]);
+        $model->on($model::EVENT_AFTER_DELETE, [$this, "sendNotificationPush"]);
     }
 
     public function sendNotificationPush()
