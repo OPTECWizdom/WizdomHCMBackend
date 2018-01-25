@@ -10,7 +10,7 @@
 return [
     'tareas'=>'Tareas',
     'nuevaTarea'=>'Tiene una nueva tarea',
-    'tareaEliminada'=>'La tarea %s fue eliminada',
+    'tareaEliminada'=>'La tarea {tarea} fue eliminada',
     'notificacion'=>'Notificación'
 
 
