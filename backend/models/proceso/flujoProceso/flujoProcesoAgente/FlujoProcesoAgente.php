@@ -10,6 +10,8 @@ namespace backend\models\proceso\flujoProceso\flujoProcesoAgente;
 
 
 use backend\pushNotifications\activeRecord\AbstractNotificationPusherObject;
+use backend\pushNotifications\activeRecord\DeleteNotificationPusher;
+use backend\pushNotifications\activeRecord\InsertNotificationPusher;
 use yii\db\ActiveRecord;
 use backend\models\proceso\flujoProceso\FlujoProceso;
 use backend\models\proceso\Proceso;
@@ -220,6 +222,13 @@ class FlujoProcesoAgente extends AbstractNotificationPusherObject implements IEm
         return "flujoProceso";
     }
 
+    public function attachNotificationsPusher()
+    {
+        $insert = new InsertNotificationPusher();
+        $insert->attachEvents($this);
+        $delete = new DeleteNotificationPusher();
+        $delete->attachEvents($this);
+    }
 
 
 }

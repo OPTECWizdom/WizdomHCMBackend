@@ -10,6 +10,7 @@ namespace backend\pushNotifications\activeRecord;
 
 
 use backend\pushNotifications\NotificationPusher;
+use yii\db\ActiveRecord;
 
 abstract class ActiveRecordNotificationPusher extends NotificationPusher
 {
@@ -21,19 +22,6 @@ abstract class ActiveRecordNotificationPusher extends NotificationPusher
      */
     public $model;
 
-    public function __construct(array $config = [],AbstractNotificationPusherObject $model)
-    {
-        $this->model = $model;
-        parent::__construct($config);
-    }
 
-    public  function init()
-    {
-        parent::init();
-        $this->attachEvents();
-    }
-
-
-
-    public abstract function attachEvents();
+    public abstract function attachEvents(ActiveRecord $model);
 }

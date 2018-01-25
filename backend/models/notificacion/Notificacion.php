@@ -173,6 +173,12 @@ class Notificacion extends AbstractNotificationPusherObject implements IEmailabl
         return "notificacion";
     }
 
+    public function attachNotificationsPusher()
+    {
+        $insert = new InsertNotificationPusher();
+        $insert->attachEvents($this);
+
+    }
 
 
 }

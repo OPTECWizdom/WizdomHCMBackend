@@ -2,8 +2,8 @@
 /**
  * Created by PhpStorm.
  * User: LuisDiego
- * Date: 22/01/2018
- * Time: 16:19
+ * Date: 25/01/2018
+ * Time: 9:41
  */
 
 namespace backend\pushNotifications\activeRecord;
@@ -12,16 +12,17 @@ namespace backend\pushNotifications\activeRecord;
 use backend\pushNotifications\BasePushNotification;
 use yii\db\ActiveRecord;
 
-class InsertNotificationPusher extends ActiveRecordNotificationPusher
+
+class DeleteNotificationPusher extends ActiveRecordNotificationPusher
 {
 
 
 
-    public  function attachEvents(ActiveRecord $model)
+    public function attachEvents(ActiveRecord $model)
     {
         $this->model = $model;
         $model = $this->model;
-        $model->on($model::EVENT_AFTER_INSERT,[$this,"sendNotificationPush"]);
+        $model->on($model::EVENT_AFTER_INSERT, [$this, "sendNotificationPush"]);
     }
 
     public function sendNotificationPush()
@@ -34,12 +35,12 @@ class InsertNotificationPusher extends ActiveRecordNotificationPusher
     {
         $model = $this->model;
         $notification = new BasePushNotification();
-        $notification->setAttributes(["task"=>$model->getPushNotificationTask(),
-                                    "action"=>'add',
-                                    "message"=>$model->getCreatedPushNotificationMessage(),
-                                    "destinies"=>$model->getPushNotificationDestinies()]);
+        $notification->setAttributes(["task" => $model->getPushNotificationTask(),
+            "action" => 'remove',
+            "message" => $model->getDeletedPushNotificationMessage(),
+            "destinies" => $model->getPushNotificationDestinies()]);
         return $notification;
     }
-
-
 }
+
+

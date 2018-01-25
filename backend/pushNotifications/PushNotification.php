@@ -39,22 +39,24 @@ class PushNotification extends Model
         foreach ($this->destinies as $destiny)
         {
             $json = $this->getAttributes(["action","task","message"]);
-            $context = new \ZMQContext();
-            $socket = $context->getSocket(\ZMQ::SOCKET_PUSH, 'wizdom_hcm_pusher');
-            $socket->connect("tcp://localhost:5555");
-            $json["destiny"] = $destiny;
-            \Yii::info(json_encode($json));
-            $socket->send(json_encode($json));
+            try{
+                $context = new \ZMQContext();
+                $socket = $context->getSocket(\ZMQ::SOCKET_PUSH, 'wizdom_hcm_pusher');
+                $socket->connect("tcp://localhost:5555");
+                $json["destiny"] = $destiny;
+                \Yii::info("Push Notification ".json_encode($json));
+                $socket->send(json_encode($json));
+
+            }
+            catch(\Exception $e){
+                \Yii::error('Push Notification : Failed to send notification'.json_encode($json));
+
+            }
+
 
 
         }
-       /* try {
-            $socket->connect("tcp://localhost:5555");
-            $socket->send($json);
-      *//*  }catch (\Exception $e)
-        {
 
-        }*/
 
     }
 
