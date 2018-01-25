@@ -9,18 +9,12 @@
 namespace backend\models\proceso;
 
 
-use backend\models\proceso\flujoProceso\flujoProcesoAgente\FlujoProcesoAgente;
 use backend\utils\agenteSearcher\IAgenteSearchable;
 use yii\db\ActiveRecord;
 use backend\models\empleado\Empleado;
 
 class Proceso extends ActiveRecord implements IAgenteSearchable
 {
-
-    public function init(){
-        $this->on($this::EVENT_BEFORE_DELETE,[$this,"deleteFlujoProcesoAgente"]);
-    }
-
     /**
      * @return \yii\db\ActiveQuery
      */
@@ -93,31 +87,6 @@ class Proceso extends ActiveRecord implements IAgenteSearchable
     {
         return $this->getEmpleadoSolicitante()->one();
     }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-
-    public function getFlujoProcesoAgente()
-    {
-        return $this->hasMany(FlujoProcesoAgente::className(),["compania"=>"compania",
-                                                              "tipo_flujo_proceso"=>"tipo_flujo_proceso",
-                                                              "id_proceso"=>"id_proceso"]);
-    }
-
-
-    public function deleteFlujoProcesoAgente()
-    {
-        $flujoProcesoAgentes = $this->getFlujoProcesoAgente()->all();
-        foreach ($flujoProcesoAgentes as $flujoProcesoAgente)
-        {
-            $flujoProcesoAgente->delete();
-        }
-    }
-
-
-
-
 
 
 }

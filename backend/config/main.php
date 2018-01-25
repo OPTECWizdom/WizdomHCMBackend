@@ -94,7 +94,7 @@ return [
                 'app*' => [
                     'class' => 'yii\i18n\PhpMessageSource',
                     'fileMap' => [
-                        'app' => 'main.php',
+                        'app' => 'app.php',
                         'app/error' => 'error.php',
                     ],
                 ],

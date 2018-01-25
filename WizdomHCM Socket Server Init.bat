@@ -1,1 +1,0 @@
-php "C:/inetpub/wwwroot/WizdomHCMBackend/backend/webSocketServer/push-server.php"
