@@ -9,6 +9,7 @@
 namespace backend\models\proceso\flujoProceso\flujoProcesoAgente;
 
 
+use backend\models\proceso\flujoTipoProceso\FlujoTipoProceso;
 use backend\pushNotifications\activeRecord\AbstractNotificationPusherObject;
 use backend\pushNotifications\activeRecord\DeleteNotificationPusher;
 use backend\pushNotifications\activeRecord\InsertNotificationPusher;
@@ -167,6 +168,12 @@ class FlujoProcesoAgente extends AbstractNotificationPusherObject implements IEm
 
     }
 
+    public function getFlujoTipoProceso()
+    {
+        return $this->hasOne(FlujoTipoProceso::className(),["compania"=>"compania","tipo_flujo_proceso"=>"tipo_flujo_proceso",
+                                                            "codigo_tarea"=>"codigo_tarea"]);
+    }
+
 
     public function getHTMLBodyParms()
     {
@@ -196,24 +203,32 @@ class FlujoProcesoAgente extends AbstractNotificationPusherObject implements IEm
 
     public  function getCreatedPushNotificationMessage()
     {
-        return "creado";
+        $message = \Yii::t('app/main','nuevaTarea');
+        $message.= " : ".$this->getFlujoTipoProceso()->one()->getAttribute("descripcion_tarea");
+        return $message;
 
     }
 
     public  function getUpdatedPushNotificationMessage()
     {
-        return "actualizado";
+        $message = \Yii::t('app/main','tareaEliminada');
+
+        $description = $this->getFlujoTipoProceso()->one()->getAttribute("descripcion_tarea");
+        $message = sprintf($message,$description);
+
+        return $message;
+
 
     }
 
     public  function getDeletedPushNotificationMessage()
     {
-        return "borrado";
+        return "";
     }
 
     public  function getPushNotificationDefaultMessage()
     {
-        return "default";
+        return "";
     }
 
     public  function getPushNotificationTask()
@@ -228,6 +243,12 @@ class FlujoProcesoAgente extends AbstractNotificationPusherObject implements IEm
         $insert->attachEvents($this);
         $delete = new DeleteNotificationPusher();
         $delete->attachEvents($this);
+    }
+
+    public  function getPushNotificationTitle()
+    {
+        return  \Yii::t('app/main','tareas');
+
     }
 
 

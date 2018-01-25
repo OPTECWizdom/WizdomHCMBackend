@@ -14,6 +14,7 @@ use yii\db\ActiveRecord;
 abstract class AbstractNotificationPusherObject extends ActiveRecord
 {
 
+    public abstract  function getPushNotificationTitle();
 
     public abstract function getPushNotificationDestinies();
 

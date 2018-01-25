@@ -180,5 +180,10 @@ class Notificacion extends AbstractNotificationPusherObject implements IEmailabl
 
     }
 
+    public function getPushNotificationTitle()
+    {
+        return $this->asunto;
+    }
+
 
 }

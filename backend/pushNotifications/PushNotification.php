@@ -20,6 +20,11 @@ class PushNotification extends Model
     /**
      * @var string $action
      */
+    /**
+     * @var string $title
+     */
+    public $title;
+
     public $action;
     /**
      * @var string $message
@@ -38,7 +43,7 @@ class PushNotification extends Model
         \Yii::info("Enviando Notificacion","Push");
         foreach ($this->destinies as $destiny)
         {
-            $json = $this->getAttributes(["action","task","message"]);
+            $json = $this->getAttributes(["action","task","message","title"]);
             try{
                 $context = new \ZMQContext();
                 $socket = $context->getSocket(\ZMQ::SOCKET_PUSH, 'wizdom_hcm_pusher');
@@ -69,7 +74,7 @@ class PushNotification extends Model
                 [
                     [
                         "action","task",
-                        "destinies","message"
+                        "destinies","message","title"
                     ],
                     "string"
                 ]

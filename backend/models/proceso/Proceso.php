@@ -20,7 +20,7 @@ class Proceso extends ActiveRecord implements IAgenteSearchable
     public function init(){
         $this->on($this::EVENT_BEFORE_DELETE,[$this,"deleteFlujoProcesoAgente"]);
     }
-    
+
     /**
      * @return \yii\db\ActiveQuery
      */
