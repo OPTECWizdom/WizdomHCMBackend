@@ -1,6 +1,6 @@
 <?php
 return [
     'displayDateFormat'=>'m/d/Y',
-    'databaseDateFormat'=>'d/m/y',
+    'databaseDateFormat'=>'Y-m-d h:i:s',
 
 ];

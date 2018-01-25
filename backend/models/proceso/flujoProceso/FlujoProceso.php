@@ -154,5 +154,4 @@ class FlujoProceso extends ActiveRecord
 
 
 
-
 }

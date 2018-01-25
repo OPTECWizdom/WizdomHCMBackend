@@ -9,10 +9,12 @@
 namespace backend\models\notificacion;
 
 
+use backend\pushNotifications\activeRecord\AbstractNotificationPusherObject;
+use backend\pushNotifications\activeRecord\InsertNotificationPusher;
 use yii\db\ActiveRecord;
 use backend\utils\email\IEmailable;
 use backend\models\empleado\Empleado;
-class Notificacion extends ActiveRecord implements IEmailable
+class Notificacion extends AbstractNotificationPusherObject implements IEmailable
 {
 
     public static function tableName()
@@ -138,5 +140,50 @@ class Notificacion extends ActiveRecord implements IEmailable
     {
         return true;
     }
+    public  function getPushNotificationDestinies()
+    {
+        return [$this->empleado_destino];
+    }
+
+    public  function getCreatedPushNotificationMessage()
+    {
+        return $this->getPushNotificationDefaultMessage();
+    }
+
+    public  function getUpdatedPushNotificationMessage()
+    {
+        return $this->getPushNotificationDefaultMessage();
+
+    }
+
+    public  function getDeletedPushNotificationMessage()
+    {
+        return $this->getPushNotificationDefaultMessage();
+
+    }
+
+    public function getPushNotificationDefaultMessage()
+    {
+        return $this->mensaje;
+    }
+
+
+    public  function getPushNotificationTask()
+    {
+        return "notificacion";
+    }
+
+    public function attachNotificationsPusher()
+    {
+        $insert = new InsertNotificationPusher();
+        $insert->attachEvents($this);
+
+    }
+
+    public function getPushNotificationTitle()
+    {
+        return \Yii::t('app','notificacion');
+    }
+
 
 }

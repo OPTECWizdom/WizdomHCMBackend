@@ -21,7 +21,9 @@
         "raoul2000/yii2-workflow": "*",
         "mongosoft/yii2-soap-client": "*",
         "trntv/yii2-command-bus": "^3.0",
-        "symfony/process": "3.3.10"
+        "symfony/process": "3.3.10",
+        "cboden/ratchet": "0.4.*",
+        "react/zmq": "0.2.*|0.3.*"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.0.0",
