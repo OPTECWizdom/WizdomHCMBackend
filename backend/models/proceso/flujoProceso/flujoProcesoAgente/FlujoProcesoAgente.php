@@ -211,16 +211,18 @@ class FlujoProcesoAgente extends AbstractNotificationPusherObject implements IEm
 
     public  function getUpdatedPushNotificationMessage()
     {
-        $description = $this->getFlujoTipoProceso()->one()->getAttribute("descripcion_tarea");
-        $message = \Yii::t('app','tareaEliminada',["tarea"=>$description]);
-        return $message;
+
+        return "";
 
 
     }
 
     public  function getDeletedPushNotificationMessage()
     {
-        return "";
+        $description = $this->getFlujoTipoProceso()->one()->getAttribute("descripcion_tarea");
+        $message = \Yii::t('app','tareaEliminada',["tarea"=>$description]);
+        return $message;
+
     }
 
     public  function getPushNotificationDefaultMessage()
