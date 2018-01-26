@@ -2,14 +2,36 @@
 use yii\helpers\Html;
 
 /* @var $this yii\web\View */
-/* @var $user common\models\User */
+/* @var $token backend\models\security\securityUser\TokenRestaurarPassword*/
+/* @var $user backend\models\security\securityUser\SecurityUser */
+/* @var $empleado backend\models\empleado\Empleado */
 
-$resetLink = Yii::$app->urlManager->createAbsoluteUrl(['site/reset-password', 'token' => $user->password_reset_token]);
+
+$resetLink = \Yii::$app->params['site_recover_password']."?".$token->getAttribute('token');
+$fechaExpira = new \DateTime( $token->getAttribute('fecha_expira'));
+$tiempoExpira = $fechaExpira->format('H:i:s');
+$fechaExpira = $fechaExpira->format(\Yii::$app->params['displayDateFormat']);
+$user = $token->getUser()->one();
+$empleado = $user->getEmpleado()->one();
+$nombre =  mb_convert_case(mb_strtolower($empleado->getNombreCompleto()),MB_CASE_TITLE);
+
 ?>
 <div class="password-reset">
-    <p>Hello <?= Html::encode($user->username) ?>,</p>
 
-    <p>Follow the link below to reset your password:</p>
-
-    <p><?= Html::a(Html::encode($resetLink), $resetLink) ?></p>
+    <p>Hola, <?= Html::encode($nombre) ?>,</p>
+    <p>Este correo fue enviado ya que un cambio de contraseña fue solicitado para su cuenta.<br>
+        Por favor siga las siguientes instrucciones:
+    </p>
+    <ul>
+        <li>Ingrese al siguiente enlace para reestablecer su contraseña<br>
+            <?= Html::a(Html::encode($resetLink), $resetLink) ?>
+        </li>
+        <li>
+            Este enlace expirará el <b> <?= Html::encode($fechaExpira);?></b> a las <b><?= Html::encode($tiempoExpira);?> </b>
+        </li>
+        <li>
+            Si se solicita un nuevo cambio de contraseña, y el enlace anterior sigue vigente,
+            el enlace anterior expirará automáticamente.
+        </li>
+    </ul>
 </div>

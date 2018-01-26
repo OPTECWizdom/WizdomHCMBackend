@@ -24,6 +24,10 @@ class SecurityUser extends ActiveRecord
     {
         return ["login"];
     }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
     public function getEmpleado()
     {
         return $this->hasOne(Empleado::className(),["username"=>"login"]);

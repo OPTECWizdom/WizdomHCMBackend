@@ -12,7 +12,7 @@ return [
     'nuevaTarea'=>'Tiene una nueva tarea',
     'tareaEliminada'=>'La tarea {tarea} fue eliminada',
     'notificacion'=>'Notificación',
-    'nuevoMensaje'=>'Nuevo Mensaje'
-
+    'nuevoMensaje'=>'Nuevo Mensaje',
+    'restablecer_contrasena'=>"Reestablecer contraseña"
 
 ];

@@ -24,4 +24,6 @@ abstract class ActiveRecordNotificationPusher extends NotificationPusher
 
 
     public abstract function attachEvents(ActiveRecord $model);
+
+
 }

@@ -27,6 +27,7 @@ class GenericEmailSender implements IEmailSender
             }
             catch (\Exception $e)
             {
+                \Yii::error($e->getTrace());
                 return false;
             }
         }
