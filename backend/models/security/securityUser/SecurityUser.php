@@ -45,7 +45,16 @@ class SecurityUser extends ActiveRecord
         return ["login","email"];
     }
 
+    public function rules()
+    {
+        return [
+            [
+               [ "login","pswd"],
+                "string"
+            ],
 
+        ];
+    }
 
 
 }
