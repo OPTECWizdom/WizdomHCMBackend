@@ -27,7 +27,7 @@ $nombre =  mb_convert_case(mb_strtolower($empleado->getNombreCompleto()),MB_CASE
             <?= Html::a(Html::encode($resetLink), $resetLink) ?>
         </li>
         <li>
-            Este enlace expirará el <b> <?= Html::encode($fechaExpira);?></b> a las <b><?= Html::encode($tiempoExpira);?> </b>
+           Este enlace expirará en tres horas.
         </li>
         <li>
             Si se solicita un nuevo cambio de contraseña, y el enlace anterior sigue vigente,

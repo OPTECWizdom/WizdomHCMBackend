@@ -30,7 +30,7 @@ class TokenRestaurarPassword extends AbstractActiveRecordEmailSender
 
     public static function primaryKey()
     {
-        return ["username","token"];
+        return ["token"];
     }
 
     public function rules()
@@ -46,7 +46,7 @@ class TokenRestaurarPassword extends AbstractActiveRecordEmailSender
             ],
             ['expirado', 'default', 'value' => 'N'],
             ['token','default','value'=>$this->getNewToken()],
-            ['fecha_expira','default','value' =>\Yii::$app->formatter->asDatetime(new \DateTime("+1 day"))]
+            ['fecha_expira','default','value' =>\Yii::$app->formatter->asDatetime(new \DateTime("+3 hour"))]
 
         ];
     }
