@@ -7,7 +7,7 @@ use yii\helpers\Html;
 /* @var $empleado backend\models\empleado\Empleado */
 
 
-$resetLink = \Yii::$app->params['site_recover_password']."?".($token->getAttribute('token'));
+$resetLink = \Yii::$app->params['site_recover_password']."?token=".($token->getAttribute('token'));
 $fechaExpira = new \DateTime( $token->getAttribute('fecha_expira'));
 $tiempoExpira = $fechaExpira->format('H:i:s');
 $fechaExpira = $fechaExpira->format(\Yii::$app->params['displayDateFormat']);
