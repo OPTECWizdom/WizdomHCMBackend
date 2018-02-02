@@ -20,8 +20,7 @@ return [
         $event->sender->createCommand("ALTER SESSION SET NLS_DATE_FORMAT ='yyyy-mm-dd hh24:mi:ss'")->execute();
         $event->sender->createCommand("alter session set nls_numeric_characters = '.,'")->execute();
         $event->sender->createCommand("alter session set NLS_TIMESTAMP_FORMAT = 'yyyy-mm-dd hh24:mi:ss'")->execute();
-
-
+        
     }
     /**
      * Si es base de datos Oracle, descomentar las lineas que corresponden con SchemaMap,Attributes y on afterOpen

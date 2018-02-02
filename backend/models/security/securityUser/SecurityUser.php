@@ -49,11 +49,27 @@ class SecurityUser extends ActiveRecord
     {
         return [
             [
-               [ "login","pswd"],
+               [ "login","pswd","name","email","active"],
                 "string"
             ],
+            ['active', 'default', 'value' => 'Y'],
+            ['pswd','default','value' => md5(\Yii::$app->getSecurity()->generateRandomString(8))]
+
 
         ];
+    }
+
+    /**
+     * @param Empleado $empleado
+     */
+    public function setAttributesFromEmpleado($empleado)
+    {
+        $empleadoData = $empleado->getAttributes(["username","nombre","primer_apellido","segundo_apellido","correo_electronico_principal"]);
+        $this->setAttributes(["login"=>$empleadoData["username"],
+                              "name"=>$empleadoData["nombre"].' '.$empleadoData["primer_apellido"].' '.
+                                        $empleadoData["segundo_apellido"],
+                              "email"=>$empleadoData["correo_electronico_principal"],
+                              ]);
     }
 
 

@@ -11,6 +11,7 @@ namespace backend\models\empleado;
 
 use backend\models\calendario\diaFeriado\AbstractDiaFeriado;
 use backend\models\calendario\diaFeriado\diasFeriadosSelector\DiaFeriadoSelectorManager;
+use backend\models\security\securityUser\SecurityUser;
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
 use backend\models\empleado\horarioEmpleado\HorarioEmpleado;
@@ -216,6 +217,17 @@ class Empleado extends  ActiveRecord
     public function getNombreCompleto()
     {
         return $this->nombre." ".$this->primer_apellido." ".$this->segundo_apellido;
+    }
+
+
+    /**
+     * @return Empleado
+     */
+    public static function findEmpleadosWithoutUser()
+    {
+       return static :: find()->leftJoin(SecurityUser::tableName(),"login = username")
+                    ->where("login is null")->
+                    andWhere("username is not null")->all();
     }
 
 
