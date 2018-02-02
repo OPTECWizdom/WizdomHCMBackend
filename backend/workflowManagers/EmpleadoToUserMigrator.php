@@ -54,6 +54,7 @@ use backend\models\security\securityUser\SecurityUser;
                 $empleadosInsertados[]=$user->getAttribute('login');
             }
         }
+        return true;
 
     }
 
