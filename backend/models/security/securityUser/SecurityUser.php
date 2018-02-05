@@ -82,7 +82,7 @@ class SecurityUser extends ActiveRecord
      */
     public function insertUserInGroup()
     {
-        $groupUser = new SecurityUserGroup();
+        $groupUser = new SecurityUsersGroups();
         $groupUser->setAttributes(["login"=>$this->getAttribute("login"),"group_id"=>2]);
         try
         {
