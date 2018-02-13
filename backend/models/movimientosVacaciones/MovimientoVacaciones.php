@@ -226,7 +226,13 @@ class MovimientoVacaciones extends AbstractWizdomModel implements IProcesoSubjec
 
     public function getNotificationSubject()
     {
-        return $this->getSubjectProcesoDescription();
+        $fechaRegistro = new \DateTime($this->fecha_registro);
+        $anoRegistro = $fechaRegistro->format('y');
+        $empleado = $this->getEmpleado()->one();
+        $nombreEmpleado =  mb_convert_case(mb_strtolower($empleado->getAttribute('nombre').' '.
+                                                        $empleado->getAttribute('primer_apellido').' '.
+                                                        $empleado->getAttribute('segundo_apellido')),MB_CASE_TITLE);
+        return "Absence Request - ".$anoRegistro.' '.$nombreEmpleado;
     }
 
 

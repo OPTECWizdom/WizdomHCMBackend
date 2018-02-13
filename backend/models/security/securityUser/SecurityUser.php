@@ -96,4 +96,6 @@ class SecurityUser extends ActiveRecord
     }
 
 
+
+
 }
