@@ -10,6 +10,7 @@ namespace backend\models\proceso;
 
 
 use backend\models\proceso\flujoProceso\flujoProcesoAgente\FlujoProcesoAgente;
+use backend\models\procesoModelConnector\FactoryProcesoSubjectConnector;
 use backend\utils\agenteSearcher\IAgenteSearchable;
 use yii\db\ActiveRecord;
 use backend\models\empleado\Empleado;
@@ -113,6 +114,18 @@ class Proceso extends ActiveRecord implements IAgenteSearchable
         {
             $flujoProcesoAgente->delete();
         }
+    }
+
+    public function getProcesoSubject()
+    {
+        $factory = new FactoryProcesoSubjectConnector();
+        $connector = $factory->getSubjectProceso($this);
+        if (!empty($connector)) {
+            $subject = $connector->getProcesoSubject();
+            return $subject;
+
+        }
+        return null;
     }
 
 

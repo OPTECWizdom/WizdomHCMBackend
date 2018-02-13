@@ -232,7 +232,7 @@ class MovimientoVacaciones extends AbstractWizdomModel implements IProcesoSubjec
         $nombreEmpleado =  mb_convert_case(mb_strtolower($empleado->getAttribute('nombre').' '.
                                                         $empleado->getAttribute('primer_apellido').' '.
                                                         $empleado->getAttribute('segundo_apellido')),MB_CASE_TITLE);
-        return "Absence Request - ".$anoRegistro.' '.$nombreEmpleado;
+        return "Absence Request - ".$anoRegistro.' | '.$nombreEmpleado;
     }
 
 

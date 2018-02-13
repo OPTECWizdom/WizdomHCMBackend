@@ -119,14 +119,12 @@ class FlujoProcesoAgente extends AbstractNotificationPusherObject implements IEm
     public function getSubjectEmail()
     {
         /**
-         * @var Empleado $empleado
+         * @var Proceso $proceso;
          */
-        $empleado = $this->proceso->getEmpleadoSolicitante()->one();
-        $asunto = $this->flujoTipoProcesoCorreoExterno->getAttribute('asunto');
-        if (!empty($empleado)) {
-            $asunto .= " - " . ucwords(strtolower($empleado->getNombreCompleto()));
-        }
-        return $asunto;
+        $proceso = $this->getProceso()->one();
+        $procesoModel = $proceso->getProcesoSubject();
+        return $procesoModel->getNotificationSubject();
+
     }
 
 
