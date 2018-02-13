@@ -46,10 +46,8 @@ class VacacionesEmpleadoMovimientoHelper
 
     private function setVacacionesEmpleadoFromEmpleado()
     {
-        $maximoPeriodo = $this->getUltimoPeriodoVacacionesEmpleado();
         $this->vacacionesEmpleado = $this->empleado->getVacacionesEmpleado()
                                     ->where(['!=','dias_disponibles',0])
-                                    ->orWhere(["periodo"=>$maximoPeriodo])
                                     ->orderBy("periodo asc")->all();
     }
 
