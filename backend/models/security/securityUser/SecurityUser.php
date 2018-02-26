@@ -58,7 +58,7 @@ class SecurityUser extends ActiveRecord
                 "string"
             ],
             ['active', 'default', 'value' => 'Y'],
-            ['pswd','default','value' => md5(\Yii::$app->getSecurity()->generateRandomString(8))]
+            ['pswd','default','value' => md5(\Yii::$app->getSecurity()->generateRandomString(5))]
 
 
         ];

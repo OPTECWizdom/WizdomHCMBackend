@@ -43,7 +43,7 @@ $fechaFinal =  $dateTimeFechaFinal->format(\Yii::$app->params['displayDateFormat
 <div class="site-index">
 
     <div class="jumbotron">
-        <p>Tiene una nueva solicitud de vacaciones que requiere de su aprobación.</p>
+        <p>Tiene una nueva solicitud de vacaciones que requiere de su revisión (Primera Aprobación).</p>
         <h3>Datos de la solicitud</h3>
         <table>
             <tr>
