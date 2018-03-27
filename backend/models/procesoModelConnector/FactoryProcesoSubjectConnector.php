@@ -10,6 +10,8 @@ namespace backend\models\procesoModelConnector;
 
 
 use backend\models\proceso\Proceso;
+use yii\db\ActiveRecord;
+
 class FactoryProcesoSubjectConnector
 {
     /**
@@ -56,6 +58,25 @@ class FactoryProcesoSubjectConnector
     public function getConnectors()
     {
         return $this->connectors;
+    }
+
+    /**
+     * @param array $connectors
+     */
+    public function setConnectors(array $connectors)
+    {
+        $this->connectors = $connectors;
+    }
+
+    /**
+     * Retorna una nueva instancia del conector asociado con el proceso
+     * @param  $nombreProceso
+     * @return ActiveRecord
+     */
+    public function getConnector($nombreProceso)
+    {
+        $className = $this->connectors[$nombreProceso];
+        return  new $className;
     }
 
 

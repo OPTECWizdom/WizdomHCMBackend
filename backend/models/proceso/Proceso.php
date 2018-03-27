@@ -15,8 +15,17 @@ use backend\utils\agenteSearcher\IAgenteSearchable;
 use yii\db\ActiveRecord;
 use backend\models\empleado\Empleado;
 
+/**
+ * Class Proceso
+ * @package backend\models\proceso
+ *
+ */
 class Proceso extends ActiveRecord implements IAgenteSearchable
 {
+    /**
+     * @var ActiveRecord $modelProceso
+     */
+    public $modelProceso;
 
     public function init(){
         $this->on($this::EVENT_BEFORE_DELETE,[$this,"deleteFlujoProcesoAgente"]);
@@ -127,6 +136,7 @@ class Proceso extends ActiveRecord implements IAgenteSearchable
         }
         return null;
     }
+
 
 
 
