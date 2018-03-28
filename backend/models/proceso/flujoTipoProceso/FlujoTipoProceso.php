@@ -9,6 +9,7 @@
 namespace backend\models\proceso\flujoTipoProceso;
 
 
+use backend\models\proceso\flujoTipoProceso\flujoTipoProcesoEstado\FlujoTipoProcesoEstado;
 use yii\db\ActiveRecord;
 use backend\models\proceso\flujoProceso\FlujoProceso;
 
@@ -86,6 +87,17 @@ class FlujoTipoProceso extends ActiveRecord
                                     ->one();
         return $flujoTipoProcesoSiguiente;
 
+
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getFlujoTipoProcesoEstados()
+    {
+
+        return $this->hasMany(FlujoTipoProcesoEstado::className(),["compania"=>"compania","tipo_flujo_proceso"=>"tipo_flujo_proceso",
+                                                            "codigo_tarea"=>"codigo_tarea"]);
 
     }
 

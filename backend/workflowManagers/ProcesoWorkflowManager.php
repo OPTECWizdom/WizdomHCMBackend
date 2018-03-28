@@ -10,11 +10,8 @@ namespace backend\workflowManagers;
 use backend\models\factories\WizdomModelFactory;
 use backend\models\FlujoProcesoHelper;
 use backend\models\proceso\Proceso;
-use backend\models\movimientosVacaciones\MovimientoVacaciones;
 use backend\models\proceso\flujoProceso\FlujoProceso;
 use backend\models\procesoModelConnector\FactoryProcesoSubjectConnector;
-use backend\models\procesoModelConnector\procesoMovimientoVacacion\ProcesoMovimientoVacacion;
-use backend\models\VacacionesFlujoProcesoHelper;
 use Yii;
 use yii\db\ActiveRecord;
 use yii\db\Exception;
@@ -81,14 +78,12 @@ class ProcesoWorkflowManager extends AbstractWorkflowManager
         $transaction = Yii::$app->getDb()->beginTransaction();
         try
         {
-            $this->setEstadoVacacionesWorkflow();
-            $this->updateEstadoMovimientoVacacionesFromEstadoFlujoProceso();
-            $this->movimientoVacaciones->save();
             $this->getFlujoProcesoFromParams();
             $this->updateFlujoProcesoStatus();
+            $this->updateProcesoObjeto();
             $this->flujoProceso->save();
             $transaction->commit();
-            $this->ejecutarMovimientoVacaciones();
+           // $this->ejecutarMovimientoVacaciones();
             return true;
 
         }
@@ -103,23 +98,7 @@ class ProcesoWorkflowManager extends AbstractWorkflowManager
 
 
 
-    public function setEstadoVacacionesWorkflow()
-    {
-        $oldEstado = $this->movimientoVacaciones->getOldAttribute("estado_flujo_proceso");
-        $estado = $this->movimientoVacaciones->getAttribute("estado_flujo_proceso");
-        if($estado=="MovimientoVacacionesWorkflow/AP")
-        {
-            $transitions = [
-                                "MovimientoVacacionesWorkflow/RV"=>"AR",
-                                "MovimientoVacacionesWorkflow/AR"=>"AP"
-                            ];
-            if(array_key_exists($oldEstado,$transitions))
-            {
-                $this->movimientoVacaciones->sendToStatus($transitions[$oldEstado]);
-            }
-        }
 
-    }
 
     public function delete(){
         $transaction = Yii::$app->getDb()->beginTransaction();
@@ -231,40 +210,42 @@ class ProcesoWorkflowManager extends AbstractWorkflowManager
 
     }
 
-    private function updateEstadoMovimientoVacacionesFromEstadoFlujoProceso(){
-        $movimientoVacacionesTranslations =     ["MovimientoVacacionesWorkflow/AP"=>"P",
-                                                 "MovimientoVacacionesWorkflow/RE"=>"R"];
-        if(array_key_exists($this->movimientoVacaciones->estado_flujo_proceso,$movimientoVacacionesTranslations)){
-            $this->movimientoVacaciones->estado = $movimientoVacacionesTranslations[$this->movimientoVacaciones->estado_flujo_proceso];
-        }
-    }
 
     private function updateFlujoProcesoStatus(){
-        $estadoFlujoProceso = $this->movimientoVacaciones->getAttribute("estado_flujo_proceso");
-        $flujoProcesoTranslations =     [
-                                        "MovimientoVacacionesWorkflow/AR"=>"AP",
-                                        "MovimientoVacacionesWorkflow/AP"=>"AP",
-                                        "MovimientoVacacionesWorkflow/RE"=>"RE"];
-        if (array_key_exists($estadoFlujoProceso,$flujoProcesoTranslations)){
-            $this->flujoProceso->sendToStatus($flujoProcesoTranslations[$estadoFlujoProceso]);
-
-        }
+        $this->flujoProceso->sendToStatus($this->params["flujo_proceso"]["estado"]);
     }
 
-    public function getMovimientoVacaciones(){
-        return $this->movimientoVacaciones;
-    }
-
-    public function insertProcesoMovimientoVacaciones()
+    private function updateProcesoObjeto()
     {
-
-        $procesoMovVacaciones = new ProcesoMovimientoVacacion();
-        $procesoPk = $this->proceso->getAttributes(Proceso::primaryKey());
-        $movVacacionesPk = $this->movimientoVacaciones->getAttributes(MovimientoVacaciones::primaryKey());
-        $procesoMovVacaciones->setAttributes(array_merge($procesoPk,$movVacacionesPk));
-        $procesoMovVacaciones->save();
+        $estadosProcesobjeto = $this->getFlujoTipoProcesoEstado();
+        foreach ($estadosProcesobjeto as $nuevoEstado)
+        {
+           $this->procesoObjeto->setAttributes([$nuevoEstado->getAttribute('columna_proceso_objeto')=>
+                                              $nuevoEstado->getAttribute('valor_columna_proceso_objeto')]) ;
+        }
 
     }
+
+    /**
+     * @return array|ActiveRecord[]
+     */
+    private function getFlujoTipoProcesoEstado()
+    {
+        $estado = $this->flujoProceso->getAttribute('estado');
+        $tipoFlujoProceso =  $this->flujoProceso->getTipoFlujoProceso()
+            ->with(['flujoTipoProcesoEstados' => function (\yii\db\ActiveQuery $query) use ($estado) {
+                    $query->andWhere([
+                        'estado_flujo_proceso'=>$estado
+
+                    ]);
+                   },
+            ])->one();
+        return $tipoFlujoProceso->relatedRecords['flujoTipoProcesoEstados'];
+    }
+
+
+
+
 
     public function insertProcesoRelacion()
     {
@@ -287,7 +268,7 @@ class ProcesoWorkflowManager extends AbstractWorkflowManager
 
     }
 
-    private function deleteMovimientoVacaciones()
+    private function deleteProcesoObjeto()
     {
 
         if($this->movimientoVacaciones->getAttribute("estado_flujo_proceso")=="MovimientoVacacionesWorkflow/RV")
@@ -305,7 +286,7 @@ class ProcesoWorkflowManager extends AbstractWorkflowManager
         }
 
     }
-
+    /*
     public function ejecutarMovimientoVacaciones()
     {
         if($this->movimientoVacaciones->getAttribute('estado_flujo_proceso')=='MovimientoVacacionesWorkflow/AP')
@@ -314,7 +295,7 @@ class ProcesoWorkflowManager extends AbstractWorkflowManager
             return $ejecutorVacaciones->run();
         }
     }
-
+    */
 
 
 
