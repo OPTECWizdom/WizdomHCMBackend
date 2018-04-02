@@ -83,7 +83,6 @@ class ProcesoWorkflowManager extends AbstractWorkflowManager
             $this->updateProcesoObjeto();
             $this->flujoProceso->save();
             $transaction->commit();
-           // $this->ejecutarMovimientoVacaciones();
             return true;
 
         }
@@ -105,7 +104,7 @@ class ProcesoWorkflowManager extends AbstractWorkflowManager
         try
         {
             $this->deleteProceso();
-            $this->deleteMovimientoVacaciones();
+            $this->deleteProcesoObjeto();
             $transaction->commit();
             return true;
 
@@ -258,10 +257,13 @@ class ProcesoWorkflowManager extends AbstractWorkflowManager
 
     public function deleteProceso()
     {
-        $procesoMovVacaciones = $this->movimientoVacaciones->getProcesoMovimientoVacaciones()->one();
-        if(!empty($procesoMovVacaciones))
+        $nombreTabla = strtolower($this->procesoObjeto::tableName());
+        $factoryProcesoSubjectConnector = new FactoryProcesoSubjectConnector();
+        $procesoRelacion = $factoryProcesoSubjectConnector->getConnector($nombreTabla);
+        $procesoRelacion = $procesoRelacion::find()->where($this->procesoObjeto->primaryKey)->one();
+        if(!empty($procesoRelacion))
         {
-            $proceso = Proceso::find()->where($procesoMovVacaciones->getAttributes(Proceso::primaryKey()))->one();
+            $proceso = Proceso::find()->where($procesoRelacion->getAttributes(Proceso::primaryKey()))->one();
             if(!empty($proceso))
                 $proceso->delete();
         }
@@ -270,39 +272,8 @@ class ProcesoWorkflowManager extends AbstractWorkflowManager
 
     private function deleteProcesoObjeto()
     {
-
-        if($this->movimientoVacaciones->getAttribute("estado_flujo_proceso")=="MovimientoVacacionesWorkflow/RV")
-        {
-            $this->movimientoVacaciones->setAttribute('estado','B');
-            $result = $this->movimientoVacaciones->save();
-            if(!$result)
-            {
-                throw new \Exception();
-            }
-            return 1;
-        }
-        else{
-            throw new \Exception();
-        }
+        $this->procesoObjeto->delete();
 
     }
-    /*
-    public function ejecutarMovimientoVacaciones()
-    {
-        if($this->movimientoVacaciones->getAttribute('estado_flujo_proceso')=='MovimientoVacacionesWorkflow/AP')
-        {
-            $ejecutorVacaciones = new MovimientoVacacionesEjecutorManager([$this->movimientoVacaciones]);
-            return $ejecutorVacaciones->run();
-        }
-    }
-    */
-
-
-
-
-
-
-
-
 
 }

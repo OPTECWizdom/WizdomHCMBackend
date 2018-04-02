@@ -9,6 +9,7 @@
 namespace backend\models\movimientosVacaciones;
 
 
+use backend\workflowManagers\MovimientoVacacionesEjecutorManager;
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
 use backend\models\{
@@ -22,6 +23,7 @@ use backend\models\{
     procesoModelConnector\procesoMovimientoVacacion\ProcesoMovimientoVacacion,
     movimientosVacaciones\controlAjusteVacacionesMovimiento\ControlAjusteVacacionesMovimiento
 };
+use yii2tech\ar\softdelete\SoftDeleteBehavior;
 
 class MovimientoVacaciones extends AbstractWizdomModel implements IProcesoSubject
 {
@@ -38,6 +40,7 @@ class MovimientoVacaciones extends AbstractWizdomModel implements IProcesoSubjec
         $this->on(self::EVENT_BEFORE_INSERT,[$this,'setDefaultValues']);
         $this->on(self::EVENT_BEFORE_INSERT,[$this,'calcularDesgloseVacaciones']);
         $this->on(self::EVENT_AFTER_INSERT,[$this,'guardarDesgloseVacaciones']);
+        $this->on(self::EVENT_AFTER_UPDATE,[$this,'ejecutarMovimientoVacaciones']);
 
     }
 
@@ -69,7 +72,14 @@ class MovimientoVacaciones extends AbstractWizdomModel implements IProcesoSubjec
                 'attributes' => [
                     ActiveRecord::EVENT_BEFORE_INSERT => ['fecha_registro', 'tstamp'],
                 ]
-            ]
+            ],
+            'softDeleteBehavior' => [
+                'class' => SoftDeleteBehavior::className(),
+                'softDeleteAttributeValues' => [
+                    'estado' => 'B'
+                ],
+                'replaceRegularDelete' => true
+            ],
 
         ];
 
@@ -236,6 +246,23 @@ class MovimientoVacaciones extends AbstractWizdomModel implements IProcesoSubjec
         return "Absence Request - $anoRegistro - $id | ".$nombreEmpleado;
     }
 
+    public function beforeSoftDelete()
+    {
+        $this->attributes = $this->oldAttributes;
+        if($this->estado_flujo_proceso=== "MovimientoVacacionesWorkflow/RV")
+        {
+            return true;
+        }
+        return false;
+    }
+
+
+
+    public function ejecutarMovimientoVacaciones()
+    {
+        $ejecutorVacaciones = new MovimientoVacacionesEjecutorManager([$this]);
+        return $ejecutorVacaciones->run();
+    }
 
 
 
