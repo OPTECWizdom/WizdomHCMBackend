@@ -276,4 +276,9 @@ class ProcesoWorkflowManager extends AbstractWorkflowManager
 
     }
 
+    public function getProcesoObjeto()
+    {
+        return $this->procesoObjeto;
+    }
+
 }
