@@ -14,6 +14,7 @@ use backend\rest\controllers\AbstractWizdomActiveController;
 class ProcesoController extends AbstractWizdomActiveController
 {
     private $workflowManager =  "ProcesoWorkflowManager";
+    public $modelClass = '';
 
     public function actions()
     {
@@ -24,7 +25,9 @@ class ProcesoController extends AbstractWizdomActiveController
                 'class' => 'backend\actions\controllers\proceso\CreateAction',
                 'checkAccess' => [$this, 'checkAccess'],
                 'workflowManager' => $this->workflowManager,
-                'scenario' => 'register'
+                'scenario' => 'register',
+                'modelClass' => $this->modelClass,
+
 
 
             ],
@@ -32,7 +35,9 @@ class ProcesoController extends AbstractWizdomActiveController
                 'class' => 'backend\actions\controllers\workflows\UpdateAction',
                 'checkAccess' => [$this, 'checkAccess'],
                 'workflowManager' => $this->workflowManager,
-                'scenario' => 'update'
+                'scenario' => 'update',
+                'modelClass' => $this->modelClass,
+
 
 
             ],
@@ -40,6 +45,8 @@ class ProcesoController extends AbstractWizdomActiveController
                 'class' => 'backend\actions\controllers\workflows\DeleteAction',
                 'checkAccess' => [$this, 'checkAccess'],
                 'workflowManager'=>$this->workflowManager,
+                'modelClass' => $this->modelClass,
+
 
             ],
 

@@ -135,7 +135,11 @@ class ProcesoWorkflowManager extends AbstractWorkflowManager
         try {
 
             $procesoObjeto = WizdomModelFactory::getWizdomModel($this->params['proceso']['tipo_flujo_proceso']);
-            $procesoObjeto->setScenario($procesoObjeto::SCENARIO_INSERT);
+            if(in_array($procesoObjeto::SCENARIO_INSERT,$procesoObjeto->scenarios()))
+            {
+                $procesoObjeto->setScenario($procesoObjeto::SCENARIO_INSERT);
+
+            }
             $procesoObjeto->load($this->params['model'], '');
             if ($procesoObjeto->save()) {
                 $this->procesoObjeto = $procesoObjeto;

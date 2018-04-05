@@ -16,6 +16,7 @@ class WizdomModelFactory
 {
     private static $tables = [
         'movimientos_vacaciones'=>'backend\models\movimientosVacaciones\MovimientoVacaciones',
+        'convalidacion_conocimiento'=>'backend\models\convalidacionConocimiento\ConvalidacionConocimiento'
     ];
 
     /**

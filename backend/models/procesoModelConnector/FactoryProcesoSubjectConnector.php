@@ -20,7 +20,8 @@ class FactoryProcesoSubjectConnector
      * flujo de proceso.
      */
     private $connectors = [
-        'movimientos_vacaciones'=>'backend\models\procesoModelConnector\procesoMovimientoVacacion\ProcesoMovimientoVacacion'
+        'movimientos_vacaciones'=>'backend\models\procesoModelConnector\procesoMovimientoVacacion\ProcesoMovimientoVacacion',
+        'convalidacion_conocimiento' => 'backend\models\procesoModelConnector\procesoConvalidacionConocimiento\ProcesoConvalidacionConocimiento'
     ];
 
     /**
