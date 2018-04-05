@@ -26,7 +26,7 @@ class UpdateAction extends Action
 
     public function run($id)
     {
-        $params = Yii::$app->getRequest()->getBodyParams()["model"];
+        $params = Yii::$app->getRequest()->getBodyParams();
         $this->modelClass  = WizdomModelFactory::getWizdomModel($params['flujo_proceso']['tipo_flujo_proceso']);
         /* @var $model ActiveRecord */
         $model = $this->findModel($id);
@@ -38,6 +38,7 @@ class UpdateAction extends Action
         //$model->scenario = $this->scenario;
         $workflowManagerFactory = new workflowManagers\WorkflowManagerFactory();
         $model->load($params['model'],'');
+        $params['model'] = $model;
         $workflowManager = $workflowManagerFactory->createWorkflowManager($this->workflowManager,['scenario'=>$this->scenario, 'params'=>$params]);
         $result = $workflowManager->run();
         if (!$result) {

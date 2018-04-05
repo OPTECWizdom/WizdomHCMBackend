@@ -32,7 +32,7 @@ class ProcesoController extends AbstractWizdomActiveController
 
             ],
             'update' => [
-                'class' => 'backend\actions\controllers\workflows\UpdateAction',
+                'class' => 'backend\actions\controllers\proceso\UpdateAction',
                 'checkAccess' => [$this, 'checkAccess'],
                 'workflowManager' => $this->workflowManager,
                 'scenario' => 'update',
@@ -42,7 +42,7 @@ class ProcesoController extends AbstractWizdomActiveController
 
             ],
             'delete' => [
-                'class' => 'backend\actions\controllers\workflows\DeleteAction',
+                'class' => 'backend\actions\controllers\proceso\DeleteAction',
                 'checkAccess' => [$this, 'checkAccess'],
                 'workflowManager'=>$this->workflowManager,
                 'modelClass' => $this->modelClass,

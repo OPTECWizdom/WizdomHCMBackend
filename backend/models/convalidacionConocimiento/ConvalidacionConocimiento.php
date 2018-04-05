@@ -7,6 +7,7 @@
  */
 namespace backend\models\convalidacionConocimiento;
 
+use backend\models\empleado\Empleado;
 use backend\models\procesoModelConnector\IProcesoSubject;
 use yii\db\ActiveRecord;
 use backend\models\abstractWizdomModel\AbstractWizdomModel;
@@ -16,6 +17,11 @@ class ConvalidacionConocimiento extends AbstractWizdomModel implements  IProceso
     public static function tableName()
     {
         return 'CONVALIDACION_CONOCIMIENTO';
+    }
+
+    public static function primaryKey()
+    {
+        return ["compania","codigo_empleado","consecutivo"];
     }
 
     public function getExceptionHandler()
@@ -64,13 +70,24 @@ class ConvalidacionConocimiento extends AbstractWizdomModel implements  IProceso
 
     }
 
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+
+    public function getEmpleado()
+    {
+        return $this->hasOne(Empleado::className(),["compania"=>"compania","codigo_empleado"=>"codigo_empleado"]);
+
+    }
+
     public function getNotificationSubject()
     {
-        return '';
+        $empleadoNombre = $this->getEmpleado()->one()->getNombreCompleto();
+        return 'Convalidación de conocimiento - '.$empleadoNombre.' - '.$this->conocimiento_desc;
     }
     public function getSubjectProcesoDescription()
     {
-        return '';
+        return 'Convalidación de conocimiento - '.$this->conocimiento_desc;
     }
 
 
