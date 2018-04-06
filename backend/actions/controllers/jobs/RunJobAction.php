@@ -38,6 +38,7 @@ class RunJobAction extends Action
                 throw new ServerErrorHttpException('Failed to create the object for unknown reason.');
             }
         }catch (\Exception $e){
+            Yii::getLogger()->log($e->getMessage().' '.$e->getLine().$e->getFile().' ' .$e->getTraceAsString(),1);
             throw new ServerErrorHttpException('Failed to create the object for unknown reason.');
 
         }

@@ -83,7 +83,7 @@ class ConvalidacionConocimiento extends AbstractWizdomModel implements  IProceso
     public function getNotificationSubject()
     {
         $empleadoNombre = $this->getEmpleado()->one()->getNombreCompleto();
-        return 'Convalidación de conocimiento - '.$empleadoNombre.' - '.$this->conocimiento_desc;
+        return 'Convalidación de conocimiento - '.mb_convert_case(mb_strtolower($empleadoNombre),MB_CASE_TITLE).' - '.$this->conocimiento_desc;
     }
     public function getSubjectProcesoDescription()
     {

@@ -30,14 +30,14 @@ $convalidacionConocimiento = $procesoConvalidacionConocimiento->getConvalidacion
 $empleado = $convalidacionConocimiento->getEmpleado()->one();
 
 $nombreEmpleado = mb_convert_case(mb_strtolower($empleado->nombre.' '.$empleado->primer_apellido.' '.$empleado->segundo_apellido),MB_CASE_TITLE);
-$descripcionConocimiento = $convalidacionConocimiento->getAttribute('concimiento_desc');
+$descripcionConocimiento = $convalidacionConocimiento->getAttribute('conocimiento_desc');
 
 ?>
 
 <div class="site-index">
 
     <div class="jumbotron">
-        <p>Tiene una nueva solicitud de convalidaciión de conocimiento.</p>
+        <p>Tiene una nueva solicitud de convalidación de conocimiento.</p>
         <h3>Datos de la convalidación</h3>
         <table>
             <tr>

@@ -15,8 +15,8 @@ use Yii;
 class EmailSenderManager extends AbstractWorkflowManager
 {
     private $emailables = [
-        'backend\Models\notificacion\Notificacion',
-        'backend\Models\proceso\flujoProceso\flujoProcesoAgente\FlujoProcesoAgente'
+        'backend\models\notificacion\Notificacion',
+        'backend\models\proceso\flujoProceso\flujoProcesoAgente\FlujoProcesoAgente'
     ];
 
     public function __construct(array $config = [])
@@ -46,7 +46,8 @@ class EmailSenderManager extends AbstractWorkflowManager
                  * @var IEmailable $emailable
                  */
                 $pendingEmails = $emailable::findPendingEmails();
-                array_map([$this,'sendEmail'],$pendingEmails);
+                if(!empty($pendingEmails))
+                    array_map([$this,'sendEmail'],$pendingEmails);
 
             }
 
@@ -63,7 +64,7 @@ class EmailSenderManager extends AbstractWorkflowManager
     public function sendEmail(IEmailable $emailable)
     {
         $emailSender = new GenericEmailSender();
-        $result =  $emailSender->sendEmail($emailable);
+        $result = $emailSender->sendEmail($emailable);
         if($result===true)
         {
 
@@ -71,6 +72,7 @@ class EmailSenderManager extends AbstractWorkflowManager
             $emailable->setSentStatus();
             $emailable->save();
             $transaction->commit();
+
         }
         return $result;
 
