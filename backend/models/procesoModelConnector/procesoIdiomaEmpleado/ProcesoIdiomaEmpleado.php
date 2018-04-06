@@ -6,26 +6,26 @@
  * Time: 17:14
  */
 
-namespace backend\models\procesoModelConnector\procesoMovimientoVacacion;
+namespace backend\models\procesoModelConnector\procesoIdiomaEmpleado;
 
 
+use backend\models\idioma\idiomaEmpleado\IdiomaEmpleado;
 use yii\db\ActiveRecord;
 use backend\models\procesoModelConnector\IProcesoSubjectConnector;
 use backend\models\proceso\Proceso;
-use backend\models\movimientosVacaciones\MovimientoVacaciones;
 use backend\models\proceso\ProcesoDetalle;
 
-class ProcesoMovimientoVacacion extends ActiveRecord implements IProcesoSubjectConnector
+class ProcesoIdiomaEmpleado extends ActiveRecord implements IProcesoSubjectConnector
 {
 
     public static function tableName()
     {
-        return "PROCESO_MOVIMIENTOS_VACACIONES";
+        return "PROCESO_IDIOMA_EMPLEADO";
     }
 
     public static function primaryKey()
     {
-        return ["compania","tipo_mov","consecutivo_movimiento"];
+        return ["compania","codigo_empleado","idioma"];
     }
 
 
@@ -33,10 +33,10 @@ class ProcesoMovimientoVacacion extends ActiveRecord implements IProcesoSubjectC
     {
         return [
             [
-                ["compania","tipo_mov","consecutivo_movimiento"],"required"
+                ["compania","codigo_empleado","idioma"],"required"
             ],
             [
-                ["compania","tipo_mov","tipo_flujo_proceso"],"string"
+                ["compania","tipo_mov","tipo_flujo_proceso","tstamp"],"string"
             ],
             [
                 ["consecutivo_movimiento","id_proceso"],"integer"
@@ -50,22 +50,22 @@ class ProcesoMovimientoVacacion extends ActiveRecord implements IProcesoSubjectC
     public function getProceso()
     {
         return $this->hasOne(Proceso::className(),["compania"=>"compania","tipo_flujo_proceso"=>"tipo_flujo_proceso",
-                                                    "id_proceso"=>"id_proceso"]);
+            "id_proceso"=>"id_proceso"]);
     }
 
     public function getProcesoDetalle()
     {
         return $this->hasOne(ProcesoDetalle::className(),["compania"=>"compania","tipo_flujo_proceso"=>"tipo_flujo_proceso",
-                                                         "id_proceso"=>"id_proceso"]);
+            "id_proceso"=>"id_proceso"]);
     }
 
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getMovimientoVacaciones()
+    public function getIdiomaEmpleado()
     {
-        return $this->hasOne(MovimientoVacaciones::className(),["compania"=>"compania","tipo_mov"=>"tipo_mov",
-                                                                "consecutivo_movimiento"=>'consecutivo_movimiento']);
+        return $this->hasOne(IdiomaEmpleado::className(),["compania"=>"compania","codigo_empleado"=>"codigo_empleado",
+            "idioma"=>'idioma']);
 
     }
 
@@ -94,7 +94,7 @@ class ProcesoMovimientoVacacion extends ActiveRecord implements IProcesoSubjectC
 
     public function getProcesoSubject()
     {
-        return $this->getMovimientoVacaciones()->one();
+        return $this->getIdiomaEmpleado()->one();
     }
 
 

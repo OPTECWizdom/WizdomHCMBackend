@@ -21,7 +21,8 @@ class FactoryProcesoSubjectConnector
      */
     private $connectors = [
         'movimientos_vacaciones'=>'backend\models\procesoModelConnector\procesoMovimientoVacacion\ProcesoMovimientoVacacion',
-        'convalidacion_conocimiento' => 'backend\models\procesoModelConnector\procesoConvalidacionConocimiento\ProcesoConvalidacionConocimiento'
+        'convalidacion_conocimiento' => 'backend\models\procesoModelConnector\procesoConvalidacionConocimiento\ProcesoConvalidacionConocimiento',
+        'idioma_empleado'=>'backend\models\procesoModelConnector\procesoIdiomaEmpleado\ProcesoIdiomaEmpleado'
     ];
 
     /**
