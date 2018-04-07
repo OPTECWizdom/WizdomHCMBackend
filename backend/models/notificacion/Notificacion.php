@@ -77,7 +77,7 @@ class Notificacion extends AbstractNotificationPusherObject implements IEmailabl
             ],
             [
                 [
-                    "leido","consecutivo"
+                    "leido","consecutivo","cantidad_intentos"
                 ],"integer"
             ],
 
@@ -96,6 +96,8 @@ class Notificacion extends AbstractNotificationPusherObject implements IEmailabl
     public function setDefaultValues()
     {
         $this->setAttribute('correo_enviado','N');
+        $this->setAttribute('cantidad_intentos',0);
+
     }
 
 
