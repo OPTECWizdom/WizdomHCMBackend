@@ -81,6 +81,7 @@ class ProcesoWorkflowManager extends AbstractWorkflowManager
             $this->getFlujoProcesoFromParams();
             $this->updateFlujoProcesoStatus();
             $this->updateProcesoObjeto();
+            $this->procesoObjeto->save();
             $this->flujoProceso->save();
             $transaction->commit();
             return true;
