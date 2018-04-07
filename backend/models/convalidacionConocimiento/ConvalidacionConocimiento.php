@@ -39,7 +39,7 @@ class ConvalidacionConocimiento extends AbstractWizdomModel implements  IProceso
                     [
                         'compania','codigo_empleado','conocimiento_desc','categoria_conocimiento',
                         'fuente_conocimiento','nivel_conocimiento','capacitador','codigo_tipo','codigo_especialidad',
-                        'codigo_modalidad','lugar','observacion','convalidado','tstamp','fecha'
+                        'codigo_modalidad','lugar','observacion','convalidado','tstamp','fecha','capacitacion'
                     ],
                     'string'
                 ],
