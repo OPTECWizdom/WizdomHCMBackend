@@ -105,7 +105,7 @@ class FlujoProcesoHelper implements IFlujoProcesoHelper
         $primaryKeyProcesoObjeto = $this->procesoObjeto->primaryKey;
         foreach ($primaryKeyProcesoObjeto as $columnName=>$value)
         {
-            $parametrosAplicacion[] = "gs_$columnName".strtolower($this->procesoObjeto::tableName())."='$value'";
+            $parametrosAplicacion[] = "gs_$columnName"."_".strtolower($this->procesoObjeto::tableName())."='$value'";
 
         }
         $parametrosAplicacion[] = "gs_compania_flujo_proceso='".$this->flujoProceso->getAttribute("compania")."'";
