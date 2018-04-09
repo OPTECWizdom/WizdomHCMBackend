@@ -30,7 +30,7 @@ $idiomaEmpleado = $procesoIdiomaEmpleado->getIdiomaEmpleado()->one();
 $empleado = $idiomaEmpleado->getEmpleado()->one();
 
 $nombreEmpleado = mb_convert_case(mb_strtolower($empleado->nombre.' '.$empleado->primer_apellido.' '.$empleado->segundo_apellido),MB_CASE_TITLE);
-$idioma = $idiomaEmpleado->getIdioma()->one()->getAttribute('idioma');
+$idioma = $idiomaEmpleado->getIdioma()->one()->getAttribute('nombre_idioma');
 
 ?>
 
