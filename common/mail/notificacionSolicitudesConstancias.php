@@ -38,7 +38,7 @@ $descripcionConstancia = $solicitudConstancia->getDocumento()->getAttribute('des
 
     <div class="jumbotron">
         <p>Tiene una nueva solicitud de constancia.</p>
-        <h3>Datos de la convalidación</h3>
+        <h3>Datos de la solicitud</h3>
         <table>
             <tr>
                 <th align = "left" width = "50%">
