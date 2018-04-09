@@ -112,7 +112,7 @@ class IdiomaEmpleado extends AbstractWizdomModel implements  IProcesoSubject
     public function getSubjectProcesoDescription()
     {
         $idioma = $this->getIdioma()->one()->getAttribute('nombre_idioma');
-        return 'Convalidación de Idioma - ' . $this->$idioma;
+        return 'Convalidación de Idioma - ' . $idioma;
     }
 
     public function beforeUpdate()
