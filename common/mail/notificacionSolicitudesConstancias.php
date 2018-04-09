@@ -30,7 +30,7 @@ $solicitudConstancia = $procesoSolicitudConstancia->getSolicitudConstancia()->on
 $empleado = $solicitudConstancia->getEmpleado()->one();
 
 $nombreEmpleado = mb_convert_case(mb_strtolower($empleado->nombre.' '.$empleado->primer_apellido.' '.$empleado->segundo_apellido),MB_CASE_TITLE);
-$descripcionConstancia = $solicitudConstancia->getDocumento()->getAttribute('descripcion');
+$descripcionConstancia = $solicitudConstancia->getDocumento()->one()->getAttribute('descripcion');
 
 ?>
 
