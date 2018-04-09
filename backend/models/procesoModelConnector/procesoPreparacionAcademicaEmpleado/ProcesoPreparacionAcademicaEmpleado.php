@@ -36,7 +36,7 @@ class ProcesoPreparacionAcademicaEmpleado extends ActiveRecord implements IProce
                 ["compania","codigo_empleado","consecutivo"],"required"
             ],
             [
-                ["compania","tipo_mov","tipo_flujo_proceso","tstamp"],"string"
+                ["compania","tipo_flujo_proceso","tstamp"],"string"
             ],
             [
                 ["consecutivo","id_proceso"],"integer"

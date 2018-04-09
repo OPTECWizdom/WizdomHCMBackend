@@ -36,7 +36,7 @@ class ProcesoIdiomaEmpleado extends ActiveRecord implements IProcesoSubjectConne
                 ["compania","codigo_empleado","idioma"],"required"
             ],
             [
-                ["compania","tipo_mov","tipo_flujo_proceso","tstamp"],"string"
+                ["compania","idioma","tipo_flujo_proceso","tstamp"],"string"
             ],
             [
                 ["consecutivo_movimiento","id_proceso"],"integer"
