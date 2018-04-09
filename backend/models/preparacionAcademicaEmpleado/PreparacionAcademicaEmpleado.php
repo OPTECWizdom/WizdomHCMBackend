@@ -50,7 +50,7 @@ class PreparacionAcademicaEmpleado extends AbstractWizdomModel implements  IProc
                 ],
                 [
                     [
-                        'compania', 'codigo_empleado', 'codigo_profesion', 'grado_academico', 'nombre_institucion',
+                        'compania', 'codigo_empleado', 'codigo_profesion', 'grado_academico', 'nombre_de_institucion',
                         'lugar', 'fecha', 'observaciones', 'estado',
                         'ind_acreditado_carrera', 'convalidado', 'tstamp','fecha_convalidacion'
                     ],
