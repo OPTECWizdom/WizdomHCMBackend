@@ -83,7 +83,7 @@ class PreparacionAcademicaEmpleado extends AbstractWizdomModel implements  IProc
             ],
             [
                 'class' => 'common\components\mdmsoft\autonumber\Behavior',
-                'attribute' => 'consecutivo_movimiento', // required
+                'attribute' => 'consecutivo', // required
 
             ]
 
