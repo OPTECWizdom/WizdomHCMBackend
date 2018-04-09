@@ -136,7 +136,7 @@ class PreparacionAcademicaEmpleado extends AbstractWizdomModel implements  IProc
 
     public function getGradoAcademico()
     {
-        return $this->hasOne(GradoAcademico::className(),["grado_academico","grado_academico"]);
+        return $this->hasOne(GradoAcademico::className(),["grado_academico"=>"grado_academico"]);
     }
 
 

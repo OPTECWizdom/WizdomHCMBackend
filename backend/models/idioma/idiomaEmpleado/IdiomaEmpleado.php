@@ -99,7 +99,7 @@ class IdiomaEmpleado extends AbstractWizdomModel implements  IProcesoSubject
 
     public function getIdioma()
     {
-        return $this->hasOne(Idioma::className(), ["idioma", "idioma"]);
+        return $this->hasOne(Idioma::className(), ["idioma"=> "idioma"]);
     }
 
     public function getNotificationSubject()
