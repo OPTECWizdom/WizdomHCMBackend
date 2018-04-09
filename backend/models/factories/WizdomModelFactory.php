@@ -18,7 +18,8 @@ class WizdomModelFactory
         'movimientos_vacaciones'=>'backend\models\movimientosVacaciones\MovimientoVacaciones',
         'convalidacion_conocimiento'=>'backend\models\convalidacionConocimiento\ConvalidacionConocimiento',
         'idioma_empleado'=>'backend\models\idioma\idiomaEmpleado\IdiomaEmpleado',
-        'preparacion_academica_empleado'=>'backend\models\preparacionAcademicaEmpleado\PreparacionAcademicaEmpleado'
+        'preparacion_academica_empleado'=>'backend\models\preparacionAcademicaEmpleado\PreparacionAcademicaEmpleado',
+        'solicitudes_constancias'=>'backend\models\solicitudesConstancias\SolicitudConstancia'
 
     ];
 

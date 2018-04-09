@@ -23,7 +23,8 @@ class FactoryProcesoSubjectConnector
         'movimientos_vacaciones'=>'backend\models\procesoModelConnector\procesoMovimientoVacacion\ProcesoMovimientoVacacion',
         'convalidacion_conocimiento' => 'backend\models\procesoModelConnector\procesoConvalidacionConocimiento\ProcesoConvalidacionConocimiento',
         'idioma_empleado'=>'backend\models\procesoModelConnector\procesoIdiomaEmpleado\ProcesoIdiomaEmpleado',
-        'preparacion_academica_empleado'=>'backend\models\procesoModelConnector\procesoPreparacionAcademicaEmpleado\ProcesoPreparacionAcademicaEmpleado'
+        'preparacion_academica_empleado'=>'backend\models\procesoModelConnector\procesoPreparacionAcademicaEmpleado\ProcesoPreparacionAcademicaEmpleado',
+        'solicitudes_constancias'=>'backend\models\procesoModelConnector\procesoSolicitudesConstancias\ProcesoSolicitudesConstancias'
     ];
 
     /**
