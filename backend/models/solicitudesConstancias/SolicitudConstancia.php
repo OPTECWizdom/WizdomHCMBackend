@@ -9,17 +9,15 @@ namespace backend\models\solicitudesConstancias;
 
 use backend\models\documentos\Documento;
 use backend\models\empleado\Empleado;
-use backend\models\gradoAcademico\GradoAcademico;
 use backend\models\procesoModelConnector\IProcesoSubject;
-use backend\models\profesion\Profesion;
-use yii\base\ModelEvent;
+
 use yii\db\ActiveRecord;
 use backend\models\abstractWizdomModel\AbstractWizdomModel;
 
 class SolicitudConstancia extends AbstractWizdomModel implements  IProcesoSubject
 {
 
-
+    public $codigo_empleado;
 
 
     public static function tableName()
