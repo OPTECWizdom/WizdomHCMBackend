@@ -168,7 +168,7 @@ class ProcesoWorkflowManager extends AbstractWorkflowManager
             }
             else
             {
-                throw new \Exception();
+                throw new \Exception(json_encode($proceso->errors));
             }
 
         }
