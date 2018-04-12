@@ -123,6 +123,11 @@ class SolicitudConstancia extends AbstractWizdomModel implements  IProcesoSubjec
     {
         return $this->hasOne(Documento::className(),['compania'=>'compania','codigo_documento'=>'codigo_documento']);
     }
+    
+    public function getCodigo_empleado()
+    {
+        return $this->empleado;
+    }
 
 
 
