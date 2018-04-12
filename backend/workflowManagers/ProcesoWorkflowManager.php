@@ -162,7 +162,7 @@ class ProcesoWorkflowManager extends AbstractWorkflowManager
             $procesoObjeto = $this->procesoObjeto;
             $proceso = new Proceso(['scenario' => $this->scenario]);
             $proceso->load($this->params['proceso'],'');
-            $proceso->codigo_empleado = $procesoObjeto->getAttribute('codigo_empleado');
+            $proceso->codigo_empleado = $procesoObjeto->codigo_empleado;
             if($proceso->save()){
                 $this->proceso = $proceso;
             }

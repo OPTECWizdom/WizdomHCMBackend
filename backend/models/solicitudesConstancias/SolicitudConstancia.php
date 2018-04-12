@@ -128,17 +128,5 @@ class SolicitudConstancia extends AbstractWizdomModel implements  IProcesoSubjec
 
 
 
-    public function attributes()
-    {
-        $attributes = parent::attributes();
-        $attributes[] = 'codigo_empleado';
-        return $attributes;
-    }
-
-
-    public function getCodigo_empleado()
-    {
-        return $this->empleado;
-    }
 
 }
