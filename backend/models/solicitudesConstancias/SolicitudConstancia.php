@@ -10,7 +10,6 @@ namespace backend\models\solicitudesConstancias;
 use backend\models\documentos\Documento;
 use backend\models\empleado\Empleado;
 use backend\models\procesoModelConnector\IProcesoSubject;
-
 use yii\db\ActiveRecord;
 use backend\models\abstractWizdomModel\AbstractWizdomModel;
 
