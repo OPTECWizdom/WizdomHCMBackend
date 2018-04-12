@@ -16,7 +16,6 @@ use backend\models\abstractWizdomModel\AbstractWizdomModel;
 class SolicitudConstancia extends AbstractWizdomModel implements  IProcesoSubject
 {
 
-    public $codigo_empleado;
 
 
     public static function tableName()
@@ -121,11 +120,6 @@ class SolicitudConstancia extends AbstractWizdomModel implements  IProcesoSubjec
     public function getDocumento()
     {
         return $this->hasOne(Documento::className(),['compania'=>'compania','codigo_documento'=>'codigo_documento']);
-    }
-
-    public function getcodigo_empleado()
-    {
-        return $this->empleado;
     }
 
 
