@@ -33,6 +33,7 @@ class DeleteAction extends Action
     {
         $tableName = explode(',',$id)[0];
         $this->modelClass  = WizdomModelFactory::getWizdomModel($tableName);
+        $id = implode(',',array_slice(explode(',',$id),1));
         $model = $this->findModel($id);
         Yii::$app->getResponse();
         if ($this->checkAccess) {
